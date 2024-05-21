@@ -1,0 +1,40 @@
+Feb 9th
+Task - Nithya 
+Folder highlight when selected 
+
+Project - Nithya
+Upload image file type not able to see 
+Cancel option is missing in Project list 
+Created and In Project details Deadline shows default date as Jan 1 1970
+csv xls format pending 
+Activity log pending 
+Boardview not updating Team, Project Leader details
+
+Lead - Palani
+CSV & PDF format
+Not updating in Activites
+
+Forms - Ok
+
+Schedule - Palani 
+weekly/monthly working
+
+Feb 10th
+Minute - Palani 
+Active / Inactive purpose is not met
+Calender design mismatch in all modules
+
+General - Palani
+All modules to check the sort option 
+Menu checks if enabled for employee the Menu should be visible sometimes its not visible I need to type it manually
+Employee activity log when clicked it is redirecting to dashboard
+
+Ticket - Nithya
+Ticket Setting page design issue
+Ticket Level is managed by Admin so it should come in settings along with Ticket Settings
+Ticket Setting - In Employee field "Employee Name" itself taken as name, Assign To employee list takes in a single line design issue,
+Employee end - Tickets when clicked on Assigned staff employee profile shows design issue
+
+
+
+

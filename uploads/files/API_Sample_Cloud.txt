@@ -1,0 +1,45 @@
+1. Upload Transation 
+
+https://www.plutuscloudserviceuat.in:8201/API/CloudBasedIntegration/V1/UploadBilledTransaction 
+
+{
+   "TransactionNumber":"${TxnNo}",   
+   "SequenceNumber": 1,                            
+   "AllowedPaymentMode": "1",                              
+   "MerchantStorePosCode": "${mspc}",
+   "Amount": "${amt}",                                     
+   "UserID": "",                 
+   "MerchantID":${mid} ,                                
+   "SecurityToken": "${st}",
+   "IMEI": "${IMEI}",
+  "AutoCancelDurationInMinutes" :5
+}
+
+2. Get status api..
+
+https://www.plutuscloudserviceuat.in:8201/API/CloudBasedIntegration/V1/GetCloudBasedTxnStatus
+
+{
+
+  "MerchantID":${mid},
+  "SecurityToken":"${st}",
+  "IMEI":"${imei}",
+  "MerchantStorePosCode":"${mspc}",
+  "PlutusTransactionReferenceID":${PTRN}                                                    
+}
+
+
+3. Cancel api..
+
+https://www.plutuscloudserviceuat.in:8201/API/CloudBasedIntegration/V1/CancelTransaction
+
+
+{
+   "MerchantID":${mid},
+   "SecurityToken":"${st}",
+   "IMEI":"${imei}",
+   "MerchantStorePosCode":"${storeposcode}",
+   "PlutusTransactionReferenceID":${ptrn},
+   "Amount":${amt}
+
+}

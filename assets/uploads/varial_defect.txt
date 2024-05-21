@@ -1,0 +1,6 @@
+1.Select the mute option->Click on close button->The app not responding
+2.Select the mute option ->Click on small video option->The video is displayed in unmute
+3.Navigate channel details to post detail page->click on back button->Channel details page not responding and black color screen is displayed
+4.Channel details page ->share count not dispalyed
+5.Channel details page -> like and comment not working
+6.

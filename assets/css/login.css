@@ -1,0 +1,143 @@
+/*.content:before {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  display: block;
+  background-color: #eff3f6;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+}
+#login-blur {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-position: 0 -40px;
+  -webkit-filter: blur(3px);
+  -moz-filter: blur(3px);
+  -o-filter: blur(3px);
+  -ms-filter: blur(3px);
+  filter: blur(3px);
+  background-size: cover;
+}
+
+#login-darken {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.content {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto auto;
+  position:relative;
+}
+
+#content > .container {
+    z-index: 5;
+}
+
+.panel{
+  margin-bottom: 10px;
+}
+
+#content {
+    margin-top: 30px;
+}
+
+#content .navbar-brand {
+    height: auto;
+    margin-top: 20px;
+    width: 420px;
+    padding: 0;
+}
+
+.navbar-brand img {
+    max-height: 100px;
+    vertical-align: middle;
+    display: inline;
+}
+
+#footer {
+    margin-bottom: 20px;
+}
+
+#content .panel {
+    margin-top: 15px;
+    margin-bottom: 25px;
+}
+
+#login-form form.panel-body {
+  padding-top:15px;
+  }
+#login-form div.panel-body {
+  padding:30px 30px 0 0;
+}
+.bg-dark {
+    background-color: #38354a;
+    border-right-color: #38354a;
+}
+.bg-dark .lt {
+    background-color: #38354a;
+}
+
+.content::before, #login-blur {
+    background-image: inherit !important;
+}
+#login-darken {
+    background-color: inherit !important;
+}
+.account-box .form-control {
+    background-color: #f8fafc;
+    border: 1px solid #dfe3e9;
+    height: 56px;
+	font-size: 16px;
+}
+.account-box label {
+    color: #7f8fa4;
+    font-size: 16px;
+    font-weight: normal;
+}
+.account-title {
+    color: #384347;
+}
+.account-box .btn-primary {
+    font-size: 16px;
+    margin-bottom: 15px;
+    padding: 15px 12px;
+    text-transform: uppercase;
+	background: #ff9b44;
+	background: -moz-linear-gradient(left, #ff9b44 0%, #fc6075 100%);
+	background: -webkit-gradient(left top, right top, color-stop(0%, #ff9b44), color-stop(100%, #fc6075));
+	background: -webkit-linear-gradient(left, #ff9b44 0%, #fc6075 100%);
+	background: -o-linear-gradient(left, #ff9b44 0%, #fc6075 100%);
+	background: -ms-linear-gradient(left, #ff9b44 0%, #fc6075 100%);
+	background: linear-gradient(to right, #ff9b44 0%, #fc6075 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff9b44', endColorstr='#fc6075', GradientType=1 );
+	border-color:transparent;
+}
+.account-box a {
+    color: #1e88e5;
+}
+.m-t-15 {margin-top:15px;}
+.account-box #captcha {
+    height: 50px;
+}*/

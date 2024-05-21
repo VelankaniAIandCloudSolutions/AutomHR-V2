@@ -1,0 +1,8 @@
+IE:
+1.Microsoft Edge 41.16299.248.0
+   Microsoft EdgeHTML 16.16299
+Chrome:
+1.Version 64.0.3282.186 (Official Build) (64-bit)
+firefox:
+59.0 (64-bit)
+58.0.2

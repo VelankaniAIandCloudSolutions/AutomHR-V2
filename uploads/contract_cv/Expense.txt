@@ -1,0 +1,70 @@
+Expense Setting
+
+Using Category, can add different expense 
+
+If Travel Category then it includes 
+
+Accomodation /Transportation/ Daily Allowance/ Dangerous Allowance
+
+then setup below for how much Daily & Dangerous allowance
+
+Daily allowance depends upon the area 
+
+there are levels for Dangerous Allowance
+Level1 
+Level2 
+Level3
+
+For eg. you travel to N korea then you get dangerous allowance
+
+Meeting 
+dinner / lunch (called as meeting)
+
+General Expense 
+
+Payment Date - when to transfer the money to employee
+
+Allowance - daily / dangerous
+daily allow - add
+japan - how much allowance per day
+china - how much allowance per day
+
+For eg I travel to xyz place (Jan 1 to 10) which area (india) asia and each day I get 10$ so from Jan 1 to 10 I get 100$
+hotel 50$, transport 50$ travel 60$ general 40$
+
+Dangerous level 
+Level1 10$
+Level2 20$
+
+So I go to the govt website and check the dangerous level of the country and choose that
+
+Food allowance
+All area same allowance or differs if it differs then 
+display the coutries again
+japan
+china
+
+===============
+Ticket 
+
+Ticket type - IT, HR are types when recved to whom it should be assigned
+
+Choose the type of ticket like IT or HR dont choose department
+
+For eg. I have issue with my PC 
+
+there are ticket types as IT, HR, Finance etc then I choose IT, then when I choose IT the tickets directly gets assigned to IT team and choose Dept or employee , superadmin I 
+
+Ticket Level - Medium / high /low
+
+
+
+
+
+
+
+
+
+
+
+

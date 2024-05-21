@@ -1,0 +1,151 @@
+Dreamguys Project details:
+fnd:
+http://dreamguys.co.in/drinks/admin/pricing
+username: admin
+pw: admin
+
+https://n1nlsmysqladm01.secureserver.net/dgrid55/1
+username : foodanddrinks
+password: Admin123!
+
+vrs:
+
+Admin: 
+URl: www.vrsadmin.com
+db: vrsdb
+url: https://n1nlsmysqladm01.secureserver.net/dgrid55/31
+pw: Admin!21
+
+wandt:
+
+http://www.wandt.co.in/admin_portal
+Username: admin@wandt.co.in
+Password: developer!@#$
+
+DB: https://n1nlsmysqladm01.secureserver.net/dgrid55/9/index.php
+Username: devwarehouse
+Password: Developer20!6
+
+WandT - Shop Admin:
+
+http://shop.wandt.co.in/admin_portal
+Username: admin@wandt.co.in
+Password: developer!@#$
+
+DB: https://n1nlsmysqladm01.secureserver.net/dgrid55/15/index.php
+Username: devwandt
+Password: Developer20!6
+
+Mobile url: shop.wandt.co.in
+
+Mentee:
+
+http://doneit.in/development
+U: admin
+P: admin123
+
+DB detail :
+
+URL : https://doneit.in:2083/
+
+Username : createbot1
+Password  : IroX40]@
+
+Mentee 2.0:
+
+Backed Panel:
+
+Link: http://doneit.in/development/dashboard
+Username: admin
+Password: admin123
+
+DB Details:
+
+Link: http://doneit.in/phpmyadmin
+
+Username: doneit_developme
+Password: ]DcK,hf^ySxs
+
+Database: doneit_development
+
+School Guru:
+
+URL : https://school-guru.com/login
+
+GURU :
+andrew12@gmx.com
+Dream@123
+rithika@yopmail.com
+Dreams@99
+
+Applicant : 
+victoria@yopmail.com
+Dream@123
+anamika@yopmail.com
+ckpVBzwIg
+
+Admin details:
+
+superadmin@admin.com
+admin123
+
+DB details:
+
+URL : https://school-guru.com:2083/
+
+Username : dreamguysnew
+Password : Dreams99@
+
+Driver App:
+
+Admin panel:
+URL : http://creamtransporttechnologies.com/trans_admin/
+
+Username : admin@creamtransporttechnologies.com
+password : CreamAdmin!
+
+Admin Panel Login Details as follows:
+
+URL:  http://hargasawit.com/development/login
+
+Username: admin@hargasawit.com
+Password: admin
+
+Gigs admin panel details:(live)
+
+URL : https://dreamguys.co.in/thegigs/admin
+
+username : admin
+password : admin123 
+Gigs admin panel details: (demo)
+
+URL : http://dreamguys.co.in/gigs/admin 
+
+Username : admin
+Password : admin123
+DB details(demo) :
+
+URL : https://n1nlsmysqladm01.secureserver.net/dgrid55/31/index.php
+username : developgigs    
+password : Admin!23
+
+Wandt admin panel details:
+
+url: https://dreamguys.co.in/wandt/admin_portal
+username: admin@gmail.com
+password: admin
+
+Wandt shop details:
+
+url: https://dreamguys.co.in/wandt
+username: ponmani
+password: 1
+
+Wandt DB details:
+
+URL: https://n1nlsmysqladm01.secureserver.net/dgrid55/15/index.php
+username: devwandt
+password: Developer20!6
+
+Selfcare:
+URL: http://cprod.ahahealth.io/
