@@ -2324,6 +2324,10 @@ function grid_employees()
                 {
                     $this->employees_bank_statutory_update($post, $files);
                 }
+                if(isset($post['info_update_for']) && $post['info_update_for'] == '3')
+                {
+                    $this->zip_file_upload($post, $files);
+                }
             }
         }
         else{
@@ -3488,6 +3492,129 @@ function grid_employees()
                     $this->db->update("dgt_users", array("exit_date" => $exit_date));
                 }
             }
+        }
+    }
+
+    public function zip_file_upload($postData, $files)
+    {   
+        $config['upload_path'] = './assets/zip_file_upload/';
+        $config['allowed_types'] = 'zip|rar';
+      
+        $this->load->library('upload', $config);
+        if ($this->upload->do_upload('import_csv')) 
+        {
+            $filename = $this->upload->data();
+            $zip_file_name = base_url("/assets/zip_file_upload/").$filename['file_name'];
+
+            $zip = new ZipArchive;
+
+            if ($zip) {
+                $tmp_extract_zip_dir = './assets/uploads/user_document/';
+                $extractToDirectory = '';
+                if ($zip->open($config['upload_path'].$filename['file_name']) === TRUE) 
+                {
+                    $extractResult = $zip->extractTo($tmp_extract_zip_dir);
+                    
+                    $numFiles = $zip->numFiles;
+                    
+                    for ($i = 0; $i < $numFiles; $i++) 
+                    {
+                        $filename = $zip->getNameIndex($i);
+                        $fileNameWithExtension = basename($filename);
+                        $fileNameWithoutExtension = pathinfo($fileNameWithExtension, PATHINFO_FILENAME);
+                        $fileExtension = pathinfo($fileNameWithExtension, PATHINFO_EXTENSION);
+                        $tmp_file_name = explode("_", $fileNameWithoutExtension);
+                        
+                        $employee_id = $this->employees->employeeIdByEmpCode($tmp_file_name[0]); // employee id as user id in database
+                        
+                        if($employee_id['user_id'])
+                        {
+                            $check_data_where = array();
+                            $check_data_where = array(
+                                "user_id"           =>  $employee_id['user_id'],
+                                "document_name"     =>  $postData['document_type'],
+                                "document"          =>  $filename,
+                            );
+
+                            $document_exist = $this->db->get_where("dgt_user_document", $check_data_where)->num_rows();
+                            
+                            $tmp_file_data = array();
+                            $tmp_file_data = array(
+                                "user_id"           =>  $employee_id['user_id'],
+                                "document_name"     =>  $postData['document_type'],
+                                "document"          =>  $filename,
+                                "created_at"        =>  date("Y-m-d H:i:s")
+                            );
+
+                            if($document_exist > 0 )
+                            {
+                                $this->db->where($check_data_where);
+                                $this->db->where("dgt_user_document", $tmp_file_data);
+                            }
+                            else{
+                                $this->db->insert("dgt_user_document", $tmp_file_data);
+                            }
+                            
+                            $tmp_file_data = $check_data_where = array();
+
+                            $params = array();
+
+
+                            $subject ='Confirmation: '.ucwords($postData['document_type']).' Uploaded Successfully';
+                            $message = "Dear User,
+
+                            We're delighted to confirm that your recent ". strtolower($postData['document_type'])."has been successfully uploaded to your profile. This ensures that your health coverage is current and accessible whenever needed.
+                            
+                            Our team has reviewed the document you provided, and it meets our requirements. Thank you for promptly completing this step.
+                            
+                            Should you need any further assistance or have questions regarding your coverage, don't hesitate to reach out. We're here to support you.
+                            
+                            Best regards,";
+                         
+                            $staff_email = '';
+                            $staff_query = $this->db->query("SELECT email FROM dgt_users WHERE id = ?", array($employee_user_id));
+                            $staff_row = $staff_query->row_array();
+                            $staff_email = $staff_row['email'];
+                            if($staff_email)
+                            {
+                                $params['recipient'] = $staff_email;
+
+                                $params['subject'] = '[' .config_item('company_name') . ']' .' '.$subject;
+                                $params['message'] = $message;
+                                // $params['attached_file'] = '';
+                               
+                                   modules::run('fomailer/send_email', $params);
+                                   echo "<pre>";
+                                   print_R(error_get_last());
+                                   print_r($r); die;  
+                            }
+                        }
+
+                    }
+
+                    $zip->close();
+
+                    $this->session->set_flashdata('tokbox_success', "File uploaded successfully.");
+                    redirect(base_url().'employees');
+                } 
+                else 
+                {
+                    $this->session->set_flashdata('tokbox_danger', $zip->status);
+                    redirect(base_url().'employees');
+                }
+            } 
+            else 
+            {
+                $this->session->set_flashdata('tokbox_danger','Failed to create ZipArchive object.');
+                redirect(base_url().'employees');
+            }
+
+        }
+        else 
+        {
+            $error = $this->upload->display_errors();
+            $this->session->set_flashdata('tokbox_danger',$error);
+            redirect(base_url().'employees');
         }
     }
 }

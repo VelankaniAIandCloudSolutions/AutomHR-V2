@@ -63,6 +63,7 @@
             <option value="">Select</option>
             <option value="1">Employee Basic Information</option>
             <option value="2">Bank & Statutory / Payroll Addition/ Payroll Deduction</option>
+            <option value="3">Zip File Upload</option>
          </select>
       </div>
       
@@ -70,9 +71,14 @@
 
     
    <div class="row">
+
+   <div class="col-sm-6 col-xs-12 col-md-6">
+         <label class="control-label">Document Name</label>
+         <input name="document_type" id="document_type" class="select2 form-control" style="width:100%;" placeholder="Enter Document Name">
+      </div>
       <div class="col-sm-6 col-xs-12 col-md-6">
-         <label><?=lang('csv_file')?> </label>
-         <input type="file" name="import_csv" class="form-control" id="import_csv" placeholder="Bulk Import" accept=".csv" required >
+         <label><?='File Upload'?> </label>
+         <input type="file" name="import_csv" class="form-control" id="import_csv" placeholder="Bulk Import" >
       </div>
    </div>
    <div class="row">

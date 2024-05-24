@@ -176,8 +176,15 @@ class Employees_details extends CI_Model
 	{
 		return $this->db->get_where('dgt_users_personal_details',array('user_id'=>$id))->row_array();
 	}
-	 
-	
+
+	public function employeeIdByEmpCode($emp_code = '')
+	{
+		if($emp_code != "")
+		{	
+			$this->db->select("user_id");
+			return $this->db->get_where('dgt_account_details',array('emp_code'=>$emp_code))->row_array();
+		}
+	}	
 }
 
 /* End of file model.php */
