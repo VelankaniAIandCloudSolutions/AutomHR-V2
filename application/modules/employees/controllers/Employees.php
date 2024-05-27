@@ -3620,8 +3620,7 @@ function grid_employees()
 
     public function testCiCd()
     {
-        echo 'cicd execute succesfuly'; exit;
-        
+        echo 'cicd execute succesfuly'; exit;   
     }
 }
 
