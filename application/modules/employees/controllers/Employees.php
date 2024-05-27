@@ -3617,12 +3617,6 @@ function grid_employees()
             redirect(base_url().'employees');
         }
     }
-
-    public function testCiCd()
-    {
-        echo 'cicd execute succesfuly'; exit;
-        
-    }
 }
 
 /* End of file employees.php */
