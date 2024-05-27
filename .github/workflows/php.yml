@@ -19,12 +19,21 @@ jobs:
 
       # Add more steps for your build process, such as installing dependencies and running tests
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build  # Ensure the build job completes successfully before deploying
+      deploy:
+        runs-on: ubuntu-latest
+        needs: build  # Ensure the build job completes successfully before deploying
+            
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v2
       
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      # Add steps to deploy your application, such as copying files to a server or deploying to a cloud platform
+          - name: Deploy to Production Server
+            uses: easingthemes/ssh-deploy@v2
+            with:
+              server: 192.168.30.147
+              username: ${{ secrets.root }}
+              key: ${{ secrets.ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCa4vUcqkmBPCFBoqnVnNN9rf47ocw/yo4UPYP7SfMkd/TKHzTlT8CkH5IdaoYcz5VAa6ftuwLew8WAc0V6g8n4bchP43Tx2xgo5n6xOKgamD/hF1KhnaxNGuOq/2gfH1wuk/88HNSfGuAAoEn9QROJmOc5CeWNVPaSBHd1v8vQVxMkdt+89F8SNjZK8XC66+YWGhIHCPTV7YLnfTO4ypbMaN2pjlOBtv7TpFnQB6OBEOBqWuufDUA9V9wKEjezyccOHhZ/4AlucRPbXHjPJ89bR9kJfE+GynAJYdrR/T9lnv/CfoFHJtku+LYarAegDr9VOg3HjYdSxPJtJwzqnwHP imported-openssh-key }}
+              port: 22  # or your SSH port
+              local: "."  # path to your local directory or files to deploy
+              remote: "/var/www/html"  # path to the directory on the production server
+      
