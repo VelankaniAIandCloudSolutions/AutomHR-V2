@@ -3584,9 +3584,9 @@ function grid_employees()
                                 // $params['attached_file'] = '';
                                
                                    modules::run('fomailer/send_email', $params);
-                                   echo "<pre>";
-                                   print_R(error_get_last());
-                                   print_r($r); die;  
+                                //    echo "<pre>";
+                                //    print_R(error_get_last());
+                                //    print_r($r); die;  
                             }
                         }
 
