@@ -22,16 +22,31 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build  # Ensure the build job completes successfully before deploying
-            
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Set up OpenVPN
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openvpn
+          echo "${{ secrets.OVPN_CONFIG }}" > vpn-config.ovpn
+          sudo openvpn --config vpn-config.ovpn --daemon
+        env:
+          OVPN_CONFIG: ${{ secrets.OVPN_CONFIG }}
+
+      - name: Wait for VPN connection
+        run: sleep 30
+
+      - name: Verify VPN connection
+        run: curl ifconfig.me
 
       - name: Deploy to Production Server
         uses: easingthemes/ssh-deploy@v2
         with:
           server: 192.168.30.147
-          username: ${{ secrets.root }}
+          username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22  # or your SSH port
           local: "."  # path to your local directory or files to deploy
