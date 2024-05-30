@@ -39,7 +39,7 @@ jobs:
 
       - name: Start OpenVPN
         run: |
-          sudo openvpn --config vpn-config.ovpn --log openvpn.log || (cat openvpn.log && exit 1)
+          sudo openvpn --config vpn-config.ovpn --log openvpn.log || (sudo chmod 644 openvpn.log && cat openvpn.log && exit 1)
           sleep 30  # Wait for the VPN connection to establish
 
       - name: Verify VPN connection
