@@ -35,10 +35,11 @@ jobs:
       - name: Set up OpenVPN configuration
         run: |
           echo "${{ secrets.OVPN_CONFIG }}" > vpn-config.ovpn
+          cat vpn-config.ovpn  # Output the configuration file for debugging
 
       - name: Start OpenVPN
         run: |
-          sudo openvpn --config vpn-config.ovpn --daemon
+          sudo openvpn --config vpn-config.ovpn --log openvpn.log || (cat openvpn.log && exit 1)
           sleep 30  # Wait for the VPN connection to establish
 
       - name: Verify VPN connection
