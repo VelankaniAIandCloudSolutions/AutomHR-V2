@@ -8,7 +8,6 @@ on:
   pull_request:
     branches:
       - main
-  workflow_dispatch:  # Allow manual trigger
 
 jobs:
   build:
@@ -19,23 +18,11 @@ jobs:
         uses: actions/checkout@v2
 
       # Add more steps for your build process, such as installing dependencies and running tests
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'  # specify your node version
-
-      - name: Install dependencies
-        run: npm install  # or your package manager command
-
-      - name: Run tests
-        run: npm test  # or your test command
 
   deploy:
     runs-on: ubuntu-latest
     needs: build  # Ensure the build job completes successfully before deploying
-
-    if: github.ref == 'refs/heads/main'  # Ensure deployment runs only on main branch
-    
+            
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -44,7 +31,7 @@ jobs:
         uses: easingthemes/ssh-deploy@v2
         with:
           server: 192.168.30.147
-          username: ${{ secrets.SSH_USERNAME }}  # Ensure the correct secret is used
+          username: ${{ secrets.root }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22  # or your SSH port
           local: "."  # path to your local directory or files to deploy
