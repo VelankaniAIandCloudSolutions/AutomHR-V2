@@ -48,14 +48,18 @@ class Fomailer extends MX_Controller {
 				$raw_smtp_pass = config_item('smtp_pass');
 				
 				$config = array(
-						'smtp_host' => config_item('smtp_host'),
-						'smtp_port' => config_item('smtp_port'),
-						'smtp_user' => config_item('smtp_user'),
-						// 'smtp_pass' => $raw_smtp_pass,
-						'smtp_pass' => config_item('smtp_pass'),
-						'crlf' 		=> "\r\n",   							
-						'protocol'	=> config_item('protocol'),
-				);						
+                        'smtp_host' => config_item('smtp_host'),
+                        'smtp_port' => config_item('smtp_port'),
+                        'smtp_user' => config_item('smtp_user'),
+                        'smtp_pass' => $raw_smtp_pass,
+                        'crlf'      => "\r\n",
+                        'protocol'  => config_item('protocol'),
+                        'mailtype'  => 'html',
+                        'charset'   => 'utf-8',
+                        'wordwrap'  => TRUE,
+                        'newline'   => "\r\n",
+                        'smtp_crypto' => 'ssl',
+                    );						
 			}	
 
 			$this->load->library('email');
