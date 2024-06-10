@@ -133,97 +133,219 @@ class User_model extends CI_Model
 	 }
 
 
-	 public function create_user($inputs,$token)
-	 {
+	//  public function create_user($inputs,$token)
+	//  {
 	 	
-		$username = $inputs['username'];
-		$email = $inputs['email'];
-	 	$password = $inputs['password'];
+	// 	$username = $inputs['username'];
+	// 	$email = $inputs['email'];
+	//  	$password = $inputs['password'];
 
-		$count_name  =	$this->checkusernameemail(array('username'=>$username));
-		$count_email =	$this->checkusernameemail(array('email'=>$email));
-		$records = 2;
-		if($count_name == 0 && $count_email ==0){
+	// 	$count_name  =	$this->checkusernameemail(array('username'=>$username));
+	// 	$count_email =	$this->checkusernameemail(array('email'=>$email));
+	// 	$records = 2;
+	// 	if($count_name == 0 && $count_email ==0){
 
-	 	$hasher = new PasswordHash(
-					$this->config->item('phpass_hash_strength', 'tank_auth'),
-					$this->config->item('phpass_hash_portable', 'tank_auth'));
-		$hashed_password = $hasher->HashPassword($password);
-		$record =  $this->get_role_and_userid($token);
-		$records = array();
-			if(!empty($record)){
-				$role    = $record['role_id'];
-			 	if($role == 1 || $role == 4){
-			 		if($inputs['designation_id'] == '')
-			 		{
-			 			$designation_id = '';
-			 		}else{
-			 			$designation_id = $inputs['designation_id'];
-			 		}
-			 		if($inputs['department_id'] == '')
-			 		{
-			 			$department_id = '';
-			 		}else{
-			 			$department_id = $inputs['department_id'];
-			 		}
+	//  	$hasher = new PasswordHash(
+	// 				$this->config->item('phpass_hash_strength', 'tank_auth'),
+	// 				$this->config->item('phpass_hash_portable', 'tank_auth'));
+	// 	$hashed_password = $hasher->HashPassword($password);
+	// 	$record =  $this->get_role_and_userid($token);
+	// 	$records = array();
+	// 		if(!empty($record)){
+	// 			$role    = $record['role_id'];
+	// 		 	if($role == 1 || $role == 4){
+	// 		 		if($inputs['designation_id'] == '')
+	// 		 		{
+	// 		 			$designation_id = '';
+	// 		 		}else{
+	// 		 			$designation_id = $inputs['designation_id'];
+	// 		 		}
+	// 		 		if($inputs['department_id'] == '')
+	// 		 		{
+	// 		 			$department_id = '';
+	// 		 		}else{
+	// 		 			$department_id = $inputs['department_id'];
+	// 		 		}
 
 			 		
-			 		$user['teamlead_id'] = !empty($inputs['reporting_to'])?$inputs['reporting_to']:'';			 		
+	// 		 		$user['teamlead_id'] = !empty($inputs['reporting_to'])?$inputs['reporting_to']:'';			 		
 
-			 		$user['username'] = $inputs['username'];
-			 		$user['password'] = $hashed_password;
-			 		$user['email'] = $inputs['email'];
-			 		$user['role_id'] = 3;
-			 		$user['user_type'] = !empty($inputs['user_type'])?$inputs['user_type']:'';
-			 		$user['designation_id'] = $designation_id;
-			 		$user['department_id'] = $department_id;
-			 		$user['activated'] = 1;
-			 		$user['created'] = date('Y-m-d');
-			 		$this->db->insert('dgt_users', $user);
-			 		$id = $this->db->insert_id();
-			 		$account_details['user_id'] = $id;
-			 		$account_details['fullname'] = $inputs['fullname'];
-			 		$account_details['gender'] = $inputs['gender'];
-			 		$account_details['doj'] = $inputs['emp_doj'];
-			 		$account_details['phone'] = $inputs['phone'];
-			 		$account_details['address'] = !empty($inputs['address'])?$inputs['address']:'';
-			 		$account_details['city'] = !empty($inputs['city'])?$inputs['city']:'';
-			 		$account_details['state'] = !empty($inputs['state'])?$inputs['state']:'';
-			 		$account_details['pincode'] = !empty($inputs['pincode'])?$inputs['pincode']:'';
-			 		$account_details['country'] = !empty($inputs['country'])?$inputs['country']:'';
-			 		$account_details['avatar'] = 'default_avatar.jpg';
-			 		$account_details['language'] = config_item('default_language') ? config_item('default_language') : 'english';
-			 		$account_details['locale'] = config_item('locale') ? config_item('locale') : 'en_US';
-			 		$this->db->insert('dgt_account_details', $account_details);
+	// 		 		$user['username'] = $inputs['username'];
+	// 		 		$user['password'] = $hashed_password;
+	// 		 		$user['email'] = $inputs['email'];
+	// 		 		$user['role_id'] = 3;
+	// 		 		$user['user_type'] = !empty($inputs['user_type'])?$inputs['user_type']:'';
+	// 		 		$user['designation_id'] = $designation_id;
+	// 		 		$user['department_id'] = $department_id;
+	// 		 		$user['activated'] = 1;
+	// 		 		$user['created'] = date('Y-m-d');
+	// 		 		$this->db->insert('dgt_users', $user);
+	// 		 		$id = $this->db->insert_id();
+	// 		 		$account_details['user_id'] = $id;
+	// 		 		$account_details['fullname'] = $inputs['fullname'];
+	// 		 		$account_details['gender'] = $inputs['gender'];
+	// 		 		$account_details['doj'] = $inputs['emp_doj'];
+	// 		 		$account_details['phone'] = $inputs['phone'];
+	// 		 		$account_details['address'] = !empty($inputs['address'])?$inputs['address']:'';
+	// 		 		$account_details['city'] = !empty($inputs['city'])?$inputs['city']:'';
+	// 		 		$account_details['state'] = !empty($inputs['state'])?$inputs['state']:'';
+	// 		 		$account_details['pincode'] = !empty($inputs['pincode'])?$inputs['pincode']:'';
+	// 		 		$account_details['country'] = !empty($inputs['country'])?$inputs['country']:'';
+	// 		 		$account_details['avatar'] = 'default_avatar.jpg';
+	// 		 		$account_details['language'] = config_item('default_language') ? config_item('default_language') : 'english';
+	// 		 		$account_details['locale'] = config_item('locale') ? config_item('locale') : 'en_US';
+	// 		 		$this->db->insert('dgt_account_details', $account_details);
 			 		
-			 		  // update teamlead
-			 		if(!empty($inputs['reporting_to'])){
-			 			$ro = $inputs['reporting_to'];
+	// 		 		  // update teamlead
+	// 		 		if(!empty($inputs['reporting_to'])){
+	// 		 			$ro = $inputs['reporting_to'];
 			 			
-			 		  	$res = array(
-		                'is_teamlead' =>'yes' 
-		                );
-		                $this->db->where('id',$ro);
-		                $this->db->update('dgt_users',$res);
-			 		}
-		 		 	$email_activation = config_item('email_activation');
-			 		$data['site_name'] = config_item('company_name');
-			 		$data['email'] = $inputs['email'];
-			 		$data['username'] = $inputs['username'];
-			 		$data['password'] = $inputs['password'];
-                   	if (config_item('email_account_details') == 'TRUE') {   // send "welcome" email
+	// 		 		  	$res = array(
+	// 	                'is_teamlead' =>'yes' 
+	// 	                );
+	// 	                $this->db->where('id',$ro);
+	// 	                $this->db->update('dgt_users',$res);
+	// 		 		}
+	// 	 		 	$email_activation = config_item('email_activation');
+	// 		 		$data['site_name'] = config_item('company_name');
+	// 		 		$data['email'] = $inputs['email'];
+	// 		 		$data['username'] = $inputs['username'];
+	// 		 		$data['password'] = $inputs['password'];
+    //                	if (config_item('email_account_details') == 'TRUE') {   // send "welcome" email
 
-                        $this->_send_email('welcome', $data['email'], $data);
-                    }
+    //                     $this->_send_email('welcome', $data['email'], $data);
+    //                 }
+    //                 $records = 1;
+	// 		 	}else{
+	// 		 		$records = 3;
+	// 		 	}
+	// 		}
+	// 	}
+	// 	return $records;
+
+	//  }
+
+	public function create_user($inputs, $token)
+{
+    $username = $inputs['username'];
+    $email = $inputs['email'];
+    $password = $inputs['password'];
+
+    $count_name = $this->checkusernameemail(array('username' => $username));
+    $count_email = $this->checkusernameemail(array('email' => $email));
+    $records = 2;
+    if ($count_name == 0 && $count_email == 0) {
+        $hasher = new PasswordHash(
+            $this->config->item('phpass_hash_strength', 'tank_auth'),
+            $this->config->item('phpass_hash_portable', 'tank_auth')
+        );
+        $hashed_password = $hasher->HashPassword($password);
+        $record = $this->get_role_and_userid($token);
+        $records = array();
+        if (!empty($record)) {
+            $role = $record['role_id'];
+            if ($role == 1 || $role == 4) {
+                $designation_id = !empty($inputs['designation_id']) ? $inputs['designation_id'] : '';
+                $department_id = !empty($inputs['department_id']) ? $inputs['department_id'] : '';
+
+				$this->load->model("employees_details");
+				// require_once 'employees/models/employees_details.php';
+
+
+				$designation_details = $this->employees_details->get_department_and_designation($designation_id);
+                $category_name = '';
+                $role_name = '';
+                if (!empty($designation_details['department_id']) && !empty($designation_details['designations'])) {
+                    $designation_name = $designation_details['designations'][0]->designation;
+                    $category_name = $designation_name . ' - ' . $designation_details['department_id'];
+                    $role_name = $designation_name;
+                }
+                
+                $user = array(
+                    'teamlead_id' => !empty($inputs['reporting_to']) ? $inputs['reporting_to'] : '',
+                    'username' => $inputs['username'],
+                    'password' => $hashed_password,
+                    'email' => $inputs['email'],
+                    'role_id' => 3,
+                    'user_type' => !empty($inputs['user_type']) ? $inputs['user_type'] : '',
+                    'designation_id' => $designation_id,
+                    'department_id' => $department_id,
+                    'activated' => 1,
+                    'created' => date('Y-m-d')
+                );
+                $this->db->insert('dgt_users', $user);
+                $id = $this->db->insert_id();
+                $account_details = array(
+                    'user_id' => $id,
+                    'fullname' => $inputs['fullname'],
+                    'gender' => $inputs['gender'],
+                    'doj' => $inputs['emp_doj'],
+                    'phone' => $inputs['phone'],
+                    'address' => !empty($inputs['address']) ? $inputs['address'] : '',
+                    'city' => !empty($inputs['city']) ? $inputs['city'] : '',
+                    'state' => !empty($inputs['state']) ? $inputs['state'] : '',
+                    'pincode' => !empty($inputs['pincode']) ? $inputs['pincode'] : '',
+                    'country' => !empty($inputs['country']) ? $inputs['country'] : '',
+                    'avatar' => 'default_avatar.jpg',
+                    'language' => config_item('default_language') ? config_item('default_language') : 'english',
+                    'locale' => config_item('locale') ? config_item('locale') : 'en_US'
+                );
+                $this->db->insert('dgt_account_details', $account_details);
+
+                if (!empty($inputs['reporting_to'])) {
+                    $ro = $inputs['reporting_to'];
+                    $res = array('is_teamlead' => 'yes');
+                    $this->db->where('id', $ro);
+                    $this->db->update('dgt_users', $res);
+                }
+
+                $email_activation = config_item('email_activation');
+                $data['site_name'] = config_item('company_name');
+                $data['email'] = $inputs['email'];
+                $data['username'] = $inputs['username'];
+                $data['password'] = $inputs['password'];
+                if (config_item('email_account_details') == 'TRUE') {
+                    $this->_send_email('welcome', $data['email'], $data);
+                }
+
+				$full_name = $inputs['fullname'];
+                $name_parts = explode(' ', $full_name, 2);
+                $first_name = $name_parts[0];
+                $last_name = isset($name_parts[1]) ? $name_parts[1] : '';
+				$profile_data = array(
+                    'email' => $inputs['email'],
+                    'password' => $inputs['password'],     
+
+                    'entity_name' => !empty($inputs['entity_name']) ? $inputs['entity_name'] : '',
+                    'category_name' => $category_name,
+                    'role_name' =>$role_name,
+                    // 'skill_name' => !empty($inputs['skill_name']) ? $inputs['skill_name'] : '',
+                    'avatar' => 'default_avatar.jpg',
+                    'first_name' => $first_name,
+                    'last_name' => $last_name,
+                    'phonenumber' => $inputs['phone'],
+                    'birth_date' => !empty($inputs['birth_date']) ? $inputs['birth_date'] : null,
+                    'is_employee' => !empty($inputs['is_employee']) ? $inputs['is_employee'] : false,
+                    'is_instructor' => !empty($inputs['is_instructor']) ? $inputs['is_instructor'] : false,
+                    'is_manager' => !empty($inputs['is_manager']) ? $inputs['is_manager'] : false,
+                    'is_admin' => !empty($inputs['is_admin']) ? $inputs['is_admin'] : false,
+                    'is_hotel' => !empty($inputs['is_hotel']) ? $inputs['is_hotel'] : false
+                );
+
+                $response = $this->callCreateProfileAPI($profile_data);
+                if ($response['status'] == 201) {
                     $records = 1;
-			 	}else{
-			 		$records = 3;
-			 	}
-			}
-		}
-		return $records;
+                } else {
+                    $records = 3;
+                }
+            } else {
+                $records = 3;
+            }
+        }
+    }
+    return $records;
+}
 
-	 }
 	 public function _send_email($type, $email, &$data)
     {
         switch ($type)
@@ -3125,9 +3247,33 @@ class User_model extends CI_Model
 
 	}
 
+	private function callCreateProfileAPI($data)
+{
+    $url = "http://127.0.0.1:8000/api/v1/create_profile/";
+
+    $ch = curl_init($url);
+    $jsonData = json_encode($data);
+
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        'Content-Type: application/json',
+        'Content-Length: ' . strlen($jsonData)
+    ));
+
+    $response = curl_exec($ch);
+    $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    return array('status' => $httpcode, 'response' => json_decode($response, true));
+}
+
 
 
 
 }
+
+
 
 /* End of file model.php */

@@ -184,7 +184,39 @@ class Employees_details extends CI_Model
 			$this->db->select("user_id");
 			return $this->db->get_where('dgt_account_details',array('emp_code'=>$emp_code))->row_array();
 		}
-	}	
-}
+	}
+	public function get_branch_by_id($branch_id)
+    {	
+		$this->db->select('branch_name');
+    	$this->db->where('branch_id', $branch_id);
+        $query = $this->db->get('dgt_branches');
+        return $query->row_array(); 
+    }	
+	public function get_role_by_id($role_id)
+	{
+		$this->db->select('role');
+		$this->db->where('default',$role_id);
+		$query = $this->db->get('dgt_roles');
+        return $query->row_array(); 
+    }
+	public function get_department_by_id($department_id)
+	{
+		$this->db->select('deptname');
+		$this->db->where('deptid',$department_id);
+		$query = $this->db->get('dgt_departments');
+        return $query->row_array(); 
 
+	}
+	public function get_designations_by_id($designation_id)
+	{
+		$this->db->select('designation');
+		$this->db->where('id',$designation_id);
+		$query = $this->db->get('dgt_designation');
+		return $query->row_array(); 
+
+	}
+
+	
+
+	}
 /* End of file model.php */

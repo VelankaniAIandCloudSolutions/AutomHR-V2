@@ -82,7 +82,7 @@ $db['default'] = array(
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'velankanidb',
+	'database' => 'velankanidatabase',
 
 	'dbdriver' => 'mysqli',
 	'dbprefix' => 'dgt_',

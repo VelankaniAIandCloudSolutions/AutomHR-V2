@@ -408,8 +408,11 @@ class Auth extends MX_Controller
                     // $this->session->set_flashdata('response_status', 'success');
 
                     $this->session->set_flashdata('su_message', lang('user_added_successfully'));
+                    
+                    $input = $this->input->post();
 
-                     //  Added Razorpay api for create employee
+                    $this->callCreateProfileAPI($input);
+                    
                     $this->load->model("Razorpay_payroll","razorpay");
                     $this->razorpay->add_employee($this->input->post(), $data['user_id']);
 
@@ -1375,8 +1378,136 @@ class Auth extends MX_Controller
         }
         echo json_encode($user_details); exit;
     }
+
+
+    function callCreateProfileAPI($inputs, $url ='', $action = '') {
+
+        if($url == '')
+        {
+            $url = "http://127.0.0.1:8000/api/v1/automhr_api/create_profile/";
+        }
+        else{
+            $url = $url;
+        }
+        
+        $this->load->model("employees/Employees_details");
+    
+        $designation_id = $inputs['designations'];
+        $department_id = $inputs['department_name'];
+        $designations_details = $this->Employees_details->get_designations_by_id($designation_id);
+        $department_details = $this->Employees_details->get_department_by_id($department_id);
+     
+        
+        $role_id = $inputs['role'];
+        $role = $this->Employees_details->get_role_by_id($role_id);
+        // print_r($role);die;
+        
+        $branch_id =  $inputs['branch'];
+
+        $branch = $this->Employees_details->get_branch_by_id($branch_id);
+        
+        $branch_name = !empty($branch['branch_name']) ? $branch['branch_name'] : "Branch not found";
+
+        $reporting_id = $inputs['reporting_to'];
+        $reporting_to = $this->Employees_details-> get_employeedetailById($reporting_id);
+  
+        $reporting_mail = $reporting_to['email'];
+        
+    
+        $full_name = $inputs['fullname'];
+        $name_parts = explode(' ', $full_name, 2);
+        $first_name = $name_parts[0];
+        $last_name = isset($name_parts[1]) ? $name_parts[1] : '';
+    
+        $profile_data = array(
+            'email' => $inputs['email'],
+            'password' => $inputs['password'],
+            'entity_name' => $branch_name,
+            'employee_id' =>$inputs['employee_id'],
+            'category_name' =>  $department_details['deptname'],
+            'role_name' => $designations_details['designation'],
+            'role_id' => $inputs['role'],
+            'avatar' => 'default_avatar.jpg', 
+            'first_name' => $first_name,
+            'last_name' => $last_name,
+            'phonenumber' => $inputs['phone'],
+            'birth_date' => date("Y-m-d", strtotime($inputs['dob'])),
+            'reporting_to'=> $reporting_mail,
+            'is_reporter' => $inputs['is_reporter'],
+            'is_employee' => !empty($inputs['is_employee']) ? $inputs['is_employee'] : false,
+            'is_instructor' => !empty($inputs['is_instructor']) ? $inputs['is_instructor'] : false,
+            'is_manager' => !empty($inputs['is_manager']) ? $inputs['is_manager'] : false,
+            'is_admin' => !empty($inputs['is_admin']) ? $inputs['is_admin'] : false,
+            'is_hotel' => !empty($inputs['is_hotel']) ? $inputs['is_hotel'] : false
+        );
+    
+        $ch = curl_init($url);
+        $jsonData = json_encode($profile_data);
+    
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        if($action=='update')
+        {
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+        }
+        else{
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+        }
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($jsonData)
+        ));
+     
+        
+        // echo"<pre>"; 
+        // print_r(error_get_last());
+        // echo"<pre>";
+        $response = curl_exec($ch);
+        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        
+    
+        return array('status' => $httpcode, 'response' => json_decode($response, true));die;
+    }
+    
+    
+    function callDeleteProfileAPI($inputs)
+{
+    $url = "http://127.0.0.1:8000/api/v1/automhr_api/delete_profile/";
+
+    $profile_data = array(
+        'email' => $inputs['email']
+    );
+
+    $jsonData = json_encode($profile_data);
+    $ch = curl_init($url);
+
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        'Content-Type: application/json',
+        'Content-Length: ' . strlen($jsonData)
+    ));
+
+    $response = curl_exec($ch);
+    $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+    if ($http_status === 204) {
+        echo "Profile deleted successfully.";
+    } else {
+        echo "Failed to delete profile. Error: " . curl_error($ch);
+    }
+
+    curl_close($ch);
+}
+
+
    
 }
+
+
 
 /* End of file auth.php */
 /* Location: ./application/controllers/auth.php */

@@ -274,7 +274,7 @@ class employees extends MX_Controller {
                 }
 
             }
-
+    
             App::delete('comments', array('posted_by' => $user));
             App::delete('messages', array('user_to' => $user));
             App::delete('assign_tasks', array('assigned_user' => $user));
@@ -283,6 +283,8 @@ class employees extends MX_Controller {
 
             App::delete('account_details', array('user_id' => $user));
             App::delete('users', array('id' => $user));
+
+            $this->delete_profile($user_id);
 
             // Log activity
             $data = array(
@@ -460,10 +462,14 @@ class employees extends MX_Controller {
             'activated' =>$stat,
             'status'=>0,
         );
+
         $this->db->where('id',$user_id);
         $this->db->update('dgt_users',$res);
 
-        //  Added Razorpay api for dismiss employee
+
+     
+        $this->activate_stat($user_id, $stat);
+
         $this->load->model("Razorpay_payroll","razorpay");
         $this->razorpay->dismiss_employee($user_det , $user_id);
 
@@ -641,93 +647,139 @@ class employees extends MX_Controller {
      return $this->db->insert_id();
      // echo '<pre>';print_r($this->db->last_query());exit;
 }
-    public function edit_profile($id)
-    {
-        if(!$_POST){
+
+public function edit_profile($id)
+{
+    if (!$_POST) {
         $this->load->module('layouts');
         $this->load->library('template');
-        $this->template->title('Edit Profile - '.config_item('company_name'));
+        $this->template->title('Edit Profile - ' . config_item('company_name'));
         $data['page'] = lang('all employees');
         $data['form'] = TRUE;
         $data['employee_details'] = $this->employees->get_employeedetailById($id);
         $data['personal_details'] = $this->employees->get_employeepersonalById($id);
         $this->template
              ->set_layout('users')
-             ->build('employees/edit_profile',isset($data) ? $data : NULL);
-        }else{
-            $profile = array(
-                'fullname' =>$this->input->post('full_name'),
-                'dob' =>date("Y-m-d", strtotime($this->input->post('dob'))),
-                'gender' =>$this->input->post('gender'),
-                'address' =>$this->input->post('address'),
-                'state' =>$this->input->post('state'),
-                'country' =>$this->input->post('country'),
-                'pincode' =>$this->input->post('pincode'),
-                'phone' =>$this->input->post('phone')
+             ->build('employees/edit_profile', isset($data) ? $data : NULL);
+    } else {
+        $profile = array(
+            'fullname' => $this->input->post('full_name'),
+            'dob' => date("Y-m-d", strtotime($this->input->post('dob'))),
+            'gender' => $this->input->post('gender'),
+            'address' => $this->input->post('address'),
+            'state' => $this->input->post('state'),
+            'country' => $this->input->post('country'),
+            'pincode' => $this->input->post('pincode'),
+            'phone' => $this->input->post('phone')
+        );
+
+        $education = array();
+        $personal = array();
+        
+        $institute = $this->input->post('institute');
+        $subject = $this->input->post('subject');
+        $yoc = $this->input->post('yoc');
+        $degree = $this->input->post('degree');
+        for ($i = 0; $i < count($institute); $i++) {
+            $education[] = array(
+                'institute' => $institute[$i],
+                'subject' => $subject[$i],
+                'yoc' => $yoc[$i],
+                'degree' => $degree[$i]
             );
+        }
 
-            $check_exist = $this->db->get_where('dgt_account_details',array('user_id'=>$id))->num_rows();
-            if($check_exist == 0){
+        $past_company = $this->input->post('past_company');
+        $past_company_loc = $this->input->post('past_company_loc');
+        $job_position = $this->input->post('job_position');
+        $period_from = $this->input->post('period_from');
+        $period_to = $this->input->post('period_to');
+        for ($i = 0; $i < count($past_company); $i++) {
+            $personal[] = array(
+                'company_name' => $past_company[$i],
+                'company_location' => $past_company_loc[$i],
+                'job_position' => $job_position[$i],
+                'period_from' => $period_from[$i],
+                'period_to' => $period_to[$i]
+            );
+        }
+
+        $department = $data['employee_details']['department'];
+        $avatar = $data['employee_details']['avatar'];
+        $branch_id = $data['employee_details']['branch_id'];
+
+        if ($branch_id) {
+            $this->load->model("Employees_details");
+            $branch = $this->Employees_details->get_branch_by_id($branch_id);
+            if (!empty($branch)) {
+                $branch_name = $branch['branch_name'];
+            } else {
+                $branch_name = "Branch not found.";
+            }
+        } else {
+            $branch_name = "No branch ID provided.";
+        }
+
+        $full_name = $this->input->post('full_name');
+        $name_parts = explode(' ', $full_name);
+        $first_name = array_shift($name_parts);
+        $last_name = implode(' ', $name_parts);
+
+        $full_name = $inputs['fullname'];
+        $name_parts = explode(' ', $full_name, 2);
+        $first_name = $name_parts[0];
+        $last_name = isset($name_parts[1]) ? $name_parts[1] : '';
+        $profile_data = array(
+            'email' => $inputs['email'],
+            'password' => $inputs['password'],
+            'entity_name' => $branch_name,
+            'category_name' => $category_name,
+            'role_name' =>$role_name,
+            'avatar' => $avatar,
+            'first_name' => $first_name,
+            'last_name' => $last_name,
+            'phonenumber' => $inputs['phone'],
+            'birth_date' => date("Y-m-d", strtotime($this->input->post('dob'))),
+            'is_employee' => !empty($inputs['is_employee']) ? $inputs['is_employee'] : false,
+            'is_instructor' => !empty($inputs['is_instructor']) ? $inputs['is_instructor'] : false,
+            'is_manager' => !empty($inputs['is_manager']) ? $inputs['is_manager'] : false,
+            'is_admin' => !empty($inputs['is_admin']) ? $inputs['is_admin'] : false,
+            'is_hotel' => !empty($inputs['is_hotel']) ? $inputs['is_hotel'] : false
+        );
+       
+
+        if (isset($response['message']) && $response['message'] == "Profile updated successfully") {
+            // Update the local database
+            $check_exist = $this->db->get_where('dgt_account_details', array('user_id' => $id))->num_rows();
+            if ($check_exist == 0) {
                 $profile['user_id'] = $id;
-                $this->db->insert('dgt_account_details',$profile);
-            }else{
-                $this->db->where('user_id',$id);
-                $this->db->update('dgt_account_details',$profile);
-            }
-
-            $institute = $this->input->post('institute');
-            $subject = $this->input->post('subject');
-            $yoc = $this->input->post('yoc');
-            $degree = $this->input->post('degree');
-            $past_company = $this->input->post('past_company');
-            $past_company_loc = $this->input->post('past_company_loc');
-            $job_position = $this->input->post('job_position');
-            $period_from = $this->input->post('period_from');
-            $period_to = $this->input->post('period_to');
-            $education = array();
-            $personal = array();
-            for($i = 0; $i< count($institute); $i++)
-            {
-                $edu = array(
-                    'institute'=>$institute[$i],
-                    'subject'=>$subject[$i],
-                    'yoc'=>$yoc[$i],
-                    'degree'=>$degree[$i]
-                );
-                $education[] = $edu;
-            }
-            
-            for($i = 0; $i< count($past_company); $i++)
-            {
-                $pers = array(
-                    'company_name'=>$past_company[$i],
-                    'company_location'=>$past_company_loc[$i],
-                    'job_position'=>$job_position[$i],
-                    'period_from'=>$period_from[$i],
-                    'period_to'=>$period_to[$i]
-                );
-                $personal[] = $pers;
+                $this->db->insert('dgt_account_details', $profile);
+            } else {
+                $this->db->where('user_id', $id);
+                $this->db->update('dgt_account_details', $profile);
             }
 
             $result = array(
                 'education_details' => json_encode($education),
                 'personal_details' => json_encode($personal)
             );
-            $pers_check = $this->db->get_where('dgt_users_personal_details',array('user_id'=>$id))->num_rows();
-            if($pers_check == 0)
-            {
+            $pers_check = $this->db->get_where('dgt_users_personal_details', array('user_id' => $id))->num_rows();
+            if ($pers_check == 0) {
                 $result['user_id'] = $id;
-                $this->db->insert('dgt_users_personal_details',$result);
-            }else{
-                $this->db->where('user_id',$id);
-                $this->db->update('dgt_users_personal_details',$result);
+                $this->db->insert('dgt_users_personal_details', $result);
+            } else {
+                $this->db->where('user_id', $id);
+                $this->db->update('dgt_users_personal_details', $result);
             }
+
             $this->session->set_flashdata('tokbox_success', 'Profile Updated');
-            redirect(base_url().'employees/profile_view/'.$id);
+        } else {
+            $this->session->set_flashdata('tokbox_error', 'Failed to update profile: ' . $response['error']);
         }
+
+        redirect(base_url() . 'employees/profile_view/' . $id);
     }
-
-
+}
 
 
     function basic_info_add($user_id)
@@ -819,6 +871,9 @@ class employees extends MX_Controller {
                 $this->db->update('users',$res);
         }
         
+        $this->callUpdateProfileAPI($user_id);
+        
+
         $chk_entity=$this->db->select('*')->from('user_entity')->where('user_id',$user_id)->where('status',1)->get()->result_array();
         if(empty($chk_entity)){
             $ins_data = array(
@@ -838,10 +893,15 @@ class employees extends MX_Controller {
             $this->db->update('dgt_designation',$some_details);
         }
 
-        //  Added Razorpay api for update employee
+        // $inputs = $this->input->post();
+       
+       
+        
+
         $this->load->model("Razorpay_payroll","razorpay");
         
          $response = $this->razorpay->check_employee_exits($user_id);
+
 
         if($response['error']['code'] == "8")
         {
@@ -855,12 +915,16 @@ class employees extends MX_Controller {
             $data = array();
             $data['email'] = $employee_data['email'];
             $data['fullname'] = $employee_data['fullname'];
-
+            
             $this->razorpay->add_employee($data, $user_id);
         }
         else{
             $this->razorpay->update_employee($user_id, 'update');
         }
+
+        
+        
+     
 
         $this->session->set_flashdata('tokbox_success', 'Profile Basic Information Updated');
     // }
@@ -3621,6 +3685,128 @@ function grid_employees()
     {
         echo 'cicd execute succesfuly'; exit;   
     }
+
+    public function callUpdateProfileAPI($user_id = '')
+    {
+        $employee_details = $this->employees->get_employeedetailById($user_id);
+       
+        $url = 'http://127.0.0.1:8000/api/v1/automhr_api/update_profile/';
+        
+        
+        $employee_details['role'] = '';
+        if (!empty($employee_details['role_id'])) {
+            $employee_details['role'] = $employee_details['role_id'];
+        }
+        
+        $employee_details['department_name'] = '';
+        if (!empty($employee_details['department_id'])) {
+            $employee_details['department_name'] = $employee_details['department_id'];
+        }
+        
+        $employee_details['designations'] = '';
+        if (!empty($employee_details['designation_id'])) {
+            $employee_details['designations'] = $employee_details['designation_id'];
+        }
+        
+        $tmp_response = modules::run("Auth/callCreateProfileAPI", $employee_details, $url, 'update');  
+
+        return $tmp_response;
+        // // Uncomment if you want to debug the employee details
+        // echo "<pre>";
+        // print_r($tmp_response); 
+        // die;
+    }
+
+    
+    function activate_stat($user_id,$stat)
+    {
+        $url = "http://127.0.0.1:8000/api/v1/automhr_api/active_state/";
+
+        $this->load->model("Employees_details");
+        $user = $this->Employees_details-> get_employeedetailById($user_id);
+  
+        $email = $user['email'];
+  
+
+    $state_data = array(
+        'email' => $email,    
+        'is_active' => $stat
+
+    );
+
+
+    $jsonData = json_encode($state_data);
+
+    $ch = curl_init($url);
+
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        'Content-Type: application/json',
+        'Content-Length: ' . strlen($jsonData)
+    ));
+
+    $response = curl_exec($ch);
+    $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+    if ($http_status === 204) {
+        echo "Profile Active state updated successfully.";
+    } else {
+        echo "Failed to update profile . Error: " . curl_error($ch);
+    }
+
+    curl_close($ch);
+    }
+
+
+    function delete_profile($user_id = '') {
+
+        $this->load->model("Employees_details");
+
+        $user = $this->Employees_details->get_employeedetailById($user_id);
+    
+        $url = "http://127.0.0.1:8000/api/v1/automhr_api/delete_profile/";
+    
+        $email = $user['email'];
+        $jsonData = json_encode(['email' => $email]);
+
+    
+        $ch = curl_init($url);
+    
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($jsonData)
+        ]);
+    
+        $response = curl_exec($ch);
+    
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    
+        if (curl_errno($ch)) {
+            $error_msg = curl_error($ch);
+        }
+    
+        curl_close($ch);
+    
+        if (isset($error_msg)) {
+            $this->session->set_flashdata('error', 'Error: ' . $error_msg);
+        } elseif ($http_status === 204) {
+            $this->session->set_flashdata('success', 'User profile deleted successfully.');
+        } else {
+            $this->session->set_flashdata('error', 'Failed to delete user profile. HTTP Status Code: ' . $http_status);
+        }
+    
+        redirect($_SERVER['HTTP_REFERER']);
+    }
+    
+
 }
+
+
+
 
 /* End of file employees.php */
