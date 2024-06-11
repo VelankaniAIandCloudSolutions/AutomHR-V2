@@ -32,72 +32,9 @@ jobs:
           PING_URL: ${{ secrets.REMOTE_HOST }}
           FILE_OVPN: $HOME/.github/workflows/profile-24.ovpn
         env:
-          CA_CRT: |
-            -----BEGIN CERTIFICATE-----
-            MIICyDCCAbCgAwIBAgIEZUupozANBgkqhkiG9w0BAQsFADAVMRMwEQYDVQQDDApP
-            cGVuVlBOIENBMB4XDTIzMTEwNzE1MzA0M1oXDTMzMTEwNTE1MzA0M1owFTETMBEG
-            A1UEAwwKT3BlblZQTiBDQTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB
-            AJtswevfJgKQn1LoucVKLrKqtLxLTIMUHtU7Vahht6y9k70vZFmK3UeAoCThHS4B
-            lKTB9rxA8C+6NENla4+tD9RCvh4EOvB9bn9+vohCq7ucqdti+DX4UB6af9J/R830
-            zJ0uotMJy6tXxtUSbauaCM9954kZnLa1ZcZSAs6jkwY7kWiT7TVbnj9g8hejoARU
-            jP4/+ctUIee+Gr/U1vTe4ZTtMxjUjihszjNdhTTR/42H8jb/xn1dV5VK1yRunNfd
-            myF+OAnkplrc/pEwj23JlJJ2ils4IqQkv/z76MzEI1+qEf6DpEJ6CGGGxL5wt4zb
-            LTJRZ7sLyuXcnkJ026Hi0X0CAwEAAaMgMB4wDwYDVR0TAQH/BAUwAwEB/zALBgNV
-            HQ8EBAMCAQYwDQYJKoZIhvcNAQELBQADggEBAEiyfWTE4L8drWz6QpDT7W8avm2h
-            zIt7557chgsUgiRMe6lyOyRIq+jNkKpBr6PcbQySbmOqgb3RKNgQFvFm/3WYwlp0
-            Qi+oAtT0Q6AuBv7dMWmKZvSc4vxTVMxdnHNleZE9Gt9hA8RbylnR7BsNmujkP3cy
-            DZsvgLLXdCAquH7psO1azugMp5hZFgQOr+9yDbv+GytbAasMCEKSX9gKm5J1+gFb
-            SnHlch+gMJyJ0oXWnOADKQTIcwX/sOWvjnNBZ/zJnGq2nuXNDw3RlyZvNpmEkujj
-            3sDV0ctNWZoMJkWudwgBPRLFwWZqETYUl7BrpFdAitNQaUWx1euFSfQy89w=
-            -----END CERTIFICATE-----
-          USER_CRT: |
-                      -----BEGIN CERTIFICATE-----
-                      MIIC5TCCAc2gAwIBAgIBGDANBgkqhkiG9w0BAQsFADAVMRMwEQYDVQQDDApPcGVu
-                      VlBOIENBMB4XDTI0MDIyMTExNTEwMloXDTM0MDIxOTExNTEwMlowEDEOMAwGA1UE
-                      AwwFQW5raXQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC7Jhut7/s2
-                      Y53QXFLUweP3NyWw4IKmLB87ubYzG7xUF4b7YxSbfCdPCzSFg4PxKqCB2YVCASCX
-                      31qyHKwO39MNgTkPLLK9wbmzfw0/Yo1yTisYaBzTZACv8tMvw93VWRSp4URegjSl
-                      X5dgQhm8DtGDnUpEwdoqrm0jP9xbTeoguvmBPgmCQdWS4Z2X69TMpIQri0xe4Mm/
-                      iSKFI6vvlmZ314pc1NZ40nUf5UnxjFsuPdASJUhVQV1L9bJHPOKUWXEjKgzzV6Sw
-                      aKB3qplSseWgQYyBXcxBK0/fMUuyg/aEnE0fgf2Jku5EGxaWWhSuNoA39HgVj9B8
-                      MeD5fkZSgAplAgMBAAGjRTBDMAwGA1UdEwEB/wQCMAAwCwYDVR0PBAQDAgeAMBMG
-                      A1UdJQQMMAoGCCsGAQUFBwMCMBEGCWCGSAGG+EIBAQQEAwIHgDANBgkqhkiG9w0B
-                      AQsFAAOCAQEAUzImhLYBtE9/qxXAaPME8EIDc4EthqYQ47IaOv34glzUXAAN5d4i
-                      8Om7OoPyZtoN0mjiOUNif2MnhzG1LX31hl0TJYSr4pUkZBkoYO9AEY715WMlZm20
-                      87MBht1IH33T5xAfUUk0BKwjr+L+KZhNxpHeaYDqVrBBhMG1aauuPEX3MYtzkhDO
-                      Z9Il/5U2mWnMc0diQ9yER5Bywb7sWPlqGyG1TsEzF/xaZD+IrXFIH2WEjgu+qfDs
-                      YJsGmoVQnBLWGgX4vZtA/08SlAfcTlGBapYAvk3oa3OdBKoIW7FqVriaiyV0piS0
-                      Vi818bSVgtivNt5eFFKbfyZjTe0FYHFLYQ==
-                      -----END CERTIFICATE-----
-          USER_KEY: |
-                    -----BEGIN PRIVATE KEY-----
-                    MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC7Jhut7/s2Y53Q
-                    XFLUweP3NyWw4IKmLB87ubYzG7xUF4b7YxSbfCdPCzSFg4PxKqCB2YVCASCX31qy
-                    HKwO39MNgTkPLLK9wbmzfw0/Yo1yTisYaBzTZACv8tMvw93VWRSp4URegjSlX5dg
-                    Qhm8DtGDnUpEwdoqrm0jP9xbTeoguvmBPgmCQdWS4Z2X69TMpIQri0xe4Mm/iSKF
-                    I6vvlmZ314pc1NZ40nUf5UnxjFsuPdASJUhVQV1L9bJHPOKUWXEjKgzzV6SwaKB3
-                    qplSseWgQYyBXcxBK0/fMUuyg/aEnE0fgf2Jku5EGxaWWhSuNoA39HgVj9B8MeD5
-                    fkZSgAplAgMBAAECggEAIA6lCyRiaayiqcBGx/72Z7Bgmm26s3A3YWmsVhDYL6dg
-                    DcupCgE4Uofe1Ufz3+mnWNbDxsyeoqU1yfCzYFDivBt4hKrpayu1/ZMz17mv9PaC
-                    10luNp+Ypor3teTdKOB7c6YMqguvrOw0594qvlXjeaIFyMVT85+xPiqAOnucMULK
-                    fRoJLXIUZHr5DVtxIkCCYRqh8CepQdc5d7ZW0McxcrNaIvRH2QsTC3Zh7cBilWGg
-                    jgWKJgbSZ/Hvk+k+xcgFytyU7pGKk+BMftkBRsf+MjSY5VqtPY3mXLjOLHaJ09BS
-                    vZyJB5gNZdzsswNigpM5ZGmVbIinIm/poPUpqZtPOQKBgQDFmoikj+RcStvltX8L
-                    ZgbniL06A+S0RL1dPwo7R4j26avGnK98osA4jEHTF+7ROmg1X1x2uN4FipOkgbE6
-                    hyNItwNT15lQzWvA/PTcPArIYMDcScFoxHIGo3aOY4/8VVM8qCmZBD/BRfwngUOq
-                    BLf9eZ45d/1hY4cIywnhXN57rwKBgQDydKFGT0lRiywhmOSWvKQqQkZFjkH4KjHn
-                    UmsFfy/pGqwWbn9RagD+oNUZn5gmQgCdTlpCl8JtLIJmqnshcBKMJdw0IjWFnPV5
-                    1nCX7CmT3vop/idvYr8gN5kbDOVUkpJMfQRpt5s25EDmPFq/uQHRbSG1Gn3fRKfV
-                    MnM9ce/8KwKBgAuuQNmJb/RMsIb5nZLs6weQu67MQB6v2YnDijVK2zvNQEwzQuRZ
-                    MoelMtbpmUJg83wEMRELiIRHVsboq7NL/bf0qYuxOOzf17jGuyqxmemSXpQm//nT
-                    cvIVg5KTLBW8bXkub5cN+z7PhkJHj9pjAQVIxSOchivVmEvaxLC/rp8dAoGBAOTt
-                    KrnwcxIDjo/KhUuuonMkUKWsRK3FaYk5UMPH67z16jbj7mM46+eAhLXE8yxsdZgS
-                    OzdVg8cBl77Iiapw35JkzR6MjmyyXzXDPFy2KCvvBdZQm3uYiU4qMO5RptfL7Uc7
-                    Y8dODcgujPjXU/hi/0x29rTBZshBUxcCo70Ir8gxAoGAHDxhWb5XS2anqokMcyLM
-                    LiJ9wz7pU5Q78NUrbO+4vh4hEP7IjmILhqWuu4BRlNatSWqbzYr4GDdDlHvuo5Ka
-                    x+REloFrs2B/bh8cs1qCRi/Aj76ybPG2ayNkzmkyvrAcPLr8ks+0/lRPWgsPAUOh
-                    aCpqLzf43H8QzE9d4LRYAVY=
-                    -----END PRIVATE KEY-----
+          CA_CRT: ${{ secrets.CA_CRT}}
+          USER_CRT: ${{ secrets.USER_CRT }}
+          USER_KEY: ${{ secrets.USER_KEY }}
 
       - name: Check Connect VPN
         run: echo "${{ steps.connect_vpn.outputs.STATUS }}"
@@ -105,10 +42,10 @@ jobs:
       - name: Execute SSH command using private key
         uses: appleboy/ssh-action@master
         with:
-          host: 192.68.10.200
-          username: ubuntu
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.CICD_SSH_KEY }}
-          port: 22
+          port: ${{ secrets.PORT }}
           script: |
             pwd
             cd ${{ secrets.REMOTE_TARGET }}
