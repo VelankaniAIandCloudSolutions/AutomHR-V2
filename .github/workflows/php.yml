@@ -27,8 +27,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install OpenVPN3
-        run: sudo apt-get update && sudo apt-get install -y openvpn3
+      - name: Add OpenVPN repository and install OpenVPN3
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y software-properties-common
+          sudo add-apt-repository -y ppa:openvpn/epel
+          sudo apt-get update
+          sudo apt-get install -y openvpn3
 
       - name: Start OpenVPN3
         run: |
