@@ -27,9 +27,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Install OpenVPN3
+        run: sudo apt-get update && sudo apt-get install -y openvpn3
+
       - name: Start OpenVPN3
         run: |
-          /path/to/openvpn3 session-start --config vpn/vpn-config.ovpn || (/path/to/openvpn3 session-status && exit 1)
+          openvpn3 session-start --config vpn/vpn-config.ovpn || (openvpn3 session-status && exit 1)
           sleep 30  # Wait for the VPN connection to establish
 
       - name: Verify VPN connection
