@@ -1,35 +1,42 @@
 name: remote ssh command to deploy
+
 on:
   push:
-    branches: [ main ]
+    branches: 
+      - main
 
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
 
-      - name: Install Open VPN
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+
+      - name: Install OpenVPN
         run: |
-          sudo apt-get install openvpn
-          echo "${{ secrets.VPN_FILE }}" > .github/workflows/profile-24.ovpn
+          sudo apt-get update
+          sudo apt-get install -y openvpn
+
+      - name: Write VPN Config File
+        run: echo "${{ secrets.VPN_FILE }}" > $HOME/.github/workflows/profile-24.ovpn
 
       - name: Connect VPN
         uses: golfzaptw/action-connect-ovpn@master
         id: connect_vpn
         with:
           PING_URL: ${{ secrets.REMOTE_HOST }}
-          FILE_OVPN: '.github/workflows/profile-24.ovpn'
+          FILE_OVPN: $HOME/.github/workflows/profile-24.ovpn
         env:
           CA_CRT: ${{ secrets.CA_CRT}}
           USER_CRT: ${{ secrets.USER_CRT }}
           USER_KEY: ${{ secrets.USER_KEY }}
 
       - name: Check Connect VPN
-        run: echo ${{ steps.connect_vpn.outputs.STATUS }}
+        run: echo "${{ steps.connect_vpn.outputs.STATUS }}"
 
-      - name: Execute ssh command via using private key
+      - name: Execute SSH command using private key
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.REMOTE_HOST }}
@@ -41,6 +48,6 @@ jobs:
             cd ${{ secrets.REMOTE_TARGET }}
             git pull
 
-      - name: kill vpn
+      - name: Kill VPN
         if: always()
         run: sudo killall openvpn
