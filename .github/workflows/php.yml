@@ -20,7 +20,10 @@ jobs:
           sudo apt-get install -y openvpn
 
       - name: Write VPN Config File
-        run: echo "${{ secrets.VPN_FILE }}" > $HOME/.github/workflows/profile-24.ovpn
+        run: |
+            mkdir -p $HOME/.github/workflows
+            echo "${{ secrets.VPN_FILE }}" > $HOME/.github/workflows/profile-24.ovpn
+
 
       - name: Connect VPN
         uses: golfzaptw/action-connect-ovpn@master
