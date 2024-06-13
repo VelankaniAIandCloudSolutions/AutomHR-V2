@@ -1,5 +1,5 @@
 <?php
-
+// echo "hello"; die;
 ob_start();
 if( ! ini_get('date.timezone') )
 {
