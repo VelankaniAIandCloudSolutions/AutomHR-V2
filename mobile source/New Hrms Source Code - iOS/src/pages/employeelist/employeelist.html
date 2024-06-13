@@ -1,0 +1,58 @@
+<!--
+  Generated template for the EmployeelistPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title">{{keywords.employees}}</h4>
+    </ion-title>
+    <div *ngIf="roleId == '1'" class="notification-div">
+      <ion-icon ios="ios-add" (click)="addEmployee()" md="md-add" class="notificationIcon"></ion-icon>
+    </div>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="background-content">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf="!noData">
+    <div class="dashboard-area">
+      <ion-row class="dashboar-row" [ngClass]="cssClass" *ngFor="let emp of employeeList">
+        <ion-col col-12 class="slide-in-both-ways" (click)="openProfile($event, emp)">
+          <div class="dash-widget slide-in">
+            <div *ngIf="roleId == '1'" class="more-icon">
+              <i class="fa fa-ellipsis-v employee-more"></i>
+            </div>
+            <div class="employee-list-icon">
+              <p class="employee-firstname ">{{ emp.fullname | limito: 1 }}</p>
+            </div>
+            <div class="dash-widget-info">
+              <h4 class="emp-name">{{ emp.fullname }}</h4>
+              <p class="emp-designation">{{ emp.designation }}</p>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="!page">
+        <ion-infinite-scroll-content position="bottom" loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </div>
+  </div>
+  <div *ngIf="noData" class="dashboard-area">
+    <h3 class="nolist">No employee found</h3>
+  </div>
+  <ion-fab class="employee-fab" (click)="openModal()">
+    <button [ngStyle]="colorCode" class="employee-fabButton" ion-fab>
+      <i class="fa fa-filter"></i>
+    </button>
+  </ion-fab>
+</ion-content>

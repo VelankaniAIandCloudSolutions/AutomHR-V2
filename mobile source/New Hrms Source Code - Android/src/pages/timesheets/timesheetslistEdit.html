@@ -1,0 +1,44 @@
+<!--
+  Generated template for the AddSalaryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title">{{keywords.edit_timesheet}}</h4>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <form (ngSubmit)="editTimeSheets()" [formGroup]="timeSheetForm">
+        <ion-list class="inputLabel">
+          <ion-item class="inputItem item-leave-height">
+            <ion-label class="addInput-Label" stacked>{{keywords.project}}</ion-label>
+            <ion-select interface="action-sheet" placeholder="Select Project" formControlName="project_id"  [(ngModel)]="timesheet.project_id">
+              <ion-option *ngFor="let pro of projects"  [value]="pro.project_id">{{pro.project_title}}</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item class="inputItem">
+            <ion-label class="addInput-Label" floating>{{keywords.date}}</ion-label>
+            <ion-datetime displayFormat="MMM DD YYYY"  formControlName="timeline_date" [(ngModel)]="timesheet.timeline_date" disabled></ion-datetime>
+          </ion-item>
+          <ion-item class="inputItem">
+            <ion-label class="addInput-Label" floating>{{keywords.hours}}</ion-label>
+            <ion-datetime displayFormat="hh mm" pickerFormat="hh mm" hourValues="01,02,03,04,05,06,07,08" minuteValues="0,15,30,45" (ionChange)="change()" [(ngModel)]="timesheet.hours" formControlName="hours"></ion-datetime>
+            <!-- <ion-input class="addInput" formControlName="hours" type="text"></ion-input> -->
+          </ion-item>
+          <ion-item class="inputItem">
+            <ion-label class="addInput-Label" floating>{{keywords.description}}</ion-label>
+            <ion-input class="addInput" value={{timesheet.timeline_desc}} formControlName="timeline_desc" type="text"></ion-input>
+          </ion-item>
+        </ion-list>
+        <button type="submit" [ngStyle]="getHeaderStyle()" class="loginButton" ion-button full>{{keywords.edit_timesheet}}</button>
+      </form>
+</ion-content>

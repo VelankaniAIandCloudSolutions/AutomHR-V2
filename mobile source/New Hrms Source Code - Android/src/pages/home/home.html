@@ -1,0 +1,119 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <!-- <img src="assets/imgs/new-hrms.png" class="whiteLogo"> -->
+    </ion-title>
+    <div *ngIf="roleId == '1'" class="notification-div">
+      <ion-icon ios="ios-log-out" md="md-log-out" (click)="logout()" class="notificationIcon"></ion-icon>
+    </div>
+    <div *ngIf="roleId != '1'" class="notification-div">
+      <ion-icon ios="ios-more" md="md-more" (click)="presentPopover($event)" class="notificationIcon"></ion-icon>
+    </div>
+  </ion-navbar>
+</ion-header>
+<ion-content class="background-content">
+  <div class="profile-card-div" [ngStyle]="getstyle()">
+    <ion-card class="home-card" [ngStyle]="getstyle()">
+      <div class="home-header">
+        <img src="{{fullWhiteLogo}}" class="whiteLogo slide-in" />
+      </div>
+    </ion-card>
+  </div>
+  <div class="home-data-card">
+    <div class="dashboard-area">
+      <ion-row class="dashboard-row">
+        <ion-col col-6 class="dashboard-col" [ngClass]="cssClass" (click)="openProject()">
+          <div class="dash-widget" #myElement>
+            <div class="dash-widget-icon">
+              <i [ngStyle]="getFontstyle()" class="fa fa-cubes"></i>
+            </div>
+            <div class="dash-widget-info">
+              <h4 class="dash-amount">{{count.project_counts}}</h4>
+              <p class="dash-text">{{keywords.projects}}</p>
+            </div>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="roleId == '1'" col-6 [ngClass]="cssClass" class="dashboard-col" (click)="openClient()">
+          <div class="dash-widget">
+            <div class="dash-widget-icon">
+              <i [ngStyle]="getFontstyle()" class="fa fa-usd"></i>
+            </div>
+            <div class="dash-widget-info">
+              <h4 class="dash-amount">{{count.client_counts}}</h4>
+              <p class="dash-text">{{keywords.clients}}</p>
+            </div>
+          </div>
+        </ion-col>
+        <!-- <ion-col *ngIf="roleId == '3'" col-6 [ngClass]="cssClass" class="dashboard-col" (click)="openTask()">
+          <div class="dash-widget">
+            <div class="dash-widget-icon">
+              <i [ngStyle]="getFontstyle()" class="fa fa-diamond"></i>
+            </div>
+            <div class="dash-widget-info">
+              <h4 class="dash-amount">{{count.task_counts}}</h4>
+              <p class="dash-text">Tasks</p>
+            </div>
+          </div>
+        </ion-col> -->
+        <ion-col *ngIf="roleId == '1'" col-6 [ngClass]="cssClass" class="dashboard-col" (click)="openEmployee()">
+          <div class="dash-widget">
+            <div class="dash-widget-icon">
+              <i [ngStyle]="getFontstyle()" class="fa fa-user"></i>
+            </div>
+            <div class="dash-widget-info">
+              <h4 class="dash-amount">{{count.staff_counts}}</h4>
+              <p class="dash-text">{{keywords.employees}}</p>
+            </div>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="roleId == '3'" col-6 [ngClass]="cssClass" class="dashboard-col" (click)="openAttedance()">
+          <div class="dash-widget">
+            <div class="dash-widget-icon">
+              <i [ngStyle]="getFontstyle()" class="fa fa-user"></i>
+            </div>
+            <div class="dash-widget-info">
+              <!-- <h4 class="dash-amount">112</h4> -->
+              <p class="dash-text">{{keywords.attendance}}</p>
+            </div>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="roleId == '3'" col-6 [ngClass]="cssClass" class="dashboard-col" (click)="openPayroll()">
+          <div class="dash-widget">
+            <div class="dash-widget-icon">
+              <i [ngStyle]="getFontstyle()" class="fa fa-user"></i>
+            </div>
+            <div class="dash-widget-info">
+              <!-- <h4 class="dash-amount">112</h4> -->
+              <p class="dash-text">{{keywords.payroll}}</p>
+            </div>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="roleId != '3'" col-6 [ngClass]="cssClass" class="dashboard-col" (click)="openInvoices()">
+          <div class="dash-widget">
+            <div class="dash-widget-icon">
+              <i [ngStyle]="getFontstyle()" class="fa fa-user"></i>
+            </div>
+            <div class="dash-widget-info">
+              <h4 class="dash-amount">{{count.invoice_counts}}</h4>
+              <p class="dash-text">{{keywords.invoices}}</p>
+            </div>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="roleId == '2'" col-6 [ngClass]="cssClass" class="dashboard-col" (click)="openEstimates()">
+          <div class="dash-widget">
+            <div class="dash-widget-icon">
+              <i [ngStyle]="getFontstyle()" class="fa fa-user"></i>
+            </div>
+            <div class="dash-widget-info">
+              <h4 class="dash-amount">{{count.estimate_counts}}</h4>
+              <p class="dash-text">{{keywords.estimates}}</p>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+</ion-content>

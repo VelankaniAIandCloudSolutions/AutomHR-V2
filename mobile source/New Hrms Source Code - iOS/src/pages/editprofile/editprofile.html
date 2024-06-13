@@ -1,0 +1,169 @@
+<!--
+  Generated template for the EditprofilePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title">{{keyup.edit_profile}}</h4>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="basicInformation">
+    <h4 class="editprofile-title">{{keywords.basic_informations}}</h4>
+    <div class="inputList">
+      <ion-list class="inputLabel">
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.full_name}}</ion-label>
+          <ion-input class="addInput"  (keyup.enter)="moveFocus(b)" [(ngModel)]="user.fullname" type="text"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.birth_date}}</ion-label>
+          <ion-datetime displayFormat="MMM DD YYYY" max="{{currentTime}}" [(ngModel)]="user.dob" type="text"></ion-datetime>
+        </ion-item>
+        <ion-item class="inputItem item-leave-height">
+            <ion-label class="addInput-Label" stacked>{{keywords.gender}}</ion-label>
+            <ion-select interface="action-sheet" placeholder="Select Gender" [(ngModel)]="user.gender">
+              <ion-option *ngFor="let gen of gender" [value]="gen.value">{{gen.name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.address}}</ion-label>
+          <ion-input class="addInput"  #b (keyup.enter)="moveFocus(c)" [(ngModel)]="user.address" type="text"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.city}}</ion-label>
+          <ion-input class="addInput"   #c (keyup.enter)="moveFocus(d)"  [(ngModel)]="user.city" type="text"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.country}}</ion-label>
+          <ion-input class="addInput" #d (keyup.enter)="moveFocus(e)" [(ngModel)]="user.country" type="text"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.phone}}</ion-label>
+          <ion-input class="addInput"  #contactnumber="ngModel"  #e (keyup.enter)="moveFocus(f)" [(ngModel)]="user.phone"  pattern="[0-9]{10,15}" maxlength="15" required type="tel"></ion-input>
+        </ion-item>
+        <div class="md-errors-spacer" [hidden]="contactnumber.valid || contactnumber.untouched">
+            <div class="validation" *ngIf="contactnumber.errors && contactnumber.errors.pattern">
+                Phone is invalid
+            </div>
+        </div>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.email}}</ion-label>
+          <ion-input class="addInput"  #contactemail="ngModel"  #f [(ngModel)]="user.email" type="text" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" required></ion-input>
+        </ion-item>
+        <div class="md-errors-spacer" [hidden]="contactemail.valid || contactemail.untouched">
+            <div class="validation" *ngIf="contactemail.errors && contactemail.errors.pattern">
+                Email is invalid
+            </div>
+        </div>
+      </ion-list>
+      <button type="submit" [ngStyle]="colorCode" class="loginButton" #h (click)="EducationInformation()" ion-button full>Next</button>
+    </div>
+  </div>
+  <div *ngIf="educationInformation">
+    <h4 class="editprofile-title">{{keywords.education_information}}</h4>
+    <div class="inputList">
+      <form (ngSubmit)="addEducation()" [formGroup]="userForm">
+        <div formArrayName="education">
+          <div class="profile-form" [formGroupName]="i" *ngFor="let edu of userForm.controls.education.controls; let i = index">
+            <h4 class="editprofile-title">{{i+1}}. {{keywords.information}} <span class="removeDetail"> <ion-icon ios="ios-trash" (click)="removeEducation(i)" md="md-trash"></ion-icon></span></h4>
+            <!-- <p>{{educationfrom[i]}}</p> -->
+            <ion-list class="inputLabel">
+              <ion-item class="inputItem">
+                <ion-label class="addInput-Label" floating>{{keywords.institution}}</ion-label>
+                <ion-input class="addInput"  (keyup.enter)="moveFocus(i)" formControlName="institution" type="text"></ion-input>
+              </ion-item>
+              <ion-item class="inputItem">
+                <ion-label class="addInput-Label" floating>{{keyup.subject}}</ion-label>
+                <ion-input class="addInput"   formControlName="subject" type="text"></ion-input>
+              </ion-item>
+              <ion-item class="inputItem">
+                <ion-label class="addInput-Label" floating>{{keywords.starting_year}}</ion-label>
+                <ion-datetime displayFormat="YYYY" (ionChange)="selectFrom()" formControlName="start_year" type="text"></ion-datetime>
+              </ion-item>  
+              <ion-item class="inputItem">
+                <ion-label class="addInput-Label" floating>{{keywords.complete_year}}</ion-label>
+                <ion-datetime displayFormat="YYYY" min="{{educationfrom[i]}}" formControlName="complete_year" type="text"></ion-datetime>
+              </ion-item>
+              <ion-item class="inputItem">
+                <ion-label class="addInput-Label" floating>{{keywords.degree}}</ion-label>
+                <ion-input class="addInput" formControlName="degree" type="text"></ion-input>
+              </ion-item>
+              <ion-item class="inputItem">
+                <ion-label class="addInput-Label" floating>{{keywords.grade}}</ion-label>
+                <ion-input class="addInput" formControlName="grade" type="text"></ion-input>
+              </ion-item>
+            </ion-list>
+          </div>
+        </div>
+      </form>
+      <div class="add-more" (click)="addEducation()">
+        <a class="add-more-btn" href="#">
+          <i class="fa fa-plus"></i> {{keywords.add_more_education}}</a>
+      </div>
+      <ion-row>
+        <ion-col>
+          <button type="submit" class="backButton" (click)="BasicInformation()" ion-button full>{{keywords.back}}</button>
+        </ion-col>
+        <ion-col>
+          <button type="submit" class="loginButton" [ngStyle]="colorCode" (click)="ExperienceInformation()" ion-button full>Next</button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+  <div *ngIf="experienceInformation">
+    <h4 class="editprofile-title">{{keywords.experience_information}}</h4>
+    <div class="inputList">
+      <form (ngSubmit)="addEducation()" [formGroup]="userForm">
+        <div formArrayName="experience">
+          <div class="profile-form" [formGroupName]="i" *ngFor="let exp of userForm.controls.experience.controls; let i= index">
+            <h4 class="editprofile-title">{{i+1}}. {{keywords.information}} <span class="removeDetail"> <ion-icon ios="ios-trash" (click)="removeExperience(i)" md="md-trash"></ion-icon></span></h4>
+            <ion-list class="inputLabel">
+              <ion-item class="inputItem">
+                <ion-label class="addInput-Label" floating>{{keywords.company_name}}</ion-label>
+                <ion-input class="addInput" formControlName="company" type="text"></ion-input>
+              </ion-item>
+              <ion-item class="inputItem">
+                <ion-label class="addInput-Label" floating>{{keywords.location}}</ion-label>
+                <ion-input class="addInput" formControlName="location" type="text"></ion-input>
+              </ion-item>
+              <ion-item class="inputItem">
+                <ion-label class="addInput-Label" floating>{{keywords.job_position}}</ion-label>
+                <ion-input class="addInput" formControlName="jop_position" type="text"></ion-input>
+              </ion-item>
+              <ion-item class="inputItem">
+                <ion-label class="addInput-Label" floating>{{keywords.period_from}}</ion-label>
+                <ion-datetime displayFormat="YYYY" (ionChange)="selectFrom1()" formControlName="period_from" type="text"></ion-datetime>
+              </ion-item>
+              <ion-item class="inputItem">
+                <ion-label class="addInput-Label" floating>{{keywords.period_to}}</ion-label>
+                <ion-datetime displayFormat="YYYY" min="{{experiencefrom[i]}}" formControlName="period_to" type="text"></ion-datetime>
+              </ion-item>
+            </ion-list>
+          </div>
+        </div>
+      </form>
+      <div class="add-more" (click)="addExperience()">
+        <a class="add-more-btn" href="#">
+          <i class="fa fa-plus"></i> {{keywords.add_experience}}</a>
+      </div>
+      <ion-row>
+        <ion-col>
+          <button type="submit" class="backButton" (click)="EducationInformation()" ion-button full>{{keywords.back}}</button>
+        </ion-col>
+        <ion-col>
+          <button type="submit" class="loginButton" [ngStyle]="getHeaderStyle()" (click)="submit()" ion-button full>{{keywords.submit}}</button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+</ion-content>

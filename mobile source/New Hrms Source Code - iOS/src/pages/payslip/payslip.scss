@@ -1,0 +1,74 @@
+page-payslip {
+
+}
+.paySlipLogo{
+    width: 300px;
+    margin-top: 5% !important;
+    margin: 0 auto;
+    display: block;
+    padding-bottom: 5%;
+}
+.inv-receiver {
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+.inv-receiver-address{
+    font-size: 12px !important;
+    margin: 0px !important;    
+}
+.inv-company{
+    display: block;
+    width: 100%;
+    font-size: 0.86em !important;
+    font-weight: bold !important;
+    margin: 5px 0px;
+}
+.invoice-details h5 span {
+    color: #777;
+    font-size: 12px;
+    font-weight: normal;
+    display: block;
+}
+.invoice-details h5 {
+    font-size: 0.86em !important;
+    font-weight: bold !important;
+    text-align: right;
+}
+.invoice-details1 h5 span {
+    color: #777;
+    font-size: 12px;
+    font-weight: normal;
+    display: block;
+}
+.invoice-details1 h5 {
+    font-size: 0.86em !important;
+    font-weight: bold !important;
+    text-align: left;
+}
+.earn{
+    font-size: 14px;
+    color :#000;
+    font-weight: bold;
+}
+.earning-table{
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    max-width: 100%;
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 12px;
+}
+.earning-table h5{
+    border: 1px solid #ddd;
+    padding: 8px;
+    font-size:  12px !important;
+    margin: 0px !important;
+}
+.salary-amount {
+    font-size: 12px;
+    padding-bottom: 20px;
+}
+.payslip{
+    padding-bottom: 20px !important;
+}

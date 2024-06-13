@@ -1,0 +1,97 @@
+<!--
+  Generated template for the NotificationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title">{{keywords.chats}}</h4>
+    </ion-title>
+    <div class="notification-div">
+      <ion-icon ios="ios-create" (click)="openContactList()" md="md-create" class="notificationIcon"></ion-icon>
+    </div>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="background-content">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf="!group">
+    <ion-list class="noti-list" *ngFor="let message of last_message">
+      <!-- <ion-item-sliding #item > -->
+      <ion-item class="notification-item" (click)="openChat(message)">
+        <ion-avatar item-start>
+          <img *ngIf="message.profile_image" src="{{message.profile_image}}" (error)="setDefaultPic(message)" />
+          <!--
+            <img *ngIf="!message.profile_image" src="assets/imgs/user.jpg">
+          -->
+        </ion-avatar>
+        <h4 class="chat-name">
+          {{ message.fullname }}
+          <span class="chat-time">{{ message.msg_time | date: "h:mm a" }}</span>
+        </h4>
+        <h2 class="chat-text">{{ message.message }}</h2>
+      </ion-item>
+      <!--
+        <ion-item-options side="right">
+          <button ion-button color="danger" (click)="cancel(leave)">Delete</button>
+        </ion-item-options>
+      -->
+      <!-- </ion-item-sliding> -->
+    </ion-list>
+  </div>
+  <div *ngIf="group">
+    <ion-list class="noti-list" *ngFor="let message1 of groupnames">
+      <!-- <ion-item-sliding #item > -->
+      <ion-item class="notification-item" (click)="opengroupChat(message1)">
+        <ion-avatar item-start> <img src="assets/imgs/user.jpg" /> </ion-avatar>
+        <h4 class="chat-name">
+          {{ message1.group_name }} <span class="chat-time"></span>
+        </h4>
+        <!-- <h2 class="chat-text"> {{message.message}}</h2> -->
+      </ion-item>
+      <!--
+        <ion-item-options side="right">
+          <button ion-button color="danger" (click)="cancel(leave)">Delete</button>
+        </ion-item-options>
+      -->
+      <!-- </ion-item-sliding> -->
+    </ion-list>
+  </div>
+  <!--
+    <ion-list class="noti-list">
+      <ion-item-sliding #item (click)="openChat()">
+        <ion-item class="notification-item">
+          <ion-avatar item-start>
+            <img src="assets/imgs/user.jpg">
+          </ion-avatar>
+          <h4 class="chat-name">John Doe <span class="chat-time">17:14</span></h4>
+          <h2 class="chat-text"> Catherine Manseau completed task Appointment booking with payment gateway</h2>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="danger" (click)="cancel(leave)">Delete</button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  -->
+</ion-content>
+<ion-footer>
+  <div *ngIf="!group" class="input-wrap">
+    <button ion-button clear class="group-footer-button" (click)="openGroup()">
+      <p>{{keywords.group_chats}}</p>
+    </button>
+  </div>
+  <div *ngIf="group" class="input-wrap">
+    <button ion-button clear class="group-footer-button" (click)="openGroup()">
+      <p>{{keywords.individual_chats}}</p>
+    </button>
+  </div>
+</ion-footer>

@@ -1,0 +1,31 @@
+<!--
+  Generated template for the AddDepartmentPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title">{{keywords.department}}</h4>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+
+<ion-content padding>
+  <form (ngSubmit)="addDept()" [formGroup]="deptForm">
+  <ion-list class="inputLabel">
+    <ion-item class="inputItem"> 
+      <ion-label class="addInput-Label" floating>{{keywords.department_name}}</ion-label>
+      <ion-input class="addInput" type="text" formControlName="department"></ion-input>
+    </ion-item>
+  </ion-list>
+  <button type="submit" [disabled]="!deptForm.valid" [ngStyle]="getHeaderStyle()" class="loginButton" ion-button full>Create Department</button>
+  </form>
+</ion-content>

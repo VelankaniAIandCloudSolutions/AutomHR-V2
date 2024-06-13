@@ -1,0 +1,133 @@
+<!--
+  Generated template for the PayslipPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title"> Payslip</h4>
+    </ion-title>
+    <div (click)="download()" class="notification-div">
+      <ion-icon ios="ios-download" md="md-download" class="notificationIcon"></ion-icon>
+    </div>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="background-content">
+  <div class="profile-list payslip">
+    <img src="{{blackLogo}}" class="paySlipLogo">
+    <ion-row>
+      <ion-col>
+        <h5 class="inv-company">{{payslipData.company}}</h5>
+        <div class="inv-receiver">
+          <h3 class="inv-receiver-address">{{payslipData.address}}</h3>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="invoice-details">
+          <h5>{{keywords.salary_month}}
+            <span>{{payslipData.payslip_month}} & {{payslipData.payslip_year}} </span>
+          </h5>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <h5 class="inv-company">{{payslipData.fullname}}</h5>
+      <div class="inv-receiver">
+        <h3 class="inv-receiver-address">{{payslipData.designation}}</h3>
+        <h3 class="inv-receiver-address">Employee ID: {{payslipData.user_id}}</h3>
+        <!-- <h3 class="inv-receiver-address">Joining Date: 1 Jan 2013 </h3> -->
+      </div>
+    </ion-row>
+    <div class="earning-box">
+      <h4 class="earn">{{keywords.earnings}}</h4>
+      <div class="earning-table">
+        <h5>
+          <strong>{{keywords.basic_salary}}</strong>
+          <span class="pull-right">  {{payslipData.payslip_basic}}</span>
+        </h5>
+        <h5>
+          <strong>{{keywords.house_rent_da}}</strong>
+          <span class="pull-right">  {{payslipData.payslip_da}}</span>
+        </h5>
+        <h5>
+          <strong>{{keywords.house_rent_hra}}</strong>
+          <span class="pull-right">  {{payslipData.payslip_hra}}</span>
+        </h5>
+        <h5>
+          <strong>{{keywords.conveyance}}</strong>
+          <span class="pull-right">  {{payslipData.payslip_conveyance}}</span>
+        </h5>
+        <h5>
+          <strong>{{keywords.allowance}}</strong>
+          <span class="pull-right">  {{payslipData.payslip_allowance}}</span>
+        </h5>
+        <h5>
+          <strong>{{keywords.medical_allowance}}</strong>
+          <span class="pull-right">  {{payslipData.payslip_medical_allowance}}</span>
+        </h5>
+        <h5>
+          <strong>{{keywords.other_allowance}}</strong>
+          <span class="pull-right">  {{payslipData.payslip_others}}</span>
+        </h5>
+        <h5>
+          <strong>Total Earnings</strong>
+          <span class="pull-right">
+            <strong>  {{totalEarnings}}</strong>
+          </span>
+        </h5>
+      </div>
+    </div>
+    <div class="earning-box">
+      <h4 class="earn">{{keywords.deductions}}</h4>
+      <div class="earning-table">
+        <h5>
+          <strong>{{keywords.tds}}</strong>
+          <span class="pull-right">  {{payslipData.payslip_ded_tds}}</span>
+        </h5>
+        <h5>
+          <strong>{{keywords.pf}}</strong>
+          <span class="pull-right">  {{payslipData.payslip_ded_pf}}</span>
+        </h5>
+        <h5>
+          <strong>{{keywords.esi}}</strong>
+          <span class="pull-right">  {{payslipData.payslip_ded_esi}}</span>
+        </h5>
+        <h5>
+          <strong>{{keywords.leave}}</strong>
+          <span class="pull-right">  {{payslipData.payslip_ded_leave}}</span>
+        </h5>
+        <h5>
+          <strong>{{keywords.welfare}}</strong>
+          <span class="pull-right">  {{payslipData.payslip_ded_welfare}}</span>
+        </h5>
+        <h5>
+          <strong>{{keywords.professional_tax}}</strong>
+          <span class="pull-right">  {{payslipData.payslip_ded_prof}}</span>
+        </h5>
+        <h5>
+          <strong>{{keywords.fund}}</strong>
+          <span class="pull-right">  {{payslipData.payslip_ded_fund}}</span>
+        </h5>
+        <h5>
+          <strong>{{keywords.other_deductions}}</strong>
+          <span class="pull-right">  {{payslipData.payslip_ded_others}}</span>
+        </h5>
+        <h5>
+          <strong>{{keywords.total_deductions}}</strong>
+          <span class="pull-right">
+            <strong>  {{totalDeductions}}</strong>
+          </span>
+        </h5>
+      </div>
+    </div>
+    <p class="salary-amount">
+      <strong>{{keywords.net_salary}}:  {{netSalary}}</strong></p>
+  </div>
+</ion-content>

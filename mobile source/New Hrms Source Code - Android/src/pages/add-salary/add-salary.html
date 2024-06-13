@@ -1,0 +1,104 @@
+<!--
+  Generated template for the AddSalaryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title">Add Salary</h4>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="addSalary()" [formGroup]="salaryForm">
+    <ion-list style="padding-bottom: 20px !important;" class="profile-list">
+      <ion-item class="inputItem item-leave-height">
+        <ion-label class="addInput-Label" Stacked>Select Employee</ion-label>
+        <ion-select interface="action-sheet" placeholder="Select Emp" formControlName="user_id" [(ngModel)]="selected"><br>
+          <ion-option *ngFor="let emp of empList" [value]="emp.user_id">{{emp.fullname}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item class="inputItem item-leave-height">
+        <ion-label class="addInput-Label" floating>Select Month & Year</ion-label>
+        <ion-datetime displayFormat="MMMM YYYY" formControlName="month"></ion-datetime>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Net Salary</ion-label>
+        <ion-input class="addInput" (keyup.enter)="moveFocus(b)" (ionChange)="caculate()" formControlName="net_salary"
+          type="text"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-list style="padding-bottom: 20px !important;" class="profile-list">
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Basic Pay</ion-label>
+        <ion-input class="addInput" #b (keyup.enter)="moveFocus(c)" formControlName="basic_pay" type="text" value="{{basicPay}}"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>DA(40%)</ion-label>
+        <ion-input class="addInput" #c (keyup.enter)="moveFocus(d)" formControlName="da" type="text" value="{{da}}"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>HRA(10%)</ion-label>
+        <ion-input class="addInput" #d (keyup.enter)="moveFocus(e)" formControlName="hra" type="text" value="{{hra}}"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Conveyance</ion-label>
+        <ion-input class="addInput" #e (keyup.enter)="moveFocus(f)" formControlName="conveyance" type="text"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Allowance</ion-label>
+        <ion-input class="addInput" #f (keyup.enter)="moveFocus(g)" formControlName="allowance" type="text"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Medical Allowance</ion-label>
+        <ion-input class="addInput" #g (keyup.enter)="moveFocus(h)" formControlName="medical_allowance" type="text"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Others</ion-label>
+        <ion-input class="addInput" #h (keyup.enter)="moveFocus(i)" formControlName="earning_others" type="text"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-list style="padding-bottom: 20px !important;" class="profile-list">
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>TDS</ion-label>
+        <ion-input class="addInput" #i (keyup.enter)="moveFocus(j)" formControlName="tds" type="text"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>ESI</ion-label>
+        <ion-input class="addInput" #j (keyup.enter)="moveFocus(k)" formControlName="esi" type="text"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>PF</ion-label>
+        <ion-input class="addInput" #k (keyup.enter)="moveFocus(l)" formControlName="pf" type="text"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Leaves</ion-label>
+        <ion-input class="addInput" #l (keyup.enter)="moveFocus(m)" formControlName="leaves" type="text"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>prof. tax</ion-label>
+        <ion-input class="addInput" #m (keyup.enter)="moveFocus(n)" formControlName="prof_tax" type="text"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Labour Welfare</ion-label>
+        <ion-input class="addInput" #n (keyup.enter)="moveFocus(o)" formControlName="labour_welfare" type="text"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Fund</ion-label>
+        <ion-input class="addInput" #o (keyup.enter)="moveFocus(p)" formControlName="fund" type="text"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Others</ion-label>
+        <ion-input class="addInput" #p formControlName="ded_others" type="text"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button type="submit" [ngStyle]="getHeaderStyle()" class="loginButton" style="width: 90%;margin: 0 auto; margin-bottom :10px !important"
+      ion-button full>Create Salary</button>
+  </form>
+</ion-content>

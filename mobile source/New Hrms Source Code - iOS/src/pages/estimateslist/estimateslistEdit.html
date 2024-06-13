@@ -1,0 +1,242 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title">Edit Estimate</h4>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form (ngSubmit)="addEmployee()" [formGroup]="estimateFrom">
+    <ion-list class="inputLabel">
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Project Code</ion-label>
+        <ion-input
+          class="addInput"
+          value="{{estimate.reference_no}}"
+          (keyup.enter)="moveFocus(b)"
+          formControlName="reference_no"
+          type="text"
+          readonly
+        ></ion-input>
+      </ion-item>
+      <ion-item class="inputItem item-leave-height">
+        <ion-label class="addInput-Label" stacked>Client</ion-label>
+        <ion-select
+          interface="action-sheet"
+          placeholder="client"
+          formControlName="client"
+          [(ngModel)]="estimate.client"
+        >
+          <ion-option
+            *ngFor="let client of projectDetails.clients"
+            [value]="client.value"
+            >{{ client.label }}</ion-option
+          >
+        </ion-select>
+      </ion-item>
+      <ion-item class="inputItem item-leave-height">
+        <ion-label>Due Date</ion-label>
+        <ion-datetime
+          displayFormat="MMM DD YYYY"
+          formControlName="due_date"
+          [(ngModel)]="estimate.due_date"
+        ></ion-datetime>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Tax</ion-label>
+        <ion-input
+          class="addInput"
+          (keyup.enter)="moveFocus()"
+          formControlName="tax"
+          type="text"
+          value="{{estimate.tax1}}"
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Tax 2</ion-label>
+        <ion-input
+          class="addInput"
+          (keyup.enter)="moveFocus()"
+          formControlName="tax2"
+          type="text"
+          value="{{estimate.tax2}}"
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Discount</ion-label>
+        <ion-input
+          class="addInput"
+          (keyup.enter)="moveFocus()"
+          formControlName="discount"
+          type="text"
+          value="{{estimate.discount}}"
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Notes</ion-label>
+        <ion-input
+          class="addInput"
+          (keyup.enter)="moveFocus()"
+          formControlName="notes"
+          value="{{estimate.notes}}"
+          type="text"
+          required
+        ></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <div formArrayName="item_details">
+      <div
+        class="profile-form"
+        [formGroupName]="i"
+        *ngFor="
+          let exp of estimateFrom.controls.item_details.controls;
+          let i = index
+        "
+      >
+        <ion-list class="inputLabel">
+          <ion-item class="inputItem item-leave-height">
+            <ion-label class="addInput-Label" stacked>Item</ion-label>
+            <ion-select
+              interface="action-sheet"
+              placeholder="item"
+              (ionChange)="change(i)"
+              [(ngModel)]="selected[i]"
+              formControlName="item_name"
+            >
+              <ion-option
+                *ngFor="let client of projectDetails.saved_item"
+                [value]="client.item_name"
+                >{{ client.item_name }}</ion-option
+              >
+            </ion-select>
+          </ion-item>
+          <ion-item class="inputItem item-leave-height">
+            <ion-label class="addInput-Label" stacked>Description</ion-label>
+            <ion-input
+              class="addInput"
+              (keyup.enter)="moveFocus()"
+              formControlName="item_desc"
+              type="text"
+              required
+              readonly
+            ></ion-input>
+          </ion-item>
+          <ion-row>
+            <ion-col>
+              <ion-item class="inputItem">
+                <ion-label class="addInput-Label" floating>Qty </ion-label>
+                <ion-input
+                  class="addInput"
+                  (ionChange)="qtyChange(i)"
+                  (keyup.enter)="moveFocus()"
+                  formControlName="quantity"
+                  type="text"
+                  required
+                ></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-item class="inputItem">
+                <ion-label class="addInput-Label" floating>Unit cost</ion-label>
+                <ion-input
+                  class="addInput"
+                  (keyup.enter)="moveFocus()"
+                  formControlName="unit_cost"
+                  type="text"
+                  required
+                  readonly
+                ></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item class="inputItem">
+                <ion-label class="addInput-Label" floating>Tax</ion-label>
+                <ion-input
+                  class="addInput"
+                  (keyup.enter)="moveFocus()"
+                  formControlName="tax_rate"
+                  type="text"
+                  required
+                  readonly
+                ></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-item class="inputItem">
+                <ion-label class="addInput-Label" floating
+                  >Tax Total cost</ion-label
+                >
+                <ion-input
+                  class="addInput"
+                  (keyup.enter)="moveFocus()"
+                  formControlName="item_tax_total"
+                  type="text"
+                  required
+                  readonly
+                ></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-list>
+      </div>
+    </div>
+    <div class="add-more" (click)="addItem()">
+      <a class="add-more-btn" href="#"> <i class="fa fa-plus"></i> Add Item</a>
+    </div>
+    <ion-row class="estimate-total-row">
+      <ion-col class="estimate-item right" col-6> </ion-col>
+      <ion-col class="estimate-item right" col-6>
+        <div class="estimate-total">Subtotal</div>
+        <div class="estimate-price right total">&#8377; {{ subtotal }}</div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="estimate-total-row">
+      <ion-col class="estimate-item right" col-6> </ion-col>
+      <ion-col class="estimate-item right" col-6>
+        <div class="estimate-total">Tax1</div>
+        <div class="estimate-price right total">&#8377; {{ tax1 }}</div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="estimate-total-row">
+      <ion-col class="estimate-item right" col-6> </ion-col>
+      <ion-col class="estimate-item right" col-6>
+        <div class="estimate-total">Tax2</div>
+        <div class="estimate-price right total">&#8377; {{ tax2 }}</div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="estimate-total-row">
+      <ion-col class="estimate-item right" col-6> </ion-col>
+      <ion-col class="estimate-item right" col-6>
+        <div class="estimate-total">Discount</div>
+        <div class="estimate-price right total">&#8377; {{ discount }}</div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="estimate-total-row">
+      <ion-col class="estimate-item right" col-6> </ion-col>
+      <ion-col class="estimate-item right" col-6>
+        <div class="estimate-total">Total</div>
+        <div class="estimate-price right total">&#8377; {{ totalCost }}</div>
+      </ion-col>
+    </ion-row>
+
+    <button
+      type="submit"
+      [ngStyle]="getHeaderStyle()"
+      class="loginButton"
+      ion-button
+      full
+    >
+      Edit Estimate
+    </button>
+  </form>
+</ion-content>

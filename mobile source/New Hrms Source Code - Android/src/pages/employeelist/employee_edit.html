@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title">{{keywords.edit_employee}}</h4>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <form (ngSubmit)="addEmployee()" [formGroup]="employeeForm">
+    <ion-list class="inputLabel">
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>{{keywords.full_name}}</ion-label>
+        <ion-input class="addInput" value={{employee.fullname}} formControlName="fullname" type="text"></ion-input>
+      </ion-item>
+      <!-- <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Username</ion-label>
+        <ion-input class="addInput" value={{employee.username}} formControlName="username" type="text"></ion-input>
+      </ion-item> -->
+      <!-- <p *ngIf="username1" class="validation" danger padding-left>Invalid Name (should not contain any numbers or special characters) </p> -->
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>{{keywords.phone}}</ion-label>
+        <ion-input class="addInput" value={{employee.phone}} formControlName="phone" maxlength="15" type="tel"></ion-input>
+      </ion-item>
+      <!-- <p *ngIf="phone1" class="validation" danger padding-left>Invalid Phone (should contain minimum of 10 numbers)</p> -->
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>{{keywords.email}}</ion-label>
+        <ion-input class="addInput" value={{employee.email}} formControlName="email" type="email"></ion-input>
+      </ion-item>
+      <!-- <p *ngIf="email1" class="validation" danger padding-left>Invalid Email (should be in email format)</p> -->
+      <!-- <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Password</ion-label>
+        <ion-input class="addInput" formControlName="password" type="password"></ion-input>
+      </ion-item> -->
+      <!-- <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Confirm Password</ion-label>
+        <ion-input class="addInput" type="text"></ion-input>
+      </ion-item> -->
+      <!-- <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Joining Date</ion-label>
+        <ion-input class="addInput" type="text"></ion-input>
+      </ion-item> -->
+      <ion-item class="inputItem item-leave-height">
+        <ion-label class="addInput-Label" stacked></ion-label>
+        <ion-select interface="action-sheet" placeholder="Select Department" (ionChange)='department()' formControlName="department_id" [(ngModel)]="employee.department_id">
+          <ion-option *ngFor="let dept of departments" [value]="dept.deptid">{{dept.deptname}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="designate" class="inputItem item-leave-height">
+        <ion-label class="addInput-Label" stacked>{{keywords.designation}}</ion-label>
+        <ion-select interface="action-sheet" placeholder="Select Designation" formControlName="designation_id" [(ngModel)]="employee.designation_id">
+          <ion-option *ngFor="let des of designation" [value]="des.designation_id">{{des.designation}}</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <button type="submit" [ngStyle]="getHeaderStyle()" class="loginButton" ion-button full>{{keywords.edit_employee}}</button>
+  </form>
+</ion-content>

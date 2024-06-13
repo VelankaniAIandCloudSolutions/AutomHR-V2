@@ -184,7 +184,9 @@ class Employees_details extends CI_Model
 			$this->db->select("user_id");
 			return $this->db->get_where('dgt_account_details',array('emp_code'=>$emp_code))->row_array();
 		}
-	}	
+	}
+	 
+	
 }
 
 /* End of file model.php */

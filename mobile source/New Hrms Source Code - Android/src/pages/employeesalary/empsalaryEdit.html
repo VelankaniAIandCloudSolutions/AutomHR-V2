@@ -1,0 +1,101 @@
+<!--
+  Generated template for the AddSalaryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title">Edit Salary</h4>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <!-- <form (ngSubmit)="addSalary()" [formGroup]="salaryForm"> -->
+    <ion-list style="padding-bottom: 20px !important;" class="profile-list">
+      <!-- <ion-item class="inputItem item-leave-height">
+        <ion-label class="addInput-Label" floating>Net Salary</ion-label>
+        <ion-input class="addInput" [(ngModel)]="payslip.fullname" type="text"></ion-input>
+      </ion-item> -->
+      <!-- <ion-item class="inputItem item-leave-height">
+        <ion-label class="addInput-Label" floating>Select Month & Year</ion-label>
+        <ion-datetime displayFormat="MMMM YYYY" [(ngModel)]="month"></ion-datetime>
+      </ion-item> -->
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Net Salary</ion-label>
+        <ion-input class="addInput" (ionChange)="caculate()" [(ngModel)]="payslip.net_salary" type="text"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-list style="padding-bottom: 20px !important;" class="profile-list">
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Basic Pay</ion-label>
+        <ion-input class="addInput" [(ngModel)]="payslip.basic_pay" type="text" value="{{basicPay}}"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>DA(40%)</ion-label>
+        <ion-input class="addInput" [(ngModel)]="payslip.da" type="text" ></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>HRA(10%)</ion-label>
+        <ion-input class="addInput" [(ngModel)]="payslip.hra" type="text" ></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Conveyance</ion-label>
+        <ion-input class="addInput" [(ngModel)]="payslip.conveyance" type="text"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Allowance</ion-label>
+        <ion-input class="addInput" [(ngModel)]="payslip.allowance" type="text"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Medical Allowance</ion-label>
+        <ion-input class="addInput" [(ngModel)]="payslip.medical_allowance" type="text"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Others</ion-label>
+        <ion-input class="addInput" [(ngModel)]="payslip.others" type="text"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-list style="padding-bottom: 20px !important;" class="profile-list">
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>TDS</ion-label>
+        <ion-input class="addInput" [(ngModel)]="payslip.tds" type="text"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>ESI</ion-label>
+        <ion-input class="addInput" [(ngModel)]="payslip.esi" type="text"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>PF</ion-label>
+        <ion-input class="addInput" [(ngModel)]="payslip.pf" type="text"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Leaves</ion-label>
+        <ion-input class="addInput" [(ngModel)]="payslip.leaves" type="text"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>prof. tax</ion-label>
+        <ion-input class="addInput" [(ngModel)]="payslip.prof_tax" type="text"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Labour Welfare</ion-label>
+        <ion-input class="addInput" [(ngModel)]="payslip.labour_welfare" type="text"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Fund</ion-label>
+        <ion-input class="addInput" [(ngModel)]="payslip.fund" type="text"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>Others</ion-label>
+        <ion-input class="addInput" [(ngModel)]="payslip.payslip_ded_others" type="text"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button type="submit" [ngStyle]="getHeaderStyle()" (click)="addSalary()" style="width: 90%;margin: 0 auto" class="loginButton" ion-button full>Edit Salary</button>
+  <!-- </form> -->
+</ion-content>

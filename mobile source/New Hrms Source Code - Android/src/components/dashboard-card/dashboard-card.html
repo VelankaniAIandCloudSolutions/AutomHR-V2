@@ -1,0 +1,39 @@
+<!-- Generated template for the DashboardCardComponent component -->
+<div>
+  <div class="dashboard-area" *ngIf="dashboard=='true'">
+    <ion-row class="dashboar-row">
+      <ion-col col-12>
+        <div class="dash-widget">
+          <div class="dash-widget-icon">
+            <i  [ngStyle]="colorCode" class="{{icon}}"></i>
+          </div>
+          <div class="dash-widget-info">
+            <h4 class="dash-amount">{{amount}}</h4>
+            <p class="dash-text">{{name}}</p>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
+</div>
+<!-- 
+<div>
+  <div class="dashboard-area" *ngIf="dashboard=='false'">
+    <ion-row class="dashboar-row">
+      <ion-col col-12>
+        <div class="dash-widget">
+          <div (click)="presentPopover($event)">
+              <i class="fa fa-ellipsis-v employee-more"></i>
+          </div>
+          <div class="employee-list-icon">
+            <i class="{{icon}}"></i>
+          </div>
+          <div class="dash-widget-info">
+            <h4 class="dash-amount">{{amount}}</h4>
+            <p class="dash-text">{{name}}</p>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
+</div> -->

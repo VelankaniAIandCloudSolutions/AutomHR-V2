@@ -1,0 +1,70 @@
+<!--
+  Generated template for the EmployeesalaryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title">{{keywords.expenses}}</h4>
+    </ion-title>
+    <div *ngIf="roleId != '2'" class="notification-div">
+      <ion-icon ios="ios-add" md="md-add" (click)="addExpenses()" class="notificationIcon"></ion-icon>
+    </div>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="background-content">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-list class="noti-list" [ngClass]="cssClass" [ngStyle]="{ 'animation-delay': expense.time + 's' }" *ngFor="let expense of expenseList">
+    <ion-item-sliding #item>
+      <ion-item (click)="openexpense(expense)">
+        <div>
+          <h4 class="holiday-title">{{ expense.project_title }}</h4>
+          <span class="holiday-days-div">
+            <h2 class="holiday-title">{{ expense.amount }}</h2>
+          </span>
+        </div>
+        <div class="holiday-card">
+          <h4 class="leave-type">{{ expense.company_name }}</h4>
+          <!--
+            <h4 class="holiday-date">{{leave.leave_from | date : 'd MMM y'}}</h4>
+          -->
+        </div>
+        <div class="holiday-day">
+          <h2 class="leave-status ">{{ expense.category }}</h2>
+        </div>
+      </ion-item>
+      <ion-item-options *ngIf="roleId == '1'" side="right">
+        <button ion-button color="secondary" (click)="editExpense(expense)">
+          Edit
+        </button>
+        <button ion-button color="danger" (click)="delete(expense)">
+          Delete
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="!page">
+    <ion-infinite-scroll-content position="bottom" loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <div *ngIf="noData" class="dashboard-area">
+    <h3 class="nolist">No list found</h3>
+  </div>
+  <!--
+    <ion-fab class="employee-fab" (click)="openModal()">
+      <button [ngStyle]="colorCode" class="employee-fabButton" ion-fab>
+        <i class="fa fa-filter"></i>
+      </button>
+    </ion-fab>
+  -->
+</ion-content>

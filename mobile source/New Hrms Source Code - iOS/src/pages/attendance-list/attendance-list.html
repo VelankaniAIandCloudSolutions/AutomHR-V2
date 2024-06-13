@@ -1,0 +1,47 @@
+<!--
+  Generated template for the AttendanceListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title">List</h4>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="background-content">
+  <ion-scroll scrollX="true" style="width:100%;height:100%;">
+    <ion-row nowrap style="">
+      <ion-col style="width:300px;background-color:#e2e2e2;" col-4>Employee</ion-col>
+      <ion-col col-2 style="background-color:#e2e2e2;" *ngFor="let day of days">
+        <div>{{day}}</div>
+      </ion-col>
+    </ion-row>
+    <div *ngIf="list">
+      <ion-row nowrap *ngFor="let emp of list.attendance_list">
+        <ion-col (click)="openDetails(emp)" style=" width:300px;" col-4>{{emp.fullname}}</ion-col>
+        <ion-col col-2 *ngFor="let attendance of emp.attendance;let i=index">
+          <div>
+            <div *ngIf="attendance.day===''">-</div>
+            <ion-icon *ngIf="attendance.day===0" ios="ios-close" md="md-close" style="color:red"></ion-icon>
+            <div (click)="openInfo(emp,i)">
+              <ion-icon *ngIf="attendance.day===1" ios="ios-checkmark" md="md-checkmark" style="color:green"></ion-icon>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-scroll>
+      <ion-fab class="employee-fab" (click)="openModal()">
+        <button [ngStyle]="colorCode" class="employee-fabButton" ion-fab>
+          <i class="fa fa-filter"></i>
+        </button>
+      </ion-fab>
+</ion-content>

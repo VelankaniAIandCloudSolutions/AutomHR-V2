@@ -1,0 +1,47 @@
+page-contact {
+
+    .item-divideList{
+        display: unset;
+    }
+}
+.contactIcon{
+    font-size: 20px;
+    color: #00cc00;
+    position: relative;
+    float: right;
+    margin-right: 5%;
+}
+.contact-checkbox{
+    width: 20px;
+    float: left;
+    margin-top: 0px;
+}
+ .checkbox-icon{
+    border-radius: 25px !important;
+}
+.group-footer-button{
+    border-color: transparent;
+    color: #fff !important;
+    background-color: #44bbec !important;
+    margin: 0px !important;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    opacity: 1;
+    width: 100%;
+    height: 44px;
+}
+.group-footer-button-call{
+    border-color: transparent;
+    color: #fff !important;
+    background-color: lightgreen !important;
+    margin: 0px !important;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    opacity: 1;
+    width: 100%;
+    height: 44px;
+}
+
+.footer-md::before,.footer-ios::before{
+    background: transparent;
+}

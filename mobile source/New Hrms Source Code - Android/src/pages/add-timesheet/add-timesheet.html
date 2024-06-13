@@ -1,0 +1,48 @@
+<!--
+  Generated template for the AddLeaveRequestPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title">{{keywords.add_timesheet}}</h4>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form (ngSubmit)="addTimeSheet()" [formGroup]="timeSheetForm">
+    <ion-list class="inputLabel">
+      <ion-item class="inputItem item-leave-height">
+        <ion-label class="addInput-Label" stacked>{{keywords.project}}</ion-label>
+        <ion-select interface="action-sheet" placeholder="Select Project" formControlName="project_id">
+          <ion-option *ngFor="let pro of projectDetails.projects" [value]="pro.value">{{ pro.label }}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>{{keywords.date}}</ion-label>
+        <ion-datetime displayFormat="MMM DD YYYY" formControlName="timeline_date" [(ngModel)]="day" disabled></ion-datetime>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>{{keywords.hours}}</ion-label>
+        <ion-datetime displayFormat="hh mm" pickerFormat="hh mm" hourValues="01,02,03,04,05,06,07,08" (ionChange)="change()"
+          minuteValues="0,15,30,45" formControlName="hours"></ion-datetime>
+        <!--
+          <ion-input class="addInput" formControlName="hours" type="text"></ion-input>
+        -->
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>{{keywords.description}}</ion-label>
+        <ion-input class="addInput" formControlName="timeline_desc" type="text"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button type="submit" [ngStyle]="getHeaderStyle()" class="loginButton" ion-button full>
+    {{keywords.add_timesheet}}
+    </button>
+  </form>
+</ion-content>

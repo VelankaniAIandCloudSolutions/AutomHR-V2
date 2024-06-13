@@ -1,0 +1,25 @@
+page-chat-list {
+  .chat-time{
+    font-weight: 400 !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    float: right;
+    padding-right: 10px;
+    white-space: normal !important;
+    color: #8e8e93 !important;
+  }
+  .chat-name{
+    display: inline-block !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    width: 100%;
+    margin-bottom: 5px !important;
+  }
+  .chat-text{
+    font-size: 15px;
+    color: #8e8e93;
+    white-space: normal !important;
+    line-height: 21px;
+    max-height: 42px;
+  }
+}

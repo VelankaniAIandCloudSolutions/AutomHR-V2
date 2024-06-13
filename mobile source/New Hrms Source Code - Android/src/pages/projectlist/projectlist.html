@@ -1,0 +1,92 @@
+<!--
+  Generated template for the EmployeelistPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title">{{keywords?.projects || ""}}</h4>
+    </ion-title>
+    <div *ngIf="roleId != '3'" class="notification-div">
+      <ion-icon ios="ios-add" (click)="createProject()" md="md-add" class="notificationIcon"></ion-icon>
+    </div>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="background-content">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf="!noData">
+    <ion-list class="holiday-list" [ngClass]="cssClass" [ngStyle]="{ 'animation-delay': project.time + 's' }" *ngFor="let project of projectList; let i = index"
+      style="margin-top: 4% !important">
+      <ion-item-sliding #item>
+        <ion-item (click)="openProject(project)">
+          <div>
+            <h4 class="holiday-title">{{ project.project_title }}</h4>
+          </div>
+          <div class="holiday-card">
+            <h4 class="project-task">
+              {{ project.opentasks }} {{keywords?.open_tasks}},
+              {{ project.completedtasks }} {{keywords?.tasks_completed}}
+            </h4>
+          </div>
+          <div class="barWrapper">
+            <div class="progress">
+              <div [ngStyle]="getProgresstyle()" class="progress-bar" [style.width.%]="project.progress" id="progress"
+                role="progressbar" aria-valuemin="0" aria-valuemax="100" [attr.aria-valuenow]="project.progress">
+                <label [ngStyle]="getFontstyle()" for="text" id="tooltip" [attr.data-tip]="project.progress" class="has-tip"></label>
+              </div>
+            </div>
+          </div>
+          <div class="project-deadline-div">
+            <h4 class="holiday-date">
+              <i class="fa fa-calendar"></i>&nbsp;&nbsp;&nbsp;
+              {{
+              project.start_date
+              | date: "d
+              MMM
+              y"
+              }}
+            </h4>
+            <span class="holiday-days-div">
+              <span class="holiday-date"><i class="fa fa-paperclip"></i>&nbsp;{{
+                project.tasks_files_count
+                }}</span>
+              &nbsp;&nbsp;
+              <span class="holiday-date"><i class="fa fa-comment-o"></i>&nbsp;{{
+                project.comment_count
+                }}</span>
+            </span>
+          </div>
+        </ion-item>
+        <ion-item-options *ngIf="roleId == '1'" side="right">
+          <button ion-button color="secondary" (click)="edit(project)">
+            Edit
+          </button>
+          <button ion-button color="danger" (click)="delete(project)">
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="!page">
+      <ion-infinite-scroll-content position="bottom" loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+  <div *ngIf="noData" class="dashboard-area">
+    <h3 class="nolist">No Projects found</h3>
+  </div>
+  <ion-fab class="employee-fab" (click)="openModal()">
+    <button class="employee-fabButton" ion-fab color="primary">
+      <i class="fa fa-filter"></i>
+    </button>
+  </ion-fab>
+</ion-content>

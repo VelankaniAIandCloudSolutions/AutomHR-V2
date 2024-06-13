@@ -1,0 +1,202 @@
+page-chat {
+
+    $userBackgroundColor: #34444C;
+    $toUserBackgroundColor: #fff;
+  
+    ion-content .scroll-content {
+      background-color: #f5f5f5;
+    }
+  
+  
+    .line-breaker {
+    //   white-space: pre-line;
+    }
+  
+    .input-wrap {
+      padding: 5px;
+      display: flex;
+      textarea {
+        flex: 1;
+        border: 0;
+        border-bottom: 1px $userBackgroundColor;
+        border-style: solid;
+      }
+    }
+  
+    .message-wrap {
+      padding: 0 10px;
+      .message {
+        position: relative;
+        padding: 7px 0;
+        .user-img {
+          position: absolute;
+          border-radius: 45px;
+          width: 45px;
+          height: 45px;
+          box-shadow: 0 0 2px rgba(0, 0, 0, 0.36);
+        }
+  
+        .msg-detail {
+          width: 100%;
+          display: inline-block;
+          p {
+            margin: 0;
+          }
+          .msg-info {
+            p {
+              font-size: .8em;
+              color: #888;
+            }
+          }
+  
+          .msg-content {
+            position: relative;
+            margin-top: 5px;
+            border-radius: 5px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            color: #fff;
+            width: auto;
+            max-width: 80%;
+          }
+        }
+      }
+  
+      .left{
+        float: left;
+      }
+      .right{
+        text-align: right;  
+      }
+      .message.left {
+          background-color: $toUserBackgroundColor;
+          float: left;
+          border-radius: 16px;
+        .msg-detail {
+        //   padding-left: 60px;
+        }
+        .user-img {
+          left: 0;
+        }
+        .msg-content {
+          color: #343434;
+          span.triangle {
+            border-top-width: 0;
+            border-right-width: 0;
+            left: -5px;
+          }
+        }
+      }
+  
+      .message.right {
+            text-align: right;
+        .user-img {
+          right: 0;
+        }
+        ion-spinner {
+          position: absolute;
+          right: 10px;
+          top: 50px;
+        }
+        .msg-content {
+          background-color: $userBackgroundColor;
+          float: right;
+          border-radius: 16px;
+          span.triangle {
+            background-color: $userBackgroundColor;
+            border-bottom-width: 0;
+            border-left-width: 0;
+            right: -5px;
+          }
+        }
+      }
+    }  
+
+    .chat-content{
+        background-color: #F3F3F3;
+    }
+    .message-text{
+      background: #fff;
+      border-radius: 17px;
+      padding: 6px 15px;
+      height: 34px;
+      line-height: 20px;
+      width: 80%;
+      font-size: 17px;
+      border: 1px solid #c8c8cd;
+    }
+    .msg-button{
+      padding-left: 5px;
+    padding-bottom: 5px;
+    }
+
+    .message-left {
+      background-color: #30ade0;
+      text-align: left;
+      box-shadow: 0 1px 0 #899aa0;
+      border-radius: 16px;
+      display: inline-block;
+      color: #fff !important;
+      border-radius: 5px;
+      width: auto;
+      margin-left: 4%;
+      padding: 10px;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+    .message-right {
+      // text-align: right;
+      position: relative;
+      right: 10px;
+      background-color: #fff;
+      border-radius: 16px;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+      color: #181919 !important;
+      border-radius: 5px;
+      width: auto;
+      display: inline-block;
+      padding: 10px;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+   
+}
+.message-content{
+  width: 70% !important;
+}
+.message-left-div{
+  margin: 10px; 
+}
+.message-right-div{
+  display: flex;
+  flex-direction: row-reverse;
+  -webkit-align-self: flex-end;
+  margin: 10px; 
+}
+.message-content-right{
+  display: flex;
+  flex-direction: row-reverse;
+  -webkit-align-self: flex-end;
+  width: 70% !important;
+}
+
+// .message-right:before{
+//   content: "";
+//   position: absolute;
+//   top: -webkit-calc(100% - 10px); /*may require prefix for old browser support*/
+//   top: calc(100% - 10px); /*i.e. half the height*/
+//   left: 20px;
+//   height: 20px;
+//   width: 20px;
+//   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+//   background: #fff;
+//   transform: rotate(45deg);
+//   border-bottom:inherit;
+//   border-right:inherit;
+//   box-shadow:inherit;
+// }
+.time{
+  margin: 0px !important;
+  text-align: right !important;
+  font-size: 8px !important;
+}

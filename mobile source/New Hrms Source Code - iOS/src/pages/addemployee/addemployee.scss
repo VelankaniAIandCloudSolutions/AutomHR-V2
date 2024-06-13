@@ -1,0 +1,50 @@
+page-addemployee {
+
+}
+
+.addInput-Label{
+    font-size: 14px !important;
+    color: #000 !important;
+    font-weight: bold !important;
+    font-family: 'lato-Regular';
+    // margin: 0px !important;
+}
+.addInput{
+    // margin-top: 5px !important;
+    // height: 44px !important;
+    font-family: 'lato-Regular';
+    border-bottom: 2px solid #e7e7e7 !important;
+}
+.item-ios.item-label-stacked .text-input, .item-ios.item-label-floating .text-input{
+    padding-left: 10px !important;
+    font-size: 16px !important;
+    font-family: 'lato-Regular';
+    margin: 11px 0px !important;
+}
+.item-label-floating .text-input-md,.item-label-floating .text-input-ios{
+    width: calc(100% - 8px);
+    margin: 0px !important;
+    height: 35px;
+}
+.inputItem{
+    padding: 0px !important;
+}
+.inputLabel{
+    padding: 0px !important;
+}
+
+.item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus) .item-inner{
+    box-shadow: none !important;
+    border: none !important;
+}
+
+// .item-label-stacked .text-input-md, .item-label-floating .text-input-md{
+//     border: 2px solid #e7e7e7 !important;
+//     margin: 0px !important;
+//     height: 44px;
+// }
+.validation{
+    color: red;
+    padding: 0px !important;
+    margin: 5px;
+}

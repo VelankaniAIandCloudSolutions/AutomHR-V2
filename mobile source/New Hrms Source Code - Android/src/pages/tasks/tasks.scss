@@ -1,0 +1,36 @@
+page-tasks {
+
+.task-label{
+    margin: 0px !important;
+}
+.segment-md .segment-button.activated, .segment-md .segment-button.segment-activated{
+    background-color: #44bbec;
+    color: #fff !important;
+}
+
+}
+.task-segment-div{
+    padding: 10px;
+    background-color: #fff;
+}
+.task-segment{
+    background-color: #fff !important;
+    border: 1px solid #44bbec !important;
+    border-radius: 4px !important;
+    box-shadow: none !important;
+    height: 30px !important;
+    color: #44bbec !important;
+}
+.task-segment-button{
+    height: 28px !important;
+    line-height: 3rem !important;
+    color: #44bbec !important;
+    border: none !important;
+    border-right: 1px solid #44bbec !important;
+}
+.task-segment-button1{
+    height: 30px !important;
+    line-height: 3rem !important;
+    color: #44bbec !important;
+    border: none !important;
+}

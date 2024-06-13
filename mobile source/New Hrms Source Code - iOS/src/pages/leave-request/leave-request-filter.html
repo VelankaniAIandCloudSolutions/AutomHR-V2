@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title [ngStyle]="getHeaderStyle()">
+            <h4 class="header-title">{{keywords.filter}}</h4>
+        </ion-title>
+        <ion-buttons start>
+            <button ion-button (click)="dismiss()">
+                <span ion-text showWhen="ios" class="notificationIcon">Cancel</span>
+                <ion-icon name="md-close" showWhen="android,windows" class="notificationIcon"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list class="inputLabel">
+        <ion-item class="inputItem item-leave-height">
+            <ion-label class="addInput-Label" stacked>{{keywords.select_leave_type}}</ion-label>
+            <ion-select interface="action-sheet" placeholder="Select Leave Type" onchange="change()" [(ngModel)]="filterData.leave_type">
+                <ion-option *ngFor="let leave of leave_types" [value]="leave.id">{{leave.leave_type}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item class="inputItem item-leave-height">
+            <ion-label class="addInput-Label" stacked>{{keywords.select_leave_status}}</ion-label>
+            <ion-select interface="action-sheet" onchange="change()" placeholder="Select Leave Status" [(ngModel)]="filterData.leave_status">
+                <ion-option *ngFor="let leavestatus of leaveStatus" [value]="leavestatus.id">{{leavestatus.status}}</ion-option>
+            </ion-select>
+        </ion-item>
+    </ion-list>
+    <button type="submit" class="loginButton" [ngStyle]="getHeaderStyle()" (click)="dismiss()" ion-button full>{{keywords.filter}}</button>
+</ion-content>

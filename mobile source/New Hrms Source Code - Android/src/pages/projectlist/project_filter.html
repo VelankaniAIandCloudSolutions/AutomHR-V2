@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title">{{keywords.filter}}</h4>
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="closeFilter()">
+        <span ion-text showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list class="inputLabel">
+    <ion-item class="inputItem">
+      <ion-label class="addInput-Label" floating>{{keywords.project_title}}</ion-label>
+      <ion-input class="addInput" type="text" #b (keyup.enter)="moveFocus(c)"  [(ngModel)]="filterData.project_title"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem item-leave-height">
+      <ion-label class="addInput-Label" stacked>{{keywords.client}}</ion-label>
+      <ion-select placeholder="Select client" interface="action-sheet"  [(ngModel)]="filterData.client">
+        <ion-option *ngFor="let cli of clients.clients" [value]="cli.value">{{cli.label}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <button type="submit" class="loginButton" [ngStyle]="getHeaderStyle()" (click)="dismiss()" ion-button full>Filter Projects</button>
+</ion-content>

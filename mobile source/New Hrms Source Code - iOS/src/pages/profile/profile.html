@@ -1,0 +1,285 @@
+<!--
+  Generated template for the ProfilePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title"> {{keywords.profile}}</h4>
+    </ion-title>
+    <div class="notification-div">
+      <!-- <ion-icon *ngIf="roleId == '3'" ios="ios-create-outline" md="md-create" (click)="editProfile()"
+        class="notificationIcon"></ion-icon> -->
+    </div>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="background-content">
+  <div *ngIf="isprofile">
+    <div class="scroll">
+      <div class="profile-card-div" [ngStyle]="getstyle()">
+        <ion-card class="profile-card" [ngStyle]="getstyle()">
+          <div class="profile-header">
+            <img *ngIf="profileImage" src="{{profileImage}}" class="profile-pic" (error)="setDefaultPic()">
+            <!-- <img *ngIf="!profileImage" src="assets/imgs/user.jpg" class="profile-pic"> -->
+            <div class="profile-upload" (click)="getImage()" *ngIf="roleId == '3'">
+            </div>
+          </div>
+          <div class="profile-header-field">
+            <h2 class="profile-name">{{profileData.employee_details.fullname}}</h2>
+            <h2 class="profile-designation">{{profileData.employee_details.designation}}</h2>
+          </div>
+        </ion-card>
+      </div>
+
+      <div>
+        <ion-segment [(ngModel)]="profile">
+          <ion-segment-button class="profile-segment" value="overview">
+            {{keywords.overview}}
+          </ion-segment-button>
+          <ion-segment-button class="profile-segment" value="education">
+            {{keywords.education_information}}
+          </ion-segment-button>
+          <ion-segment-button class="profile-segment" value="experience">
+            {{keywords.experience_information}}
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+    </div>
+    <div id="scroll1">
+      <div [ngSwitch]="profile">
+        <div class="segment-tab" *ngSwitchCase="'overview'">
+          <ion-list class="profile-list">
+            <div>
+              <h4 class="holiday-title">{{keywords.profile}}</h4>
+              <span>
+                <ion-icon ios="ios-create-outline" md="md-create" (click)="editBasic()" class="editIcon"></ion-icon>
+              </span>
+            </div>
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">{{keywords.employee_id}}</h4>
+                <span class="profile-inner-item">{{profileData.employee_details.user_id}}</span>
+              </div>
+            </ion-item>
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">{{keywords.phone}}</h4>
+                <span class="profile-inner-item">{{profileData.employee_details.phone}}</span>
+              </div>
+            </ion-item>
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">{{keywords.email}}</h4>
+                <span class="profile-inner-item">{{profileData.employee_details.email}}</span>
+              </div>
+            </ion-item>
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">{{keywords.birth_date}}</h4>
+                <span class="profile-inner-item">{{profileData.employee_details.dob}}</span>
+              </div>
+            </ion-item>
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">{{keywords.gender}}</h4>
+                <span class="profile-inner-item">{{profileData.employee_details.gender}}</span>
+              </div>
+            </ion-item>
+          </ion-list>
+          <ion-list class="profile-list">
+            <ion-item class="profile-item">
+              <div class="holiday-card">
+                <h4 class="holiday-title">{{keywords.address}}</h4>
+                <p class="profile-address"><span
+                    *ngIf="profileData.employee_details.address !=''">{{profileData.employee_details.address}}&nbsp;</span>
+                 <span
+                    *ngIf="profileData.employee_details.country !=''">{{profileData.employee_details.country}}</span>
+                </p>
+              </div>
+            </ion-item>
+          </ion-list>
+          <!-- <ion-list class="profile-list">
+            <div>
+              <h4 class="holiday-title">Personal Informations</h4>
+              <span>
+                <ion-icon ios="ios-create-outline" md="md-create" (click)="editpersonal()" class="editIcon"></ion-icon>
+              </span>
+            </div>
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">Passport No.</h4>
+                <span class="profile-inner-item">{{profileData.personal_info.passport_no}}</span>
+              </div>
+            </ion-item>
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">Passport Exp Date.</h4>
+                <span class="profile-inner-item">{{profileData.personal_info.passport_expiry}}</span>
+              </div>
+            </ion-item>
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">Tel</h4>
+                <span class="profile-inner-item">{{profileData.personal_info.tel_number}}</span>
+              </div>
+            </ion-item>
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">Nationality</h4>
+                <span class="profile-inner-item">{{profileData.personal_info.nationality}}</span>
+              </div>
+            </ion-item>
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">Religion</h4>
+                <span class="profile-inner-item">{{profileData.personal_info.religion}}</span>
+              </div>
+            </ion-item>
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">Marital status</h4>
+                <span class="profile-inner-item">{{profileData.personal_info.marital_status}}</span>
+              </div>
+            </ion-item>
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">Employment of spouse</h4>
+                <span class="profile-inner-item">{{profileData.personal_info.spouse}}</span>
+              </div>
+            </ion-item>
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">No. of children</h4>
+                <span class="profile-inner-item">{{profileData.personal_info.no_children}}</span>
+              </div>
+            </ion-item>
+          </ion-list>
+          <ion-list class="profile-list">
+            <div>
+              <h4 class="holiday-title">Emergency Contact</h4>
+              <span>
+                <ion-icon ios="ios-create-outline" md="md-create" (click)="editProfile()" class="editIcon"></ion-icon>
+              </span>
+            </div>
+            <h4 class="profile-title1">Primary</h4>
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">Name</h4>
+                <span class="profile-inner-item">{{profileData.emergency_info.contact_name1}}</span>
+              </div>
+            </ion-item>
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">Relationship</h4>
+                <span class="profile-inner-item">{{profileData.emergency_info.relationship1}}</span>
+              </div>
+            </ion-item>
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">Phone</h4>
+                <span class="profile-inner-item">{{profileData.emergency_info.contact1_phone1}}</span>
+              </div>
+            </ion-item>
+            <h4 class="profile-title1">Secondary</h4>
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">Name</h4>
+                <span class="profile-inner-item">{{profileData.emergency_info.contact_name2}}</span>
+              </div>
+            </ion-item>
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">Relationship</h4>
+                <span class="profile-inner-item">{{profileData.emergency_info.relationship2}}</span>
+              </div>
+            </ion-item>
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">Phone</h4>
+                <span class="profile-inner-item">{{profileData.emergency_info.contact2_phone1}}</span>
+              </div>
+            </ion-item>
+          </ion-list>
+          <ion-list class="profile-list">
+            <div>
+              <h4 class="holiday-title">Bank Informations</h4>
+              <span>
+                <ion-icon ios="ios-create-outline" md="md-create" (click)="editBankInfo()" class="editIcon"></ion-icon>
+              </span>
+            </div>
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">Bank name</h4>
+                <span class="profile-inner-item">{{profileData.bank_info.bank_name}}</span>
+              </div>
+            </ion-item>
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">Bank account No.</h4>
+                <span class="profile-inner-item">{{profileData.bank_info.bank_ac_no}}</span>
+              </div>
+            </ion-item>
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">IFSC Code</h4>
+                <span class="profile-inner-item">{{profileData.bank_info.ifsc_code}}</span>
+              </div>
+            </ion-item>
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">PAN No</h4>
+                <span class="profile-inner-item">{{profileData.bank_info.pan_no}}</span>
+              </div>
+            </ion-item>
+          </ion-list> -->
+        </div>
+
+        <div *ngSwitchCase="'education'">
+          <div *ngIf="!noEducation">
+            <div class="profile-list" *ngFor="let edu of educationDetails">
+              <div class="profile-education">
+                <div class="experience-content">
+                  <div class="timeline-content">
+                    <span class="name"> {{edu.institute}}</span>
+                    <div>{{edu.degree}} {{edu.subject}}</div>
+                    <span class="time">{{edu.start_date}} - {{edu.end_date}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="noEducation" class="dashboard-area">
+            <h3 class="nolist">No details found</h3>
+          </div>
+        </div>
+
+        <div *ngSwitchCase="'experience'">
+          <div *ngIf="!noExperience">
+            <div class="profile-list" *ngFor="let exp of exprienceInfo">
+              <div class="profile-education">
+                <!-- <div class="experience-user">
+            <div class="before-circle"></div>
+          </div> -->
+                <div class="experience-content">
+                  <div class="timeline-content">
+                    <span class="name">{{exp.job_position}} at {{exp.company_name}}</span>
+                    <div class="time">{{exp.period_from}} - {{exp.period_to}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="noExperience" class="dashboard-area">
+            <h3 class="nolist">No details found</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

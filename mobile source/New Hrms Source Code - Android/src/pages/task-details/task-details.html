@@ -1,0 +1,266 @@
+<!--
+  Generated template for the EmployeelistPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title"> {{keywords.tasks}} </h4>
+    </ion-title>
+    <div class="notification-div">
+      <ion-icon ios="ios-checkmark" md="md-checkmark" (click)="complete()" class="notificationIcon"></ion-icon>
+    </div>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="background-content">
+  <!-- <ion-list class="holiday-list" style="margin-top: 4% !important">
+      <ion-item>
+          <h4 class="task-title">Hospital Administration Phase 1</h4>
+          <div class="project-info">
+            <div class="task-assign">
+              <p class="assign">Assigned to</p>
+              <img src="assets/imgss/user.jpg" class="taskview-image">
+              <ion-icon ios="ios-add" md="md-add" class="taskview-add"></ion-icon>
+            </div>
+            <div class="task-duedate">
+                <ion-icon ios="ios-calendar" md="md-calendar" class="task-calander"></ion-icon>
+                <span>Due Date</span>
+            </div>
+          </div>
+      </ion-item>
+  </ion-list> -->
+
+  <!-- <ion-list class="profile-list">
+    <ion-item class="profile-item">
+      <div class="holiday-card">
+        <h4 class="holiday-title">Task Details</h4>
+        <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+          <div class="holiday-card">
+            <h4 class="profile-title">Total Time:</h4>
+            <span class="profile-inner-item">{{task.task_detail.end_time}}</span>
+          </div>
+        </ion-item>
+        <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+          <div class="holiday-card">
+            <h4 class="profile-title">Estimate: </h4>
+            <span class="profile-inner-item">{{task.task_detail.estimated_hours}}hours</span>
+          </div>
+        </ion-item>
+        <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+          <div class="holiday-card">
+            <h4 class="profile-title">Start Date: </h4>
+            <span class="profile-inner-item">{{task.task_detail.start_date}}</span>
+          </div>
+        </ion-item>
+        <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+          <div class="holiday-card">
+            <h4 class="profile-title">End Date:</h4>
+            <span class="profile-inner-item">{{task.task_detail.due_date}}</span>
+          </div>
+        </ion-item>
+        <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+          <div class="holiday-card">
+            <h4 class="profile-title">Created by:</h4>
+            <span class="profile-inner-item">{{task.task_detail.fullname}}</span>
+          </div>
+        </ion-item>
+      </div>
+    </ion-item>
+  </ion-list>
+  <ion-list class="profile-list">
+    <ion-item class="profile-item">
+      <div class="holiday-card">
+        <h4 class="holiday-title">Task Description</h4>
+        <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+          <h4 class="projectview-description" text-wrap> {{task.task_detail.description}}</h4>
+        </ion-item>
+      </div>
+    </ion-item>
+  </ion-list>
+  <ion-list class="profile-list">
+    <ion-item class="profile-item">
+      <div class="holiday-card">
+        <h4 class="holiday-title">Task Progress</h4>
+        <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+          <div class="project-overview">
+            <h4 class="project-progress">Progress &nbsp; </h4>
+            <div class="barWrapper">
+              <div class="progress">
+                <div [ngStyle]="getProgresstyle()" class="progress-bar" [style.width.%]="task.task_detail.task_progress"
+                  id="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" [attr.aria-valuenow]="task.task_detail.task_progress">
+                  <label [ngStyle]="getFontstyle()" for="text" id="tooltip" [attr.data-tip]="task.task_detail.task_progress"
+                    class="has-tip"></label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ion-item>
+      </div>
+    </ion-item>
+  </ion-list>
+  <ion-list class="profile-list">
+    <ion-item class="profile-item">
+      <div class="holiday-card" *ngIf="files">
+        <h4 class="holiday-title">Files Uploaded</h4>
+        <div *ngFor="let files of task.task_files">
+          <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+            <ion-avatar item-start>
+              <img src="{{files.avatar}}" (error)="setDefaultUserPic(files)">
+            </ion-avatar>
+            <h2 class="noti-text"> {{files.file_title}}</h2>
+            <p class="noti-time">{{files.fullname}} &nbsp; &nbsp; <span>{{files.upload_date | date : 'medium'}}</span></p>
+          </ion-item>
+        </div>
+      </div>
+      <div class="holiday-card" *ngIf="!files">
+        <h4 class="holiday-title">Files Uploaded</h4>
+        <h3 class="nolist">No Files Uploaded</h3>
+      </div>
+    </ion-item>
+  </ion-list> -->
+  <div class="page-content" *ngIf="isData">
+    <div class="project-view task-view-content">
+      <div class="card-box">
+        <h4 class="project-title">{{taskDetails.task_name}}</h4>
+        <div class="pro-info clearfix">
+          <div class="task-assign" (click)="assignTo()">
+            <span class="assign-title">{{keywords.assigned_to}}</span>
+            <a href="#">
+              <img width="24" height="24" alt="" class="avatar" src="{{taskDetails.assigne_img}}">
+            </a>
+            <a class="followers-add popup-open" href="#" data-popup=".add_assign"><i class="fa fa-plus"></i></a>
+          </div>
+          <div (click)="dueDate()">
+            <span class="due-icon"><i class="fa fa-calendar"></i>&nbsp;&nbsp; <span>{{keywords.duedate}}</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="card-box chats">
+        <div class="task-information" style="margin-top:8px" *ngFor="let task of taskDetails.comments_list">
+          <a href="#">
+            <img width="24" height="24" style="height:24px; width:24px; " class="avatar" src="{{task.img}}">
+          </a>
+          <span class="task-info-line"><a href="#" style="
+              padding-left: 5px;" class="task-user">{{task.full_name}}</a><span style="
+              padding-left: 5px;" class="task-info-subject"
+              *ngIf="task.activites != '' ">{{task.activites}}</span></span>
+          <div class="task-time">{{task.posted_date}}</div>
+          <div *ngIf="task.file_path != '' " class="task-attach-img">
+            <div class="attach-img-download"><a href="#">{{task.filename}}</a></div>
+            <img style="margin-top:10px" alt="" src="{{task.file_path}}">
+          </div>
+        </div>
+        <!-- <div class="task-information">
+          <span class="task-info-line"><a href="#" class="task-user">Lesley Grauer</a> <span
+              class="task-info-subject">added to Hospital Administration</span></span>
+          <div class="task-time">Jan 26, 2015</div>
+        </div>
+        <div class="task-information">
+          <span class="task-info-line"><a href="#" class="task-user">Lesley Grauer</a> <span
+              class="task-info-subject">assigned to John Doe</span></span>
+          <div class="task-time">Jan 26, 2015</div>
+        </div>
+        <div class="task-information">
+          <span class="task-info-line"><a href="#" class="task-user">John Doe</a> <span
+              class="task-info-subject">changed
+              the due date to Sep 28</span> </span>
+          <div class="task-time">9:09pm</div>
+        </div>
+        <div class="task-information">
+          <span class="task-info-line"><a href="#" class="task-user">John Doe</a> <span
+              class="task-info-subject">assigned
+              to you</span></span>
+          <div class="task-time">9:10pm</div>
+        </div> -->
+        <!-- <div class="chat chat-left">
+          <div class="chat-avatar">
+            <a class="avatar" href="/profile/">
+              <img class="img-fluid rounded-circle" src="assets/imgs/user.jpg" alt="John Doe">
+            </a>
+          </div>
+          <div class="chat-body">
+            <div class="chat-bubble">
+              <div class="chat-content">
+                <span class="task-chat-user">John Doe</span> <span class="chat-time">8:35 am</span>
+                <p>I'm just looking around.</p>
+                <p>Will you tell me something about yourself? </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="completed-task-msg"><span class="task-success"><a href="#">John Doe</a> completed this task.</span>
+          <span class="task-time">Today at 9:27am</span></div>
+        <div class="chat chat-left">
+          <div class="chat-avatar">
+            <a class="avatar" href="/profile/">
+              <img class="img-fluid rounded-circle" src="assets/imgs/user.jpg" alt="John Doe">
+            </a>
+          </div>
+          <div class="chat-body">
+            <div class="chat-bubble">
+              <div class="chat-content">
+                <span class="task-chat-user">John Doe</span> <span class="file-attached">attached 3 files <i
+                    class="fa fa-paperclip"></i></span> <span class="chat-time">Dec 17, 2014 at 4:32am</span>
+                <ul class="attach-list">
+                  <li><i class="fa fa-file"></i> <a href="#">project_document.avi</a></li>
+                  <li><i class="fa fa-file"></i> <a href="#">video_conferencing.psd</a></li>
+                  <li><i class="fa fa-file"></i> <a href="#">landing_page.psd</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="chat chat-left">
+          <div class="chat-avatar">
+            <a class="avatar" href="/profile/">
+              <img class="img-fluid rounded-circle" src="assets/imgs/user.jpg" alt="John Doe">
+            </a>
+          </div>
+          <div class="chat-body">
+            <div class="chat-bubble">
+              <div class="chat-content">
+                <span class="task-chat-user">Jeffery Lalor</span> <span class="file-attached">attached file <i
+                    class="fa fa-paperclip"></i></span> <span class="chat-time">Yesterday at 9:16pm</span>
+                <ul class="attach-list">
+                  <li class="pdf-file"><i class="fa fa-file-pdf-o"></i> <a href="#">Document_2016.pdf</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="chat chat-left">
+          <div class="chat-avatar">
+            <a class="avatar" href="/profile/">
+              <img class="img-fluid rounded-circle" src="assets/imgs/user.jpg" alt="John Doe">
+            </a>
+          </div>
+          <div class="chat-body">
+            <div class="chat-bubble">
+              <div class="chat-content">
+                <span class="task-chat-user">Jeffery Lalor</span> <span class="file-attached">attached file <i
+                    class="fa fa-paperclip"></i></span> <span class="chat-time">Today at 12:42pm</span>
+                <ul class="attach-list">
+                  <li class="img-file">
+                    <div class="attach-img-download"><a href="#">avatar-1.jpg</a></div>
+                    <div class="task-attach-img"><img alt="" src="assets/imgs/user.jpg"></div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <!-- <div class="task-information"><span class="task-info-line"><a href="#" class="task-user">John Doe</a> <span
+              class="task-info-subject">marked task as incomplete</span></span>
+          <div class="task-time">1:16pm</div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</ion-content>

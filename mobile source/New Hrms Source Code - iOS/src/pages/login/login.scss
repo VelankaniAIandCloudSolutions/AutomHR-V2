@@ -1,0 +1,117 @@
+page-login {
+  .text-input {
+    margin: 0px !important;
+  }
+}
+.logo {
+  width: 300px;
+  margin-top: 10% !important;
+  margin: 0 auto;
+  display: block;
+  margin-bottom: 10%;
+}
+.login-logo {
+  margin-top: 15% !important;
+}
+.login {
+  text-align: center;
+  margin-top: 7%;
+  font-weight: 800;
+  font-size: 18px;
+}
+.text-input {
+  font-size: 16px;
+  // padding-left: 10px;
+}
+.select-text {
+  padding-left: 10px;
+}
+.loginTextBox {
+  margin-top: 7%;
+  border: 0.55px solid #c8c7cc !important;
+  padding: 0px !important;
+}
+.text-input::-moz-placeholder {
+  color: #757575;
+  font-weight: 500;
+}
+.list-ios {
+  margin: 0px !important;
+}
+.text-input:-ms-input-placeholder {
+  color: #757575;
+  font-weight: 500;
+}
+
+.text-input::-webkit-input-placeholder {
+  text-indent: 0;
+  color: #757575;
+  font-weight: 500;
+}
+.loginButton {
+  border-radius: 5px;
+  height: 45px;
+  margin-top: 7%;
+  font-size: 16px;
+  margin-bottom: 5%;
+}
+.forgotPassword {
+  text-align: right;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5%;
+}
+.item-inner {
+  border: none !important;
+  padding: 0px !important;
+}
+.loginInput {
+  margin: 0px !important;
+  font-weight: 700;
+  color: #000;
+}
+.userRow {
+  margin-top: 5%;
+}
+.item-md.item-input.item-input-has-focus .item-inner,
+.item-md.item-input.input-has-focus .item-inner,
+.item-ios.item-input.item-input-has-focus .item-inner,
+.item-ios.item-input.input-has-focus .item-inner {
+  border-bottom-color: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+.item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus)
+  .item-inner,
+.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus)
+  .item-inner,
+.item-ios.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus)
+  .item-inner,
+.item-ios.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus)
+  .item-inner {
+  border-bottom-color: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+.list-md .item-input.item-input-has-focus:last-child,
+.list-ios .item-input.input-has-focus:last-child,
+.list-ios .item-input.item-input-has-focus:last-child,
+.list-ios .item-input.input-has-focus:last-child {
+  border-bottom-color: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+.list-md
+  .item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child,
+.list-md
+  .item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus):last-child {
+  border-bottom-color: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+ion-backdrop.backdrop-no-tappable {
+  //   cursor: auto;
+  //   // opacity: 0.9 !important;
+  //   background: #fff;
+  margin-top: 0px;
+}

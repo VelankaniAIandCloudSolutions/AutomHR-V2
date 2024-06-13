@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title">{{keywords.create_task}}</h4>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list class="inputLabel">
+    <ion-item class="inputItem" *ngIf="type === 'task'">
+      <ion-label class="addInput-Label" floating>{{keywords.task_title}}</ion-label>
+      <ion-input class="addInput" #b (keyup.enter)="moveFocus(c)" [(ngModel)]="task_name" type="text" required>
+      </ion-input>
+    </ion-item>
+    <ion-item class="inputItem item-leave-height" *ngIf="type==='assign'">
+      <ion-label class="addInput-Label" stacked>{{keywords.assigned_to}}</ion-label>
+      <ion-select interface="action-sheet" placeholder="Assign To" [(ngModel)]="assigned_to">
+        <ion-option *ngFor="let lead of projectDetails.leads" [value]="lead.value">{{lead.label}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="type === 'due'" class="inputItem item-leave-height">
+      <ion-label>{{keywords.due_date}}</ion-label>
+      <ion-datetime displayFormat="MMM DD YYYY" max="{{year+5}}" [(ngModel)]="due_date">
+      </ion-datetime>
+    </ion-item>
+  </ion-list>
+  <button type="submit" *ngIf="type=== 'task'" (click)="createtask()" [ngStyle]="getHeaderStyle()" class="loginButton" ion-button full>Create
+    Task
+  </button>
+  <button type="submit" *ngIf="type==='assign'" (click)="assignTo()" [ngStyle]="getHeaderStyle()" class="loginButton" ion-button full>Create
+    Task
+  </button>
+  <button type="submit" *ngIf="type==='due'" (click)="addDue()" [ngStyle]="getHeaderStyle()" class="loginButton" ion-button full>Create
+    Task
+  </button>
+</ion-content>

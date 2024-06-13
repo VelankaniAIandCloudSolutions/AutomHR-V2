@@ -1,0 +1,42 @@
+<!--
+  Generated template for the AddHolidayPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title">{{keywords.add_holiday}}</h4>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form (ngSubmit)="addHoliday()" [formGroup]="holidayForm">
+    <ion-list class="inputLabel">
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>{{keywords.holiday_name}}</ion-label>
+        <ion-input class="addInput" formControlName="title" value="{{title}}" type="text"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-list class="inputLabel">
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>{{keywords.description}}</ion-label>
+        <ion-input class="addInput" formControlName="description" type="text"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-item>
+      <ion-label>{{keywords.holiday_date}}</ion-label>
+      <ion-datetime displayFormat="MMM DD YYYY" min="{{currentTime}}" max="{{year+5}}" [(ngModel)]="date"
+        formControlName="holiday_date"></ion-datetime>
+    </ion-item>
+    <button type="submit" [disabled]="!holidayForm.valid" [ngStyle]="getHeaderStyle()" class="loginButton" ion-button
+      full>
+     {{keywords.create_holiday}}
+    </button>
+  </form>
+</ion-content>

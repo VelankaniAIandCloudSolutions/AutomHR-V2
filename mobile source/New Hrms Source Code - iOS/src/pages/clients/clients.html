@@ -1,0 +1,58 @@
+<!--
+  Generated template for the EmployeelistPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title">Clients</h4>
+    </ion-title>
+    <div class="notification-div">
+      <ion-icon ios="ios-add" md="md-add" (click)="addClient()" class="notificationIcon"></ion-icon>
+    </div>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="background-content">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf="!noData" class="dashboard-area">
+    <ion-row class="dashboar-row" [ngClass]="cssClass" *ngFor="let client of clientList">
+      <ion-col col-12 (click)="openClientProfile($event, client)">
+        <div class="dash-widget">
+          <div class="more-icon">
+            <i class="fa fa-ellipsis-v employee-more"></i>
+          </div>
+          <div class="employee-list-icon">
+            <p class="employee-firstname ">
+              {{ client.company_name | limito: 1 }}
+            </p>
+          </div>
+          <div class="dash-widget-info">
+            <h4 class="emp-name">{{ client.company_name }}</h4>
+            <p class="emp-designation">{{ client.fullname }}</p>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="!page">
+      <ion-infinite-scroll-content position="bottom" loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+  <div *ngIf="noData" class="dashboard-area">
+    <h3 class="nolist">No Client found</h3>
+  </div>
+  <ion-fab class="employee-fab" (click)="openModal()">
+    <button class="employee-fabButton" ion-fab color="primary">
+      <i class="fa fa-filter"></i>
+    </button>
+  </ion-fab>
+</ion-content>

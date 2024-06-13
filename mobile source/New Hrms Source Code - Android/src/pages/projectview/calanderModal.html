@@ -1,0 +1,73 @@
+<!--
+  Generated template for the EmployeelistPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title"> {{event.task_detail.task_name}} </h4>
+    </ion-title>
+    <!-- <div *ngIf="roleId != '3'" class="notification-div">
+      <ion-icon ios="ios-more" md="md-more" (click)="presentPopover($event)" class="notificationIcon"></ion-icon>
+    </div>
+    <div *ngIf="roleId != '3'" class="notification-div">
+      <ion-icon ios="ios-checkmark" md="md-checkmark" (click)="complete()" class="notificationIcon"></ion-icon>
+    </div> -->
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="background-content">
+
+
+  <ion-list class="profile-list">
+    <ion-item class="profile-item">
+      <div class="holiday-card">
+        <h4 class="holiday-title">Event Details</h4>
+        <!-- <ion-list class="profile-list"> -->
+        <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+          <div class="holiday-card">
+            <h4 class="profile-title">{{keywords.task_title}}:</h4>
+            <span class="profile-inner-item">{{event.task_detail.task_name}}</span>
+          </div>
+        </ion-item>
+        <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+          <div class="holiday-card">
+            <h4 class="profile-title">{{keywords.estimates}}: </h4>
+            <span class="profile-inner-item">{{event.task_detail.estimated_hours}} hours</span>
+          </div>
+        </ion-item>
+        <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+          <div class="holiday-card">
+            <h4 class="profile-title">{{keywords.start_date}}: </h4>
+            <span class="profile-inner-item">{{event.task_detail.start_date}}</span>
+          </div>
+        </ion-item>
+        <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+          <div class="holiday-card">
+            <h4 class="profile-title">{{keywords.end_date}}:</h4>
+            <span class="profile-inner-item">{{event.task_detail.due_date}}</span>
+          </div>
+        </ion-item>
+        <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+          <div class="holiday-card">
+            <h4 class="profile-title">{{keywords.assign_lead}}:</h4>
+            <span class="profile-inner-item">{{event.task_detail.fullname}}</span>
+          </div>
+        </ion-item>
+        <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+          <div class="holiday-card">
+            <h4 class="profile-title">{{keywords.description}}</h4>
+            <span class="profile-inner-item">{{event.task_detail.description}}</span>
+          </div>
+        </ion-item>
+        <!-- </ion-list> -->
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

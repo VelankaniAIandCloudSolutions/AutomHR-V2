@@ -1,0 +1,47 @@
+page-editprofile {
+
+}
+.inputList{
+    border-bottom: 1px solid #e7e7e7;
+    border-top: 1px solid #e7e7e7;
+}
+.editprofile-title{
+    color: #000 !important;
+    font-weight: bold !important;
+    font-size: 16px;
+}
+.backButton{
+    background-color: #fa424a;
+    border-color: #fa424a;
+    border-radius: 5px;
+    height: 45px;
+    margin-top: 7%;
+    font-size: 16px;
+    margin-bottom: 5%;
+}
+.backButton.activated{
+    background-color: #fa424a;
+    border-color: #fa424a;
+    color: #fff;
+}
+.add-more {
+    padding: 15px 0;
+}
+.add-more-btn {
+    background-color: #3a57c4;
+    border-radius: 4px;
+    color: #fff !important;
+    display: inline-block;
+    font-size: 14px;
+    padding: 5px 10px;
+    text-decoration: none;
+}
+.profile-form{
+
+    margin-top:10px;
+}
+.removeDetail{
+    float: right;
+    color: red;
+    font-size: 18px;
+}

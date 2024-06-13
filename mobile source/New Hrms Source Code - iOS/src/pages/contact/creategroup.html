@@ -1,0 +1,25 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title [ngStyle]="getHeaderStyle()">
+            <h4 class="header-title">Group Name</h4>
+        </ion-title>
+        <ion-buttons start>
+            <button ion-button (click)="closeFilter()">
+                <span ion-text showWhen="ios" class="notificationIcon">Cancel</span>
+                <ion-icon name="md-close" showWhen="android,windows" class="notificationIcon"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list class="inputLabel">
+        <ion-item class="inputItem">
+            <ion-label class="addInput-Label" stacked>Group Name</ion-label>
+            <ion-input class="addInput" type="text" [(ngModel)]="groupname"></ion-input>
+        </ion-item>
+    </ion-list>
+    <button type="submit" [ngStyle]="getHeaderStyle()" (click)="dismiss()" class="loginButton" ion-button full>Create
+        Group</button>
+</ion-content>

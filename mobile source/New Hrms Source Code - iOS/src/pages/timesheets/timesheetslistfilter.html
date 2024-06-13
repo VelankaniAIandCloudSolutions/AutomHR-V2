@@ -1,0 +1,29 @@
+<ion-header>
+    <ion-navbar>
+      <ion-title [ngStyle]="getHeaderStyle()">
+        <h4 class="header-title">Filter Timesheet</h4>
+      </ion-title>
+      <ion-buttons start>
+        <button ion-button (click)="closeFilter()">
+          <span ion-text showWhen="ios" class="notificationIcon">Cancel</span>
+          <ion-icon name="md-close" showWhen="android,windows" class="notificationIcon"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+
+
+<ion-content>
+    <ion-list style="padding-bottom: 20px !important;" class="profile-list">
+        <ion-item class="inputItem item-leave-height">
+            <ion-label class="addInput-Label" floating> Date from</ion-label>
+            <ion-datetime displayFormat="MMM DD YYYY" (ionChange)="selectFrom()" min="{{year-5}}" max="{{currentTime}}" [(ngModel)]="filterData.from_date"></ion-datetime>
+        </ion-item>
+        <ion-item class="inputItem item-leave-height">
+            <ion-label class="addInput-Label" floating> Date to</ion-label>
+            <ion-datetime displayFormat="MMM DD YYYY" min="{{min}}" max="{{currentTime}}" [(ngModel)]="filterData.to_date"></ion-datetime>
+        </ion-item>
+    </ion-list>
+    <button type="submit" [ngStyle]="colorCode" class="loginButton" style="width: 90%;margin: 0 auto; margin-bottom :10px !important"
+        (click)="filter()" ion-button full>Filter Timesheet</button>
+</ion-content>

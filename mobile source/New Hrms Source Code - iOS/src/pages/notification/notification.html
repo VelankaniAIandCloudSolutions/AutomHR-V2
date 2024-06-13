@@ -1,0 +1,48 @@
+<!--
+  Generated template for the NotificationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title"> Notification</h4>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="background-content">
+  <ion-list class="noti-list">
+    <ion-item-sliding #item>
+      <ion-item class="notification-item">
+        <ion-avatar item-start>
+          <img src="assets/imgs/user.jpg">
+        </ion-avatar>
+        <h2 class="noti-text"> Catherine Manseau completed task Appointment booking with payment gateway</h2>
+        <p class="noti-time">Now</p>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="danger" (click)="cancel(leave)">Delete</button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <ion-list class="noti-list">
+    <ion-item-sliding #item>
+      <ion-item class="notification-item">
+        <ion-avatar item-start>
+          <img src="assets/imgs/user.jpg">
+        </ion-avatar>
+        <h2 class="noti-text"> Catherine Manseau completed task Appointment booking with payment gateway</h2>
+        <p class="noti-time">4 mins ago</p>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="danger" (click)="cancel(leave)">Delete</button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

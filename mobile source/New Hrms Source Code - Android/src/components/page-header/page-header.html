@@ -1,0 +1,41 @@
+<!-- Generated template for the DashboardCardComponent component -->
+
+<div class="title-header" *ngIf="dashboard=='true'" >
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu" class="menuIcon"></ion-icon>
+      </button>
+      <ion-title [ngStyle]="{'background-color': '#' + bgColor}">
+        <img src="assets/imgs/smarthr-white-logo.png" class="whiteLogo">
+      </ion-title>
+      <img (click)="presentPopover($event)" src="assets/icon/more.png" class="moreIcon">
+      <ion-icon ios="ios-notifications" md="md-notifications" class="notificationIcon"></ion-icon>
+    </ion-navbar>
+  </div>
+
+  <div class="title-header" *ngIf="dashboard=='false'" >
+      <ion-navbar>
+        <button ion-button menuToggle>
+          <ion-icon name="menu" class="menuIcon"></ion-icon>
+        </button>
+        <ion-title [ngStyle]="{'background-color': '#' + bgColor}">
+        <h4 class="header-title"> {{title}}</h4>
+        </ion-title>
+        <ion-icon ios="ios-add" md="md-add" class="notificationIcon"></ion-icon>
+      </ion-navbar>
+    </div>
+
+    <div class="title-header" *ngIf="addIcon=='false'" >
+      <ion-navbar>
+        <button ion-button menuToggle>
+          <ion-icon name="menu" class="menuIcon"></ion-icon>
+        </button>
+        <ion-title [ngStyle]="{'background-color': '#' + bgColor}">
+        <h4 class="header-title"> {{title}}</h4>
+        </ion-title>
+      </ion-navbar>
+    </div>
+
+
+
+   

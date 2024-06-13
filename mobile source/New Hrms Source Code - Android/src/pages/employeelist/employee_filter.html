@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title">{{keywords.filter}}</h4>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="closeFilter()">
+        <span ion-text showWhen="ios" class="notificationIcon">{{keywords.cancel}}</span>
+        <ion-icon name="md-close" showWhen="android,windows" class="notificationIcon"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list class="inputLabel">
+    <ion-item class="inputItem">
+      <ion-label class="addInput-Label" floating>{{keywords.fullname}}</ion-label>
+      <ion-input class="addInput" type="text" (keyup.enter)="moveFocus(b)"  [(ngModel)]="filterData.fullname"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem">
+      <ion-label class="addInput-Label" floating>{{keywords.email}}</ion-label>
+      <ion-input class="addInput"  #contactemail="ngModel" #b (keyup.enter)="moveFocus(c)" [(ngModel)]="filterData.email" type="text" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" required></ion-input>
+    </ion-item>
+    <div class="md-errors-spacer" [hidden]="contactemail.valid || contactemail.untouched">
+      <div class="validation" *ngIf="contactemail.errors && contactemail.errors.pattern">
+          Email is invalid
+      </div>
+  </div>
+    <ion-item class="inputItem">
+      <ion-label class="addInput-Label" floating>{{keywords.employee_id}}</ion-label>
+      <ion-input class="addInput" type="text" #c [(ngModel)]="filterData.emp_id"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem item-leave-height">
+      <ion-label class="addInput-Label" stacked>{{keywords.select_department}}</ion-label>
+      <ion-select placeholder="Select Department" interface="action-sheet" (ionChange)='department()' [(ngModel)]="filterData.department">
+        <ion-option *ngFor="let dept of departments" [value]="dept.deptid">{{dept.deptname}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="designate" class="inputItem item-leave-height">
+      <ion-label class="addInput-Label" stacked>{{keywords.select_designation}}</ion-label>
+      <ion-select  interface="action-sheet" placeholder="Select Designation" [(ngModel)]="filterData.designation">
+        <ion-option *ngFor="let des of designation" [value]="des.id">{{des.designation}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <button type="submit" class="loginButton" [disabled]="contactemail.errors && contactemail.errors.pattern"  [ngStyle]="getHeaderStyle()" (click)="dismiss()" ion-button full>Filter Employees</button>
+</ion-content>

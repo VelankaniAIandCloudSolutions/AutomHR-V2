@@ -1,0 +1,146 @@
+<!--
+  Generated template for the EmployeelistPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title">{{ pro.project_title }}</h4>
+    </ion-title>
+    <!--
+      <ion-icon *ngIf="roleId == '1'" ios="ios-add" md="md-add" (click)="addEmployee()" class="notificationIcon"></ion-icon>
+    -->
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="background-content">
+  <div>
+    <ion-segment [(ngModel)]="project">
+      <ion-segment-button class="profile-segment" value="overview">
+        {{keywords.overview}}
+      </ion-segment-button>
+      <ion-segment-button class="profile-segment" value="task">
+        {{keywords.tasks}}
+      </ion-segment-button>
+      <ion-segment-button class="profile-segment" value="calendar">
+        {{keywords.calendar}}
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="project">
+    <div class="segment-tab" *ngSwitchCase="'overview'">
+      <ion-list class="holiday-list" style="margin-top: 4% !important">
+        <ion-item>
+          <div>
+            <h4 class="holiday-title">{{ pro.project_title }}</h4>
+          </div>
+          <div class="holiday-card">
+            <h4 class="project-task">
+              {{ opentasks }} {{keywords.open_tasks}}, {{ completedtasks }} {{keywords.tasks_completed}}
+            </h4>
+          </div>
+          <h4 class="holiday-date" style="color:#3a57c4 !important;">
+            <i class="fa fa-calendar"></i>&nbsp;&nbsp;&nbsp;
+            {{ pro.start_date | date: "d MMM y" }}
+          </h4>
+        </ion-item>
+      </ion-list>
+      <ion-list class="holiday-list" style="margin-top: 4% !important">
+        <ion-item>
+          <div>
+            <h4 class="projectview-desc">{{keywords.description}}:</h4>
+            <h4 class="projectview-description" [innerHTML]="pro.overviews.description"></h4>
+          </div>
+        </ion-item>
+      </ion-list>
+      <ion-list class="holiday-list" style="margin-top: 4% !important">
+        <ion-item>
+          <div class="project-overview">
+            <h4 class="projectview-desc">{{keywords.deadline}}:</h4>
+            <h4 class="projectview-description">
+              {{ pro.overviews.deadline | date: "d MMM y" }}
+            </h4>
+          </div>
+          <div class="project-overview">
+            <h4 class="projectview-desc">{{keywords.project_leader}}:</h4>
+            <img src="{{pro.overviews.project_lead_photo}}" class="projectview-image" (error)="setDefaultPic()" />
+          </div>
+          <br />
+          <div class="project-overview">
+            <h4 class="projectview-desc">{{keywords.team}}:</h4>
+            <div *ngFor="let img of pro.overviews.project_team_members">
+              <img src="{{img.avatar}}" class="projectview-image" (error)="setDefaultUserPic(img)" />
+            </div>
+          </div>
+          <br />
+          <div class="project-overview">
+            <h4 class="project-progress">{{keywords.progress}}</h4>
+            <div class="barWrapper">
+              <div class="progress">
+                <div [ngStyle]="getProgresstyle()" class="progress-bar" [style.width.%]="pro.overviews.progress" id="progress"
+                  role="progressbar" aria-valuemin="0" aria-valuemax="100" [attr.aria-valuenow]="pro.overviews.progress">
+                  <label [ngStyle]="getFontstyle()" for="text" id="tooltip" [attr.data-tip]="pro.overviews.progress"
+                    class="has-tip"></label>
+                </div>
+              </div>
+            </div>
+            <!--
+              <div class="barWrapper">
+                <div class="progress">
+                  <div class="progress-bar" id="progress" [ngStyle]="getHeaderStyle()" role="progressbar"
+                    aria-valuemin="0" aria-valuemax="100">
+                    <label for="text" id="tooltip" class="has-tip" ></label>
+                  </div>
+                </div>
+              </div>
+            -->
+          </div>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <div *ngSwitchCase="'task'">
+      <ion-list *ngIf="!task" class="holiday-list" style="margin-top: 4% !important">
+        <!-- <ion-item>
+          <ion-label (click)="createTask()" class="task-label">
+            <div>
+              <ion-icon ios="ios-add" md="md-add" class="add-task"></ion-icon>
+              <div class="tasks-div">
+                <h4 class="tasks">Add new task</h4>
+              </div>
+            </div>
+          </ion-label>
+        </ion-item> -->
+        <ion-item *ngFor="let task of pro.tasks">
+          <ion-label (click)="openTask(task)" class="task-label">
+            <div>
+              <ion-icon *ngIf="task.task_detail.task_progress != 100" ios="ios-checkmark" md="md-checkmark" class="task-checkmark"></ion-icon>
+              <ion-icon *ngIf="task.task_detail.task_progress == 100" ios="ios-checkmark" md="md-checkmark" class="task-checkmark selected"></ion-icon>
+              <div class="tasks-div">
+                <h4 class="tasks">
+                  {{ task.task_detail.task_name }}
+                  <img src="assets/imgs/user.jpg" class="taskuser-image" />
+                </h4>
+              </div>
+            </div>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+      <div *ngIf="task" class="dashboard-area">
+        <h3 class="nolist">No tasks found</h3>
+      </div>
+    </div>
+
+    <div *ngSwitchCase="'calendar'">
+      <ion-list class="holiday-list" style="margin-top: 4% !important">
+        <ion-calendar #calendar [events]="events" (onDaySelect)="onDaySelect($event)" (onMonthSelect)="onMonthSelect($event)"></ion-calendar>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>

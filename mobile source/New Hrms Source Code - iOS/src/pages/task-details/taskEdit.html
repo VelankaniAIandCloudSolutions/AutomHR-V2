@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title">Create Project</h4>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <form (ngSubmit)="addEmployee()" [formGroup]="projectForm">
+    <ion-list class="inputLabel">
+        <ion-item class="inputItem">
+            <ion-label class="addInput-Label" floating>Task Title</ion-label>
+            <ion-input class="addInput" #b value="{{task.task_detail.task_name}}" (keyup.enter)="moveFocus(c)" formControlName="task_name" type="text" required></ion-input>
+          </ion-item>
+          <ion-item class="inputItem item-leave-height">
+            <ion-label class="addInput-Label" stacked>Assign To</ion-label>
+            <ion-select interface="action-sheet" placeholder="Assign To" formControlName="assigned_to" multiple="true"  [(ngModel)]="taskMember">
+              <ion-option *ngFor="let lead of projectData.leads" [value]="lead.value">{{lead.label}}</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item class="inputItem item-leave-height">
+            <ion-label>Start Date</ion-label>
+            <ion-datetime displayFormat="MMM DD YYYY"  [(ngModel)]="task.task_detail.start_date" formControlName="start_date"></ion-datetime>
+          </ion-item>
+          <ion-item class="inputItem item-leave-height">
+            <ion-label>Due Date</ion-label>
+            <ion-datetime displayFormat="MMM DD YYYY"  [(ngModel)]="task.task_detail.due_date" formControlName="due_date"></ion-datetime>
+          </ion-item>
+          <ion-item class="inputItem">
+            <ion-label class="addInput-Label" floating>Estimate Hours</ion-label>
+            <ion-input class="addInput" (keyup.enter)="moveFocus()" value="{{task.task_detail.estimated_hours}}" formControlName="estimate" type="text" required></ion-input>
+          </ion-item>
+          <ion-item class="inputItem">
+            <ion-label class="addInput-Label" floating>Description</ion-label>
+            <ion-input class="addInput" (keyup.enter)="moveFocus()" value="{{task.task_detail.description}}" formControlName="description" type="text" required></ion-input>
+          </ion-item>
+    </ion-list>
+    <button type="submit" [ngStyle]="getHeaderStyle()" class="loginButton" ion-button full>Create Project</button>
+  </form>
+</ion-content>

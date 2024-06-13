@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title">{{tousername}}</h4>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content #content class="background-content">
+  <div *ngIf="!nodata">
+    <div *ngFor="let message of messages">
+      <div [ngClass]="message.from_id == my_id ? 'message-right-div' : 'message-left-div' ">
+        <div [ngClass]="message.from_id == my_id ? 'message-content-right' :  'message-content'">
+          <div [ngClass]="message.from_id == my_id ? 'message-right' : 'message-left'">
+            {{message.message}}
+            <p class="time"> {{message.msg_date | date : 'h:mm a'}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="nodata" class="dashboard-area">
+    <h3 class="nolist">No messages found</h3>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <div class="input-wrap">
+    <!-- <button ion-button clear icon-only item-right>
+      <ion-icon ios="ios-camera" md="md-camera"></ion-icon>
+    </button> -->
+    <input type="text" class="message-text" id="msgTxt" [(ngModel)]="text" #chat_input placeholder="Message" />
+    <!-- </input> -->
+    <button ion-button clear icon-only item-right class="msg-button" (click)="sendMsg()">
+      <p style="padding: 10px;padding-bottom: 0px;">{{keywords.send}}</p>
+    </button>
+  </div>
+</ion-footer>

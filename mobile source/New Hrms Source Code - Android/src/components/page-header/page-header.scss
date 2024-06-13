@@ -1,0 +1,30 @@
+page-header {
+    
+}
+.bar-button-default-ios, .bar-button-default.bar-button-ios-default, .bar-button-clear-md-default,.bar-button-default-md, .bar-button-default.bar-button-md-default, .bar-button-clear-md-default{
+    color: #fff !important;
+}
+.back-button.show-back-button {
+    display: inline-block;
+    z-index: 10;
+}
+.title-header{
+    height: 60px;
+}
+.notificationIcon{
+    font-size: 2.4rem;
+    color: #fff;
+    position: relative;
+}
+.moreIcon{
+    position: relative;
+    float: right;
+    width: 22px;
+    padding-top: 5px;
+}
+.header-title{
+    text-align: center;
+    font-family: 'lato-Regular';
+    margin-top: 10px !important;
+    font-weight: 300;
+}

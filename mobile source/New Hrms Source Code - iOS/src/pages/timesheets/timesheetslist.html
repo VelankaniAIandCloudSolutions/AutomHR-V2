@@ -1,0 +1,66 @@
+<!--
+  Generated template for the EmployeesalaryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title">{{keywords.timesheets}}</h4>
+    </ion-title>
+    <div class="notification-div">
+      <ion-icon *ngIf="roleId == '3'" ios="ios-add" md="md-add" (click)="addTimesheet()" class="notificationIcon"></ion-icon>
+    </div>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="background-content">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div class="!noData">
+    <ion-list class="noti-list" *ngFor="let timesheet of timesheets">
+      <ion-item-sliding #item>
+        <ion-item (click)="openModal(timesheet)">
+          <div>
+            <h4 class="holiday-title">{{ timesheet.fullname }}</h4>
+            <span class="holiday-days-div">
+              <h2 class="holiday-title">{{ timesheet.timeline_date }}</h2>
+            </span>
+          </div>
+          <div class="holiday-card">
+            <h4 class="timesheet-project">{{ timesheet.project_name }}</h4>
+          </div>
+          <div class="timesheet-hour-div">
+            <h2 class="timesheet-hours">{{ timesheet.hours }} Hours</h2>
+          </div>
+        </ion-item>
+        <ion-item-options *ngIf="roleId == '3' && timesheet.edit" side="right">
+          <button ion-button color="secondary" (click)="editTimeSheet(timesheet)">
+           {{keywords.edit}}
+          </button>
+          <button ion-button color="danger" (click)="delete(timesheet)">
+            {{keywords.delete}}
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="!page">
+    <ion-infinite-scroll-content position="bottom" loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <div *ngIf="noData" class="dashboard-area">
+    <h3 class="nolist">No timesheets found</h3>
+  </div>
+  <ion-fab class="employee-fab" (click)="openFilter()">
+    <button [ngStyle]="colorCode" class="employee-fabButton" ion-fab>
+      <i class="fa fa-filter"></i>
+    </button>
+  </ion-fab>
+</ion-content>

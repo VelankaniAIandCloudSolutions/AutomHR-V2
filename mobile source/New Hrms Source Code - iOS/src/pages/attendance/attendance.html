@@ -1,0 +1,225 @@
+<!--
+  Generated template for the AttendanceListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title">{{keywords.attendance_info}}</h4>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="background-content">
+  <div *ngIf="isData">
+    <ion-list class="noti-list">
+      <ion-item>
+        <div>
+          <h4 class="holiday-title">{{keywords.attendance}}</h4>
+          <span class="holiday-days-div">
+            <h2 class="holiday-title">{{keywords.timesheets}}</h2>
+          </span>
+        </div>
+        <div class="holiday-card">
+          <!-- <h4 class="holiday-date1">{{user.fullname }}</h4> -->
+          <span class="holiday-days-div">
+            <!-- <h2 class="holiday-date">{{  date | date: "d MMM y" }}</h2> -->
+          </span>
+        </div>
+        <div class="holiday-day"></div>
+      </ion-item>
+    </ion-list>
+    <div class="dashboard-area">
+      <ion-list class="holiday-list attendance" style="margin-top: 20px !important">
+        <ion-item-sliding #item>
+          <ion-item>
+            <div class="holiday-card">
+              <h4 class="holiday-title">{{keywords.punch_in_at}} </h4>
+              <h4 class="holiday-date" *ngIf="list.punch_in_out === 0 ">{{list.punch_in_time}}</h4>
+              <h4 class="holiday-date" *ngIf="list.punch_in_out === 1 ">{{localtime}}</h4>
+            </div>
+            <div class="total-hours">
+              {{list.production_hour}} hrs
+            </div>
+          </ion-item>
+        </ion-item-sliding>
+      </ion-list>
+    </div>
+    <div class="dashboard-area">
+      <ion-list class="holiday-list attendance" style="margin-top: 20px !important">
+        <ion-item-sliding #item>
+          <ion-item>
+            <div class="holiday-card">
+              <button *ngIf="list.punch_in_out === 1 " type="submit" [ngStyle]="getHeaderStyle()" (click)="punchIn()"
+                class="loginButton" ion-button full>{{keywords.punch_in}}</button>
+              <button *ngIf="list.punch_in_out === 0 " type="submit" [ngStyle]="getHeaderStyle()" (click)="punchOut()"
+                class="loginButton" ion-button full>{{keywords.punch_out}}</button>
+            </div>
+          </ion-item>
+        </ion-item-sliding>
+      </ion-list>
+    </div>
+    <ion-row nowrap>
+      <ion-col class="attendance-col">{{keywords.production}}
+        <p class="attendance-col-value">{{list.production_hour}} hrs</p>
+      </ion-col>
+      <ion-col class="attendance-col">{{keywords.break}} <p class="attendance-col-value">{{list.break_hour}} hrs</p>
+      </ion-col>
+      <ion-col class="attendance-col">{{keywords.overtime}} <p class="attendance-col-value">{{list.overtime}} hrs</p>
+      </ion-col>
+    </ion-row>
+
+    <h4 class="holiday-title">{{keywords.statistics}}</h4>
+    <ion-list class="noti-list">
+      <ion-item>
+        <div>
+          <h4 class="holiday-title">{{keywords.today}}</h4>
+          <span class="holiday-days-div">
+            <h2 class="holiday-title">{{list.today_production_hour}}/8 hrs</h2>
+          </span>
+        </div>
+        <div class="progress-card">
+          <progress-bar [progress]="list.today_percentage" [color]="'#ff9b44'">
+          </progress-bar>
+        </div>
+      </ion-item>
+    </ion-list>
+    <ion-list class="noti-list">
+      <ion-item>
+        <div>
+          <h4 class="holiday-title">{{keywords.this_week}}</h4>
+          <span class="holiday-days-div">
+            <h2 class="holiday-title">{{list.week_production_hour}}/40 hrs</h2>
+          </span>
+        </div>
+        <div class="progress-card">
+          <progress-bar [progress]="list.week_percentage" [color]="'#ffc333'">
+          </progress-bar>
+        </div>
+      </ion-item>
+    </ion-list>
+    <ion-list class="noti-list">
+      <ion-item>
+        <div>
+          <h4 class="holiday-title">{{keywords.this_month}}</h4>
+          <span class="holiday-days-div">
+            <h2 class="holiday-title">{{list.month_production_hour}}/168hrs</h2>
+          </span>
+        </div>
+        <div class="progress-card">
+          <progress-bar [progress]="list.month_percentage" [color]="'#55ce63'">
+          </progress-bar>
+        </div>
+      </ion-item>
+    </ion-list>
+    <ion-list class="noti-list">
+      <ion-item>
+        <div>
+          <h4 class="holiday-title">{{keywords.remaining_hours}}</h4>
+          <span class="holiday-days-div">
+            <h2 class="holiday-title">{{list.remaining_hour}}/168 hrs</h2>
+          </span>
+        </div>
+        <div class="progress-card">
+          <progress-bar [progress]="list.month_percentage" [color]="'#f62d51'">
+          </progress-bar>
+        </div>
+      </ion-item>
+    </ion-list>
+    <ion-list class="noti-list">
+      <ion-item>
+        <div>
+          <h4 class="holiday-title">{{keywords.overtime}}</h4>
+          <span class="holiday-days-div">
+            <h2 class="holiday-title">{{list.month_overtime}}</h2>
+          </span>
+        </div>
+        <div class="progress-card">
+          <progress-bar [progress]="list.overtime_percentage" [color]="'#11A7DB'">
+          </progress-bar>
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <ion-list class="noti-list">
+      <h4 class="holiday-title" style="margin-left: 30px;">{{keywords.activity}}</h4>
+      <ion-item>
+        <ul class="attendance-list">
+          <!---->
+          <li *ngFor="let activity of list.activity">
+            <div *ngIf="activity.punch_in !== ''">
+              <div class="timeline-badge">
+                <div class="timeline-span"></div>
+              </div>
+              <div class="activity-card">
+                <h4 class="holiday-title">{{keywords.punch_in_at}} </h4>
+                <h4 class="holiday-date">{{activity.punch_in}}</h4>
+              </div>
+            </div>
+            <div *ngIf="activity.punch_out !== ''">
+              <div class="timeline-badge">
+                <div class="timeline-span"></div>
+              </div>
+              <div class="activity-card">
+                <h4 class="holiday-title">{{keywords.punch_out_at}} </h4>
+                <h4 class="holiday-date">{{activity.punch_out}}</h4>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </ion-item>
+    </ion-list>
+    <ion-scroll scrollX="true" style="width:100%;height: 950px; background-color: white">
+      <ion-row nowrap>
+        <ion-col style="width:300px; " col-2>#</ion-col>
+        <ion-col col-4 style="width:300px; ">
+          <div>{{keywords.date}}</div>
+        </ion-col>
+        <ion-col col-4 style="width:300px; ">
+          <div>{{keywords.punch_in}}</div>
+        </ion-col>
+        <ion-col col-4 style="width:300px; ">
+          <div>{{keywords.punch_out}}</div>
+        </ion-col>
+        <ion-col col-4 style="width:300px; ">
+          <div>{{keywords.production}}</div>
+        </ion-col>
+        <ion-col col-4 style="width:300px; ">
+          <div>{{keywords.break}}</div>
+        </ion-col>
+        <ion-col col-4 style="width:300px; ">
+          <div>{{keywords.overtime}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row nowrap *ngFor="let emp of list.month_attendance_Details;let x=index">
+        <ion-col style="width:300px; " col-2>{{x+1}}</ion-col>
+        <ion-col col-4 style="width:300px; ">
+          <div>{{emp.date}}</div>
+        </ion-col>
+        <ion-col *ngIf="emp.week_off === ''" col-4 style="width:300px; ">
+          <div>{{emp.punch_in}}</div>
+        </ion-col>
+        <ion-col *ngIf="emp.week_off === ''" col-4 style="width:300px; ">
+          <div>{{emp.punch_out}}</div>
+        </ion-col>
+        <ion-col *ngIf="emp.week_off === ''" col-4 style="width:300px; ">
+          <div>{{emp.production_hour}}</div>
+        </ion-col>
+        <ion-col *ngIf="emp.week_off === ''" col-4 style="width:300px; ">
+          <div>{{emp.break_hour}}</div>
+        </ion-col>
+        <ion-col *ngIf="emp.week_off === ''" col-4 style="width:300px; ">
+          <div>{{emp.overtime}}</div>
+        </ion-col>
+        <ion-col *ngIf="emp.week_off === 'Week Off'" col-12>
+          <div style="color:red; text-align:center;">{{emp.week_off}}</div>
+        </ion-col>
+      </ion-row>
+    </ion-scroll>
+  </div>
+</ion-content>

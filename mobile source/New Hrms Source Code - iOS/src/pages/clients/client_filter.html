@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title">{{keywords.filter}}</h4>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="closeFilter()">
+        <span ion-text showWhen="ios" class="notificationIcon">{{keywords.cancel}}</span>
+        <ion-icon name="md-close" showWhen="android,windows" class="notificationIcon"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list class="inputLabel">
+    <ion-item class="inputItem">
+      <ion-label class="addInput-Label" floating>{{keywords.email}}</ion-label>
+      <ion-input class="addInput" type="text" #b (keyup.enter)="moveFocus(c)" [(ngModel)]="filterData.email"></ion-input>
+    </ion-item>
+    <ion-item class="inputItem">
+      <ion-label class="addInput-Label" floating>{{keywords.company_name}}</ion-label>
+      <ion-input class="addInput" type="text" #b (keyup.enter)="moveFocus(c)" [(ngModel)]="filterData.client"></ion-input>
+    </ion-item>
+  </ion-list>
+  <button type="submit" class="loginButton" [ngStyle]="getHeaderStyle()" (click)="dismiss()" ion-button full>{{keywords.filter_clients}}</button>
+</ion-content>

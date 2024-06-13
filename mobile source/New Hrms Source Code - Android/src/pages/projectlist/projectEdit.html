@@ -1,0 +1,77 @@
+<ion-header>
+        <ion-navbar>
+          <button ion-button menuToggle>
+            <ion-icon name="menu" class="menuIcon"></ion-icon>
+          </button>
+          <ion-title [ngStyle]="getHeaderStyle()">
+            <h4 class="header-title">{{keywords.projects}}</h4>
+          </ion-title>
+        </ion-navbar>
+      </ion-header>
+      
+      
+      
+      <ion-content padding>
+        <form (ngSubmit)="addEmployee()" [formGroup]="projectForm">
+          <ion-list class="inputLabel">
+            <ion-item class="inputItem">
+              <ion-label class="addInput-Label" floating>{{keywords.project_code}}</ion-label>
+              <ion-input class="addInput" value="{{projectDetails.project_code}}" (keyup.enter)="moveFocus(b)" formControlName="project_code"
+                type="text" readonly></ion-input>
+            </ion-item>
+            <ion-item class="inputItem">
+              <ion-label class="addInput-Label" floating>{{keywords.project_title}}</ion-label>
+              <ion-input class="addInput" #b value="{{projectDetails.project_title}}" (keyup.enter)="moveFocus(c)" formControlName="project_title"
+                type="text" required></ion-input>
+            </ion-item>
+      
+            <ion-item class="inputItem item-leave-height">
+              <ion-label class="addInput-Label" stacked>{{keywords.client}}</ion-label>
+              <ion-select interface="action-sheet" placeholder="client" formControlName="client" [(ngModel)]="projectDetails.overviews.client">
+                <ion-option *ngFor="let client of projectData.clients" [value]="client.value">{{client.label}}</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item class="inputItem item-leave-height">
+              <ion-label class="addInput-Label" stacked>{{keywords.assign_lead}}</ion-label>
+              <ion-select interface="action-sheet" placeholder="Assign Lead" formControlName="assign_lead" [(ngModel)]="projectDetails.overviews.leadid">
+                <ion-option *ngFor="let lead of projectData.leads" [value]="lead.value">{{lead.label}}</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item class="inputItem item-leave-height">
+              <ion-label class="addInput-Label" stacked>{{keywords.assigned_to}}</ion-label>
+              <ion-select interface="action-sheet" placeholder="Assign To" formControlName="assign_to" multiple="true" [(ngModel)]="projectMember">
+                <ion-option *ngFor="let lead of projectData.leads" [value]="lead.value">{{lead.label}}</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item class="inputItem item-leave-height">
+              <ion-label>{{keywords.start_date}}</ion-label>
+              <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="projectDetails.start_date" formControlName="start_date"></ion-datetime>
+            </ion-item>
+            <ion-item class="inputItem item-leave-height">
+              <ion-label>{{keywords.end_date}}</ion-label>
+              <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="projectDetails.due_date" formControlName="due_date"></ion-datetime>
+            </ion-item>
+            <ion-item class="inputItem item-leave-height">
+              <ion-label class="addInput-Label" stacked>{{keywords.fixed_rate}}</ion-label>
+              <ion-toggle [(ngModel)]="fixed" formControlName="fixed_rate"></ion-toggle>
+            </ion-item>
+            <ion-item *ngIf="fixed" class="inputItem">
+              <ion-label class="addInput-Label" floating>{{keywords.fixed_price}}</ion-label>
+              <ion-input class="addInput" value="{{projectDetails.overviews.fixed_price}}" (keyup.enter)="moveFocus()" formControlName="fixed_price" type="text" required></ion-input>
+            </ion-item>
+            <ion-item *ngIf="!fixed" class="inputItem">
+              <ion-label class="addInput-Label" floating>{{keywords.hourly_rate}} </ion-label>
+              <ion-input class="addInput" (keyup.enter)="moveFocus()" value="{{projectDetails.overviews.hourly_rate}}" formControlName="hourly_rate" type="text" required></ion-input>
+            </ion-item>
+            <ion-item class="inputItem">
+              <ion-label class="addInput-Label" floating>{{keywords.estimated_hours}}</ion-label>
+              <ion-input class="addInput" (keyup.enter)="moveFocus()" value="{{projectDetails.estimate_hours}}" formControlName="estimate_hours" type="text" required></ion-input>
+            </ion-item>
+            <ion-item class="inputItem">
+                <ion-label class="addInput-Label" stacked>{{keywords.description}}</ion-label>
+                <ion-input class="addInput" (keyup.enter)="moveFocus()" formControlName="description" type="text" value="{{projectDetails.overviews.description}}" required></ion-input>
+              </ion-item>
+          </ion-list>
+          <button type="submit" [ngStyle]="getHeaderStyle()" class="loginButton" ion-button full>{{keywords.edit}}</button>
+        </form>
+      </ion-content>

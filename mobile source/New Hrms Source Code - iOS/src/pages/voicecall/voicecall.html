@@ -1,0 +1,103 @@
+<!--
+  Generated template for the NotificationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- <ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu" class="menuIcon"></ion-icon>
+      </button>
+      <ion-title [ngStyle]="colorCode">
+        <h4 class="header-title">Video Call</h4>
+      </ion-title>
+      <img (click)="presentPopover($event)" src="assets/icon/more.png" class="moreIcon">
+      <ion-icon (click)="openNotification()" ios="ios-settings" md="md-settings" class="notificationIcon"></ion-icon>
+    </ion-navbar>
+  </ion-header>
+   -->
+<ion-content class="voice-call-content">
+  <ion-card class="videocall-details">
+    <ion-icon class="back-icon" ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+    <div class="user-img">
+      <img class="rounded" alt="" src="https://dreamguys.co.in/dhr/template/assets/img/user.jpg">
+    </div>
+    <div class="call-userinfo">
+      <span class="call-username">{{fullname}}</span>
+      <!-- <span class="call-duration">00:59</span> -->
+    </div>
+    <!-- <div class="chat-link">
+          <i class="fa fa-comments-o"></i>
+        </div> -->
+
+  </ion-card>
+
+
+  <!-- <img alt="" class="user-video" src="https://dreamguys.co.in/dhr/template/assets/img/video-call.jpg"> -->
+  <!-- <div [innerHtml]="htmlToAdd"></div>
+      </div> -->
+  <div class="video" id="uservideo">
+    <!-- <img alt="" class="user-video" src="https://dreamguys.co.in/dhr/template/assets/img/video-call.jpg"> -->
+    <div id="subscribe" class="uservideo"></div>
+  </div>
+  <div class="voicecall-users">
+    <ion-list id="data" class="users-list">
+
+      <!-- <div *ngIf="!pub">
+            <img src="https://dreamguys.co.in/dhr/template/assets/img/user-05.jpg" class="user-image">
+          </div> -->
+      <div id="publisher" class="user-image"></div>
+    </ion-list>
+  </div>
+
+  <div class="voicecall-users1">
+    <ion-list id="data" class="users-list">
+      <div id="userimage" (click)="on($event)"></div>
+    </ion-list>
+  </div>
+
+  <!-- <div> -->
+
+  <!-- </div> -->
+  <!-- </div> -->
+  <div class="voicecall-options">
+    <div class="voicecall-items">
+      <ion-list *ngIf="video" (click)="muteVideo()" class="voicecall-optionslist">
+        <span class="option-icon">
+          <i class="fa fa-video-camera camera"></i>
+        </span>
+      </ion-list>
+      <ion-list *ngIf="!video" (click)="unMuteVideo()" class="voicecall-optionslist">
+        <span class="end-call">
+          <i class="fa fa-video-camera camera"></i>
+        </span>
+      </ion-list>
+      <ion-list *ngIf="audio" (click)="muteAudio()" class="voicecall-optionslist">
+        <span class="option-icon">
+          <i class="fa fa-microphone microphone"></i>
+        </span>
+      </ion-list>
+      <ion-list *ngIf="!audio" (click)="unMuteAudio()" class="voicecall-optionslist">
+        <span class="end-call">
+          <i class="fa fa-microphone microphone"></i>
+        </span>
+      </ion-list>
+      <!-- <ion-list (click)="addPeople()" class="voicecall-optionslist">
+            <span class="option-icon">
+              <i class="fa fa-user-plus"></i>
+            </span>
+          </ion-list> -->
+      <ion-list (click)="swapCam()" class="voicecall-optionslist">
+        <span class="option-icon">
+          <i class="fa fa-arrows-v full-screen"></i>
+        </span>
+      </ion-list>
+      <ion-list (click)="endCall()" class="voicecall-optionslist">
+        <span class="end-call">
+          <ion-icon ios="ios-call" md="md-call"></ion-icon>
+        </span>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>

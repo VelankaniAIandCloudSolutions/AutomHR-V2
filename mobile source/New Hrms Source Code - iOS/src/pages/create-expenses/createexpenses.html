@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title">{{keywords.create_expense}}</h4>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form (ngSubmit)="addEmployee()" [formGroup]="expensesForm">
+    <ion-list class="inputLabel">
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>{{keywords.amount}}</ion-label>
+        <ion-input class="addInput" (keyup.enter)="moveFocus(b)" formControlName="amount" type="text"></ion-input>
+      </ion-item>
+      <ion-item class="inputItem item-leave-height">
+        <ion-label class="addInput-Label" stacked>{{keywords.show_to_client}}</ion-label>
+        <ion-toggle [(ngModel)]="client" formControlName="show_client"></ion-toggle>
+      </ion-item>
+      <ion-item *ngIf="client" class="inputItem item-leave-height">
+        <ion-label class="addInput-Label" stacked>{{keywords.client}}</ion-label>
+        <ion-select interface="action-sheet" placeholder="client" formControlName="client">
+          <ion-option *ngFor="let client of projectDetails.clients" [value]="client.value">{{ client.label }}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item class="inputItem item-leave-height">
+        <ion-label class="addInput-Label" stacked>{{keywords.project}}</ion-label>
+        <ion-select interface="action-sheet" placeholder="Project" formControlName="project">
+          <ion-option *ngFor="let pro of projectDetails.projects" [value]="pro.value">{{ pro.label }}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item class="inputItem item-leave-height">
+        <ion-label class="addInput-Label" stacked>{{keywords.category}}</ion-label>
+        <ion-select interface="action-sheet" placeholder="category" formControlName="category">
+          <ion-option *ngFor="let exp of projectDetails.expense_categories" [value]="exp.value">{{ exp.label }}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item class="inputItem item-leave-height">
+        <ion-label>Due Date</ion-label>
+        <ion-datetime displayFormat="MMM DD YYYY" min="{{currentTime}}" max="{{year+5}}" formControlName="expense_date"></ion-datetime>
+      </ion-item>
+      <ion-item class="inputItem">
+        <ion-label class="addInput-Label" floating>{{keywords.notes}}</ion-label>
+        <ion-input class="addInput" (keyup.enter)="moveFocus()" formControlName="notes" type="text" required></ion-input>
+      </ion-item>
+      <ion-item class="inputItem item-leave-height">
+        <ion-label class="addInput-Label" stacked>{{keywords.billable}}</ion-label>
+        <ion-toggle [(ngModel)]="bill" formControlName="billable"></ion-toggle>
+      </ion-item>
+      <ion-item class="inputItem item-leave-height">
+        <ion-label class="addInput-Label" stacked>{{keywords.invoiced}}</ion-label>
+        <ion-toggle [(ngModel)]="invo" formControlName="invoiced"></ion-toggle>
+      </ion-item>
+      <ion-item class="inputItem item-leave-height">
+        <ion-label class="addInput-Label" stacked>{{keywords.select_image_any}}</ion-label>
+      </ion-item>
+      <button type="button" ion-button icon-left (click)="getImage()">
+        <ion-icon name="camera"></ion-icon>{{keywords.select_image}}
+      </button>
+      <span *ngIf="uploadImage">
+        <img id="checkinImage" [src]="safeUrl" />
+      </span>
+    </ion-list>
+    <button type="submit" [ngStyle]="getHeaderStyle()" class="loginButton" ion-button full>
+      {{keywords.create_expense}}
+    </button>
+  </form>
+</ion-content>

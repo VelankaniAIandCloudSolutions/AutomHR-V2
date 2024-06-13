@@ -1,0 +1,266 @@
+<!--
+  Generated template for the ProfilePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title"> {{keywords.profile}}</h4>
+    </ion-title>
+    <!-- <div *ngIf="roleId == '3'" class="notification-div">
+      <ion-icon ios="ios-create-outline" (click)="editProfile()" md="md-create" class="notificationIcon"></ion-icon>
+    </div> -->
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="background-content">
+  <div class="profile-card-div" [ngStyle]="getstyle()">
+    <ion-card class="profile-card" [ngStyle]="getstyle()">
+      <div class="profile-header">
+        <img src="{{profileImage}}" class="profile-pic" (error)="setDefaultPic()">
+        <div class="profile-upload" (click)="getImage()" *ngIf="roleId == '2'">
+        </div>
+      </div>
+      <div class="profile-header-field">
+        <h2 class="profile-name">{{clientProfileData.fullname}}</h2>
+        <h2 class="profile-designation">{{clientProfileData.company_name}}</h2>
+      </div>
+    </ion-card>
+  </div>
+
+  <div>
+    <ion-segment [(ngModel)]="profile">
+      <ion-segment-button class="profile-segment" value="overview">
+        {{keywords.overview}}
+      </ion-segment-button>
+      <ion-segment-button class="profile-segment" value="invoice">
+        {{keywords.invoices}}
+      </ion-segment-button>
+      <ion-segment-button class="profile-segment" value="estimates">
+        {{keywords.estimates}}
+      </ion-segment-button>
+      <ion-segment-button class="profile-segment" value="projects">
+        {{keywords.projects}}
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="profile">
+    <div class="segment-tab" *ngSwitchCase="'overview'">
+      <ion-list class="profile-list">
+        <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+          <div class="holiday-card">
+            <h4 class="profile-title">{{keywords.client_id}}</h4>
+            <span class="profile-inner-item">{{clientProfileData.co_id}}</span>
+          </div>
+        </ion-item>
+        <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+          <div class="holiday-card">
+            <h4 class="profile-title">{{keywords.contact_person}}</h4>
+            <span class="profile-inner-item">{{clientProfileData.contact_person}}</span>
+          </div>
+        </ion-item>
+        <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+          <div class="holiday-card">
+            <h4 class="profile-title">{{keywords.email}}</h4>
+            <span class="profile-inner-item">{{clientProfileData.company_email}}</span>
+          </div>
+        </ion-item>
+        <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+          <div class="holiday-card">
+            <h4 class="profile-title">{{keywords.phone}}</h4>
+            <span class="profile-inner-item">{{clientProfileData.company_phone}}</span>
+          </div>
+        </ion-item>
+        <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+          <div class="holiday-card">
+            <h4 class="profile-title">{{keywords.company_phone}}</h4>
+            <span class="profile-inner-item">{{clientProfileData.company_mobile}}</span>
+          </div>
+        </ion-item>
+        <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+          <div class="holiday-card">
+            <h4 class="profile-title">{{keywords.fax}}</h4>
+            <span class="profile-inner-item">{{clientProfileData.company_fax}}</span>
+          </div>
+        </ion-item>
+        <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+          <div class="holiday-card">
+            <h4 class="profile-title">{{keywords.address}}</h4>
+            <span class="profile-inner-item">{{clientProfileData.company_address}}</span>
+          </div>
+        </ion-item>
+        <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+          <div class="holiday-card">
+            <h4 class="profile-title">{{keywords.city}}</h4>
+            <span class="profile-inner-item">{{clientProfileData.city}}</span>
+          </div>
+        </ion-item>
+        <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+          <div class="holiday-card">
+            <h4 class="profile-title">{{keywords.zip_code}}</h4>
+            <span class="profile-inner-item">{{clientProfileData.zip}}</span>
+          </div>
+        </ion-item>
+        <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+          <div class="holiday-card">
+            <h4 class="profile-title">{{keywords.state_province}}</h4>
+            <span class="profile-inner-item">{{clientProfileData.state}}</span>
+          </div>
+        </ion-item>
+        <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+          <div class="holiday-card">
+            <h4 class="profile-title">{{keywords.country}}</h4>
+            <span class="profile-inner-item">{{clientProfileData.country}}</span>
+          </div>
+        </ion-item>
+      </ion-list>
+      <ion-list class="profile-list">
+        <ion-item class="profile-item">
+          <div class="holiday-card">
+            <h4 class="holiday-title">{{keywords.additional_fields}}</h4>
+            <!-- <ion-list class="profile-list"> -->
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">{{keywords.website}}</h4>
+                <span class="profile-inner-item">{{clientProfileData.company_website}}</span>
+              </div>
+            </ion-item>
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">{{keywords.skype}}</h4>
+                <span class="profile-inner-item">{{clientProfileData.skype}}</span>
+              </div>
+            </ion-item>
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">{{keywords.linkedin}}</h4>
+                <span class="profile-inner-item">{{clientProfileData.linkedin}}</span>
+              </div>
+            </ion-item>
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">{{keywords.facebook}}</h4>
+                <span class="profile-inner-item">{{clientProfileData.facebook}}</span>
+              </div>
+            </ion-item>
+            <ion-item class="profile-item" style="border-bottom: 1px solid #e7e7e7 !important;">
+              <div class="holiday-card">
+                <h4 class="profile-title">{{keywords.twitter}}</h4>
+                <span class="profile-inner-item">{{clientProfileData.twitter}}</span>
+              </div>
+            </ion-item>
+            <!-- </ion-list> -->
+          </div>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <div *ngSwitchCase="'invoice'">
+      <div *ngIf="invoice">
+        <ion-list class="noti-list" *ngFor="let invoice of invoicesList">
+          <!-- <ion-item-sliding #item> -->
+          <ion-item (click)="openInvoice(invoice)">
+            <div>
+              <h4 class="holiday-title"> #{{invoice.reference_no}}</h4>
+              <span class="holiday-days-div">
+                <h2 class="holiday-title"> {{invoice.converted_total_cost}}</h2>
+              </span>
+            </div>
+            <div class="holiday-card">
+              <h4 class="leave-type">{{invoice.company_name}}</h4>
+            </div>
+            <div class="holiday-day">
+              <h2 *ngIf="invoice.status=='Paid'" class="leave-status leave-accept-status">{{keywords.paid}}</h2>
+              <h2 *ngIf="invoice.status=='Unpaid'" class="leave-status leave-reject-status">{{keywords.unpaid}}</h2>
+            </div>
+          </ion-item>
+          <!-- <ion-item-options *ngIf="roleId == '1'" side="right">
+            <button ion-button color="secondary" (click)="editSalary(payslipList)">Edit</button>
+          </ion-item-options>
+        </ion-item-sliding> -->
+        </ion-list>
+      </div>
+      <div *ngIf="!invoice" class="dashboard-area">
+        <h3 class="nolist">No details found</h3>
+      </div>
+    </div>
+
+    <div *ngSwitchCase="'estimates'">
+      <div *ngIf="estimates">
+        <ion-list class="noti-list" *ngFor="let estimate of estimatesList">
+          <!-- <ion-item-sliding #item> -->
+          <ion-item (click)="openEstimate(estimate)">
+            <div>
+              <h4 class="holiday-title">#{{estimate.reference_no}}</h4>
+              <span class="holiday-days-div">
+                <h2 class="holiday-title"> {{estimate.converted_amount}}</h2>
+              </span>
+            </div>
+            <div class="holiday-card">
+              <h4 class="leave-type">{{estimate.client_name}}</h4>
+            </div>
+            <div class="holiday-day">
+              <h2 *ngIf="estimate.status=='Pending'" class="leave-status">{{keywords.pending}}</h2>
+              <h2 *ngIf="estimate.status=='Accepted'" class="leave-status leave-accept-status">{{keywords.accepted}}</h2>
+              <h2 *ngIf="estimate.status=='Declined'" class="leave-status leave-reject-status">{{keywords.rejected}}</h2>
+            </div>
+          </ion-item>
+          <!-- <ion-item-options *ngIf="roleId == '1'" side="right">
+            <button ion-button color="secondary" (click)="editSalary(payslipList)">Edit</button>
+          </ion-item-options>
+        </ion-item-sliding> -->
+        </ion-list>
+      </div>
+      <div class="dashboard-area" *ngIf="!estimates">
+        <h3 class="nolist">No details found</h3>
+      </div>
+    </div>
+    <div *ngSwitchCase="'projects'">
+      <div *ngIf="projects">
+        <ion-list class="holiday-list" *ngFor="let project of projectList " style="margin-top: 4% !important">
+          <!-- <ion-item-sliding #item > -->
+          <ion-item (click)="openProject(project)">
+            <div>
+              <h4 class="holiday-title">{{project.project_title}}</h4>
+            </div>
+            <div class="holiday-card">
+              <h4 class="project-task"> {{project.opentasks}} {{keywords.open_tasks}}, {{project.completedtasks}} {{keywords.tasks_completed}}
+              </h4>
+            </div>
+            <div class="barWrapper">
+              <div class="progress">
+                <div [ngStyle]="getProgresstyle()" class="progress-bar" [style.width.%]="project.progress" id="progress"
+                  role="progressbar" aria-valuemin="0" aria-valuemax="100" [attr.aria-valuenow]="project.progress">
+                  <label [ngStyle]="getFontstyle()" for="text" id="tooltip" [attr.data-tip]="project.progress" class="has-tip"></label>
+                </div>
+              </div>
+            </div>
+            <div class="project-deadline-div">
+              <h4 class="holiday-date"><i class="fa fa-calendar"></i>&nbsp;&nbsp;&nbsp; {{project.start_date | date :
+                'd
+                MMM
+                y'}}</h4>
+              <span class="holiday-days-div">
+                <span class="holiday-date"><i class="fa fa-paperclip"></i>&nbsp;{{project.tasks_files_count}}</span>
+                &nbsp;&nbsp; <span class="holiday-date"><i class="fa fa-comment-o"></i>&nbsp;{{project.comment_count}}</span>
+              </span>
+            </div>
+          </ion-item>
+          <!-- <ion-item-options side="right">
+            <button ion-button (click)="cancel(leave)">Cancel</button>
+          </ion-item-options>
+        </ion-item-sliding> -->
+        </ion-list>
+      </div>
+      <div class="dashboard-area" *ngIf="!projects">
+        <h3 class="nolist">No details found</h3>
+      </div>
+    </div>
+  </div>
+</ion-content>

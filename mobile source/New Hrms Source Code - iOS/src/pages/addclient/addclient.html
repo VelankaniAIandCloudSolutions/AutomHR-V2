@@ -1,0 +1,208 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title">{{keywords.add_client}}</h4>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="basicInformation">
+    <h4 class="editprofile-title">{{keywords.basic_information}}</h4>
+    <div class="inputList">
+      <ion-list class="inputLabel">
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.company_name}}</ion-label>
+          <ion-input class="addInput" (keyup.enter)="moveFocus(b)" type="text" [(ngModel)]="client.company_name"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.company_email}}</ion-label>
+          <ion-input class="addInput" #contactemail="ngModel" #b [(ngModel)]="client.company_email" type="text" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
+            (keyup.enter)="moveFocus(c)" required></ion-input>
+        </ion-item>
+        <div class="md-errors-spacer" [hidden]="contactemail.valid || contactemail.untouched">
+          <div class="validation" *ngIf="contactemail.errors && contactemail.errors.pattern">
+            Email is invalid
+          </div>
+        </div>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.vat}}</ion-label>
+          <ion-input class="addInput" #c (ion-change)="isValid('phone')" maxlength="15" [(ngModel)]="client.VAT"
+            (keyup.enter)="moveFocus(d)" type="tel" required></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.notes}}</ion-label>
+          <ion-input class="addInput" #d (keyup.enter)="moveFocus(f)" [(ngModel)]="client.notes" type="password"></ion-input>
+        </ion-item>
+      </ion-list>
+      <button type="submit" [ngStyle]="colorCode" [disabled]="contactemail.errors && contactemail.errors.pattern" class="loginButton"
+        #e (click)="contact()" ion-button full>{{keywords.next}}</button>
+    </div>
+  </div>
+
+  <div *ngIf="contactInformation">
+    <h4 class="editprofile-title">{{keywords.contact_information}}</h4>
+    <div class="inputList">
+      <ion-list class="inputLabel">
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.company_phone}}</ion-label>
+          <ion-input class="addInput" (keyup.enter)="moveFocus(b)" type="text" [(ngModel)]="client.company_phone"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.company_mobile}}</ion-label>
+          <ion-input class="addInput" #contactnumber="ngModel" #b [(ngModel)]="client.company_mobile" (keyup.enter)="moveFocus(c)"
+            pattern="[0-9]{10,15}" maxlength="15" required type="tel"></ion-input>
+        </ion-item>
+        <div class="md-errors-spacer" [hidden]="contactnumber.valid || contactnumber.untouched">
+          <div class="validation" *ngIf="contactnumber.errors && contactnumber.errors.pattern">
+            Phone is invalid
+          </div>
+        </div>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.fax}}</ion-label>
+          <ion-input class="addInput" #c [(ngModel)]="client.company_fax" (keyup.enter)="moveFocus(e)" type="tel"
+            required></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.address}}</ion-label>
+          <ion-input class="addInput" #e (keyup.enter)="moveFocus(f)" [(ngModel)]="client.company_address" type="password"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.city}}</ion-label>
+          <ion-input class="addInput" #f (keyup.enter)="moveFocus(g)" [(ngModel)]="client.city" type="password"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.zip_code}}</ion-label>
+          <ion-input class="addInput" #g (keyup.enter)="moveFocus(h)" [(ngModel)]="client.zip" type="password"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.state_province}}</ion-label>
+          <ion-input class="addInput" #h (keyup.enter)="moveFocus(i)" [(ngModel)]="client.state" type="password"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.country}}</ion-label>
+          <ion-input class="addInput" #i [(ngModel)]="client.country" type="password"></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-row>
+        <ion-col>
+          <button type="submit" class="backButton" (click)="basic()" ion-button full>{{keywords.back}}</button>
+        </ion-col>
+        <ion-col>
+          <button type="submit" class="loginButton" [ngStyle]="colorCode" (click)="web()" ion-button full>{{keywords.next}}</button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+  <div *ngIf="webInformation">
+    <h4 class="editprofile-title">{{keywords.web_information}}</h4>
+    <div class="inputList">
+      <ion-list class="inputLabel">
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.website}}</ion-label>
+          <ion-input class="addInput" (keyup.enter)="moveFocus(b)" [(ngModel)]="client.company_website" type="password"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.linkedin}}</ion-label>
+          <ion-input class="addInput" #b (keyup.enter)="moveFocus(c)" [(ngModel)]="client.linkedin" type="password"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.skype}}</ion-label>
+          <ion-input class="addInput" #c (keyup.enter)="moveFocus(d)" [(ngModel)]="client.skype" type="password"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.facebook}}</ion-label>
+          <ion-input class="addInput" #d (keyup.enter)="moveFocus(e)" [(ngModel)]="client.facebook" type="password"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.twitter}}</ion-label>
+          <ion-input class="addInput" #e [(ngModel)]="client.twitter" type="password"></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-row>
+        <ion-col>
+          <button type="submit" class="backButton" (click)="contactback()" ion-button full>{{keywords.back}}</button>
+        </ion-col>
+        <ion-col>
+          <button type="submit" class="loginButton" [ngStyle]="colorCode" (click)="bank()" ion-button full>{{keywords.next}}</button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+  <div *ngIf="bankInformation">
+    <h4 class="editprofile-title">{{keywords.bank_information}}</h4>
+    <div class="inputList">
+      <ion-list class="inputLabel">
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.bank}}</ion-label>
+          <ion-input class="addInput" (keyup.enter)="moveFocus(b)" type="text" [(ngModel)]="client.bank"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.swift_bic}}</ion-label>
+          <ion-input class="addInput" #b [(ngModel)]="client.bic" (keyup.enter)="moveFocus(c)" type="text" required></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.sort_code}} </ion-label>
+          <ion-input class="addInput" #c maxlength="15" [(ngModel)]="client.sortcode" (keyup.enter)="moveFocus(d)" type="tel"
+            required></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.account_holder}}</ion-label>
+          <ion-input class="addInput" #d (keyup.enter)="moveFocus(e)" [(ngModel)]="client.account_holder" type="text"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.account}}</ion-label>
+          <ion-input class="addInput" #e (keyup.enter)="moveFocus(f)" [(ngModel)]="client.account" type="text"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.iban}}</ion-label>
+          <ion-input class="addInput" #f (keyup.enter)="moveFocus(f)" [(ngModel)]="client.iban" type="text"></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-row>
+        <ion-col>
+          <button type="submit" class="backButton" (click)="webback()" ion-button full>{{keywords.back}}</button>
+        </ion-col>
+        <ion-col>
+          <button type="submit" class="loginButton" [ngStyle]="colorCode" (click)="host()" ion-button full>{{keywords.next}}</button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+  <div *ngIf="hostInformation">
+    <h4 class="editprofile-title">{{keywords.host_informations}}</h4>
+    <div class="inputList">
+      <ion-list class="inputLabel">
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.hosting_company}}</ion-label>
+          <ion-input class="addInput" (keyup.enter)="moveFocus(b)" type="text" [(ngModel)]="client.hosting_company"></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.hosting}}</ion-label>
+          <ion-input class="addInput" #b [(ngModel)]="client.hostname" (keyup.enter)="moveFocus(c)" type="text"
+            required></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.account_username}}</ion-label>
+          <ion-input class="addInput" #c maxlength="15" [(ngModel)]="client.account_username" (keyup.enter)="moveFocus(d)"
+            type="text" required></ion-input>
+        </ion-item>
+        <ion-item class="inputItem">
+          <ion-label class="addInput-Label" floating>{{keywords.port}}</ion-label>
+          <ion-input class="addInput" #d (keyup.enter)="moveFocus(f)" [(ngModel)]="client.port" type="text"></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-row>
+        <ion-col>
+          <button type="submit" class="backButton" (click)="bankback()" ion-button full>{{keywords.back}}</button>
+        </ion-col>
+        <ion-col>
+          <button type="submit" class="loginButton" [ngStyle]="colorCode" (click)="submit()" ion-button full>{{keywords.submit}}</button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,171 @@
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+// .menuContent{
+//     background: #2D2D2D !important;
+// }
+// ion-app.md {
+//   position: relative;
+//   z-index: 9;
+//   top: 0;
+//   bottom: 0;
+// }
+.sidemenu-button{
+    background: transparent !important;
+    color: #fff;
+    font-size: 16px;
+    justify-content: space-between;
+    min-height: 44px;
+    padding-left: 15px;
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-shrink: 0;
+    flex-wrap: nowrap;
+    font-family: 'lato-Regular';
+}
+.item-ios[detail-push] .item-inner, button.item-ios:not([detail-none]) .item-inner, a.item-ios:not([detail-none]) .item-inner{
+    background: transparent;
+}
+// .side-menu{
+//     background: #2D2D2D !important;
+// }
+.side-menu-list{
+    margin: 0px !important;
+}
+.subMenu{
+    margin-left: 10%;
+}
+
+@font-face {
+    font-family: 'lato-Regular';
+     src: url('../assets/fonts/lato-regular.woff') format('truetype');  
+}
+@font-face {
+    font-family: 'fredokaone-Light';
+    src: url('../assets/fonts/fredokaone-regular.woff') format('truetype');  
+}
+@font-face {
+    font-family: 'lato-Bold';
+    src: url('../assets/fonts/lato-bold.woff') format('truetype');  
+}
+
+
+.alert-ios .alert-button,.alert-md .alert-button{
+
+    background-color:  !important;
+    color: #3A57C4 !important;
+}
+.alert-ios .alert-sub-title,.alert-md .alert-sub-title{
+    text-align: center;
+}
+.alert-md .alert-button{
+  text-align: center;
+    margin: 0 auto;
+}
+.alert-md .alert-title{
+  text-align: center;
+}
+
+
+
+  .lds-ellipsis {
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 64px;
+  }
+  .lds-ellipsis div {
+    position: absolute;
+    top: 27px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #44bbec;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  }
+  .lds-ellipsis div:nth-child(1) {
+    left: 6px;
+    animation: lds-ellipsis1 0.6s infinite;
+  }
+  .lds-ellipsis div:nth-child(2) {
+    left: 6px;
+    animation: lds-ellipsis2 0.6s infinite;
+  }
+  .lds-ellipsis div:nth-child(3) {
+    left: 26px;
+    animation: lds-ellipsis2 0.6s infinite;
+  }
+  .lds-ellipsis div:nth-child(4) {
+    left: 45px;
+    animation: lds-ellipsis3 0.6s infinite;
+  }
+  @keyframes lds-ellipsis1 {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  @keyframes lds-ellipsis3 {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+  @keyframes lds-ellipsis2 {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(19px, 0);
+    }
+  }
+
+  // .loading-ios .loading-wrapper,.loading-md .loading-wrapper{
+  //     background: transparent !important;
+  //     border-radius: 2px;
+  //     max-width: 280px;
+  //     max-height: 90%;
+  //     -webkit-box-shadow:none !important;
+  //     box-shadow: none !important;
+  //     padding: 24px;
+  // }
+  .scroll-content{
+    overflow-y: auto;
+    // background: #e2e2e2 !important;
+}
+.background-content{
+  background: #e2e2e2 !important;
+}
+* {
+    font-family: 'lato-Regular';
+}
+ion-backdrop.backdrop-no-tappable {
+//   cursor: auto;
+//   // opacity: 0.9 !important;
+//   background: #fff;
+  margin-top: 55px;
+}
+.loading-spinner{
+  padding-left: 15px;
+}
+.select-md .select-placeholder {
+  color: #000 !important;
+}

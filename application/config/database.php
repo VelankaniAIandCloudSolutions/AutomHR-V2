@@ -75,13 +75,13 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	// 'hostname' => '192.168.30.147:3306',
-	// 'username' => 'velankanidb',
-	// 'password' => 'VelanKanidb@2123',
+	'hostname' => '192.168.30.147:3306',
+	'username' => 'velankanidb',
+	'password' => 'VelanKanidb@2123',
 	
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
+	// 'hostname' => 'localhost',
+	// 'username' => 'root',
+	// 'password' => '',
 	'database' => 'velankanidb',
 
 	'dbdriver' => 'mysqli',

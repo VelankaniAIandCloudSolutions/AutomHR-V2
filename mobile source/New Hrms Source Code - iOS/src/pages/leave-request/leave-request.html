@@ -1,0 +1,102 @@
+<!--
+  Generated template for the LeaveRequestPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()" *ngIf="leave.is_teamlead === 'yes'">
+      <ion-select interface="popover" [(ngModel)]="selectedLeave">
+        <ion-option *ngFor="let leave of leave_types" (ionSelect)="change(leave)" [value]="leave">{{leave}}</ion-option>
+      </ion-select>
+    </ion-title>
+    <ion-title [ngStyle]="getHeaderStyle()" *ngIf="leave.is_teamlead === 'no'">
+        <h4 class="header-title">{{keywords.leave}}</h4>
+    </ion-title>
+    <div *ngIf="roleId == '3'" class="notification-div">
+      <ion-icon ios="ios-add" md="md-add" (click)="addLeave()" class="notificationIcon"></ion-icon>
+    </div>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="background-content">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf="!noData" class="dashboard-area">
+    <ion-list class="holiday-list" [ngClass]="cssClass" [ngStyle]="{'animation-delay': leave.time + 's'}"
+      style="margin-top: 4% !important" *ngFor="let leave of leaveList">
+      <ion-item-sliding #item *ngIf="roleId == '3'  && !lead">
+        <ion-item (click)="openModal(leave)">
+          <div>
+            <h4 class="holiday-title">{{leave.fullname}}</h4>
+            <span class="holiday-days-div">
+              <h2 *ngIf="leave.leave_days == '1'" class="days">{{leave.leave_days}} Day</h2>
+              <h2 *ngIf="leave.leave_days != '1'" class="days">{{leave.leave_days}} Days
+                <!-- <ion-icon class="holiday-icon" ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon> -->
+              </h2>
+            </span>
+          </div>
+          <div class="holiday-card">
+            <h4 class="leave-type">{{leave.l_type}}</h4>
+            <h4 class="holiday-date">{{leave.leave_from | date : 'd MMM y'}}</h4>
+          </div>
+          <div class="holiday-day">
+            <h2 *ngIf="leave.status=='0'" class="leave-status">{{keywords.pending}}</h2>
+            <h2 *ngIf="leave.status=='1'" class="leave-status leave-accept-status">{{keywords.accepted}}</h2>
+            <h2 *ngIf="leave.status=='2'" class="leave-status leave-reject-status">{{keywords.rejected}}</h2>
+            <h2 *ngIf="leave.status=='3'" class="leave-status leave-cancel-status">{{keywords.cancelled}}</h2>
+          </div>
+        </ion-item>
+        <ion-item-options side="right" *ngIf="leave.status=='0'">
+          <button ion-button (click)="cancel(leave)">Cancel</button>
+        </ion-item-options>
+      </ion-item-sliding>
+      <ion-item-sliding #item *ngIf="roleId == '1'  || lead">
+        <ion-item (click)="openModal(leave)">
+          <div>
+            <h4 class="holiday-title">{{leave.fullname}}</h4>
+            <span class="holiday-days-div">
+              <h2 *ngIf="leave.leave_days == '1'" class="days">{{leave.leave_days}} Day</h2>
+              <h2 *ngIf="leave.leave_days != '1'" class="days">{{leave.leave_days}} Days
+                <!-- <ion-icon class="holiday-icon" ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon> -->
+              </h2>
+            </span>
+          </div>
+          <div class="holiday-card">
+            <h4 class="leave-type">{{leave.l_type}}</h4>
+            <h4 class="holiday-date">{{leave.leave_from | date : 'd MMM y'}}</h4>
+          </div>
+          <div class="holiday-day">
+            <h2 *ngIf="leave.status=='0'" class="leave-status">{{keywords.pending}}</h2>
+            <h2 *ngIf="leave.status=='1'" class="leave-status leave-accept-status">{{keywords.accepted}}</h2>
+            <h2 *ngIf="leave.status=='2'" class="leave-status leave-reject-status">{{keywords.rejected}}</h2>
+            <h2 *ngIf="leave.status=='3'" class="leave-status leave-cancel-status">{{keywords.cancelled}}</h2>
+          </div>
+        </ion-item>
+        <ion-item-options side="right" *ngIf="leave.status=='0'">
+          <button ion-button color="secondary" (click)="acceptReject(leave,1)">{{keywords.accepted}}</button>
+          <button ion-button color="danger" (click)="acceptReject(leave,2)">{{keywords.rejected}}</button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="!page">
+      <ion-infinite-scroll-content position="bottom" loadingSpinner="bubbles" loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+  <div *ngIf="noData" class="dashboard-area">
+    <h3 class="nolist">No leave request found</h3>
+  </div>
+  <ion-fab class="employee-fab" (click)="openFilter()">
+    <button class="employee-fabButton" ion-fab color="primary">
+      <i class="fa fa-filter"></i>
+    </button>
+  </ion-fab>
+</ion-content>

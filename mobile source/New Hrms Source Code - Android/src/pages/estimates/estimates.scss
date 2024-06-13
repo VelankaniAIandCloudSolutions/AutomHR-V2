@@ -1,0 +1,61 @@
+page-estimates {
+
+}
+.estimate-item{
+    width: 50% !important;
+    padding: 5px;
+    border-right: 1px solid #ccc;
+}
+.right{
+    border-right: 0px !important;
+}
+.right.col{
+    padding: 0px !important;
+}
+.estimate-table{
+    border: 1px solid #ccc;
+    max-width: 100%;
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 12px;
+}
+.estimate-total-row{
+    font-size: 12px !important;
+    margin: 0px !important;
+}
+.estimate-row{
+    border: 1px solid #ccc;
+    font-size: 12px !important;
+    margin: 0px !important;
+}
+.estimate-total{
+    width: 37% !important;
+    padding: 5px;
+    float: left;
+    text-align: right;
+}
+.estimate-price{
+    width: 33.3% !important;
+    padding: 7px;
+    float: left;
+    font-size: 9px;
+    text-align: center;
+    border-right: 1px solid #ccc;
+}
+.total{
+    text-align: right !important;
+}
+.others{
+    font-size: 12px;
+    margin-bottom: 5px !important;
+    padding: 0px;
+}
+.others-text{
+    font-size: 12px;
+    color: #777 !important;
+    padding-bottom: 20px;
+}
+.estimate-price.right.total{
+    width:58% !important;
+}

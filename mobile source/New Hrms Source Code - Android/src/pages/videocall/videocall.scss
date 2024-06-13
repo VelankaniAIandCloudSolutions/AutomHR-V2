@@ -1,0 +1,93 @@
+page-videocall {
+
+    .scroll-content{
+        overflow-y: hidden;
+    }
+}
+.videocall-details{
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    position: relative;
+    z-index: 99;
+    margin: 0px;
+    width: 100%;
+}
+.user-img {
+    float: left;
+    margin-right: 5px;
+}
+.user-img img {
+    border-radius: 50%;
+    display: flex;
+    height: 30px;
+    width: 30px;
+}
+#userimage{
+    border-radius: 6px;
+    padding: 2px;
+    height:50px;
+    float: right;
+    // background-color: #fff;
+    // border: 1px solid #fff;
+    
+}
+#userimage > div{
+    float: right;
+    margin: 5px;
+    border: 1px solid #fff;
+}
+  .call-userinfo {
+    float: left;
+}
+.call-username {
+    color: #fff;
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 14px;
+}
+.call-duration {
+    color: #fff;
+    display: block;
+    font-size: 12px;
+}
+.chat-link {
+    color: #fff;
+    float: right;
+    font-size: 22px;
+}
+.chat-link a {
+    color: #fff;
+}
+.video{
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 10;
+}
+.uservideo {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    display: block;
+    margin: 0 auto;
+}
+.subsvid{
+    height: 100px;
+    width: 100px;
+}
+.back-icon{
+    color: white;
+    font-size: 30px !important;
+    float: left;
+    margin-right: 20px !important;
+}
+.OT_subscriber{
+    width:100% !important;
+    height:100% !important;
+    float: left;
+}

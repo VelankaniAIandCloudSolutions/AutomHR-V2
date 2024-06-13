@@ -1,0 +1,7 @@
+{
+  "name": "smarthr",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

@@ -1,0 +1,161 @@
+<ion-menu (ionOpen)="menuOpened()" (ionClose)="menuClosed()" [content]="content"
+  [ngStyle]="{'background-color': '#' + bgColor}">
+  <!-- <ion-header>
+    <ion-toolbar>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header> -->
+
+  <ion-content class="side-menu" [ngStyle]="getstyle()" padding>
+    <!-- <ion-list *ngFor="let item of menus | keys" class="side-menu-list" (click)="openPage('Home')">
+      <button class="sidemenu-button" menuClose ion-item>
+        {{item[key]}}
+      </button>
+    </ion-list> -->
+    <ion-list *ngIf="roleId == '1'" class="side-menu-list" (click)="openSub('empMenu')">
+      <button class="sidemenu-button" ion-item>
+        {{keywords.employee}}
+        <ion-icon [name]="selectedPage == 'empMenu'? 'arrow-down' : 'arrow-forward'" float-right></ion-icon>
+      </button>
+    </ion-list>
+    <div *ngIf="selectedPage == 'empMenu'" class="subMenu">
+      <ion-list *ngIf="roleId == '1'" class="side-menu-list" (click)="openPage('employeeList')">
+        <button class="sidemenu-button" menuClose ion-item>
+          {{keywords.employees}}
+        </button>
+      </ion-list>
+      <ion-list class="side-menu-list" (click)="openPage('holidays')">
+        <button class="sidemenu-button" menuClose ion-item>
+          {{keywords.holiday}}
+        </button>
+      </ion-list>
+      <ion-list *ngIf="roleId == '1'" class="side-menu-list" (click)="openPage('attendancelist')">
+        <button class="sidemenu-button" menuClose ion-item>
+          {{keywords.attendance_info}}
+        </button>
+      </ion-list>
+      <ion-list class="side-menu-list" (click)="openPage('leave')">
+        <button class="sidemenu-button" menuClose ion-item>
+          {{keywords.leave}}
+        </button>
+      </ion-list>
+      <ion-list *ngIf="roleId == '1'" class="side-menu-list">
+        <button class="sidemenu-button" menuClose ion-item (click)="openPage('department')">
+          {{keywords.departments}}
+        </button>
+      </ion-list>
+      <ion-list *ngIf="roleId == '1'" class="side-menu-list">
+        <button class="sidemenu-button" (click)="openPage('designations')" menuClose ion-item>
+          {{keywords.designations}}
+        </button>
+      </ion-list>
+    </div>
+    <ion-list *ngIf="roleId == '3'" class="side-menu-list" (click)="openPage('attendance')">
+      <button class="sidemenu-button" menuClose ion-item>
+        {{keywords.attendance}}
+      </button>
+    </ion-list>
+    <ion-list *ngIf="roleId == '3'" class="side-menu-list" (click)="openPage('leave')">
+      <button class="sidemenu-button" menuClose ion-item>
+        {{keywords.leave}}
+      </button>
+    </ion-list>
+    <ion-list *ngIf="roleId == '3'" class="side-menu-list" (click)="openPage('holidays')">
+      <button class="sidemenu-button" menuClose ion-item>
+        {{keywords.holiday}}
+      </button>
+    </ion-list>
+    <ion-list *ngIf="roleId == '1'" class="side-menu-list" (click)="openPage('clientsList')">
+      <button class="sidemenu-button" menuClose ion-item>
+        {{keywords.clients}}
+      </button>
+    </ion-list>
+    <ion-list class="side-menu-list" (click)="openPage('projectlist')">
+      <button class="sidemenu-button" menuClose ion-item>
+        {{keywords.projects}}
+      </button>
+    </ion-list>
+        <ion-list class="side-menu-list" (click)="openPage('task')">
+          <button class="sidemenu-button" menuClose ion-item>
+            {{keywords.tasks}}
+          </button>
+        </ion-list>
+    <ion-list *ngIf="roleId == '3'" class="side-menu-list" (click)="openPage('empSalary')">
+      <button class="sidemenu-button" menuClose ion-item>
+        {{keywords.payslip}}
+      </button>
+    </ion-list>
+    <ion-list class="side-menu-list" (click)="openPage('chatlist')">
+      <button class="sidemenu-button" menuClose ion-item>
+        {{keywords.chat}}
+      </button>
+    </ion-list>
+    <ion-list class="side-menu-list" (click)="openPage('contactlist')">
+      <button class="sidemenu-button" menuClose ion-item>
+        {{keywords.call}}
+      </button>
+    </ion-list>
+    <div *ngIf="roleId != '3'">
+      <ion-list class="side-menu-list" (click)="openSub('accountsMenu')">
+        <button class="sidemenu-button" ion-item>
+          {{keywords.account}}
+          <ion-icon [name]="selectedPage == 'accountsMenu'? 'arrow-down' : 'arrow-forward'" float-right></ion-icon>
+        </button>
+      </ion-list>
+      <div *ngIf="selectedPage == 'accountsMenu'" class="subMenu">
+        <ion-list class="side-menu-list" (click)="openPage('estimateslist')">
+          <button class="sidemenu-button" menuClose ion-item>
+            {{keywords.estimates}}
+          </button>
+        </ion-list>
+        <ion-list class="side-menu-list" (click)="openPage('invoicelist')">
+          <button class="sidemenu-button" menuClose ion-item>
+            {{keywords.invoices}}
+          </button>
+        </ion-list>
+        <ion-list class="side-menu-list" (click)="openPage('paymentlist')">
+          <button class="sidemenu-button" menuClose ion-item>
+            {{keywords.payments}}
+          </button>
+        </ion-list>
+        <ion-list class="side-menu-list" (click)="openPage('expenseslist')">
+          <button class="sidemenu-button" menuClose ion-item>
+            {{keywords.expenses}}
+          </button>
+        </ion-list>
+      </div>
+    </div>
+    <ion-list *ngIf="roleId == '1'" class="side-menu-list" (click)="openSub('payMenu')">
+      <button class="sidemenu-button" ion-item>
+        {{keywords.payroll}}
+        <ion-icon [name]="selectedPage == 'payMenu'? 'arrow-down' : 'arrow-forward'" float-right></ion-icon>
+      </button>
+    </ion-list>
+    <div *ngIf="selectedPage == 'payMenu'" class="subMenu">
+      <ion-list *ngIf="roleId == '1'" class="side-menu-list" (click)="openPage('empSalary')">
+        <button class="sidemenu-button" menuClose ion-item>
+          {{keywords.payrun}}
+        </button>
+      </ion-list>
+
+    </div>
+    <ion-list *ngIf="roleId == '3'" class="side-menu-list" (click)="openPage('timesheet')">
+      <button class="sidemenu-button" menuClose ion-item>
+        {{keywords.timesheets}}
+      </button>
+    </ion-list>
+    <ion-list *ngIf="roleId == '1'" class="side-menu-list" (click)="openTimeSheets()">
+      <button class="sidemenu-button" menuClose ion-item>
+      {{keywords.timesheets}}
+      </button>
+    </ion-list>
+    <ion-list *ngIf="roleId == '1'" class="side-menu-list" (click)="openPage('settings')">
+      <button class="sidemenu-button" menuClose ion-item>
+        {{keywords.settings}}
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

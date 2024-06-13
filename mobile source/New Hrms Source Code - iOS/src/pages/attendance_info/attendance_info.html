@@ -1,0 +1,104 @@
+<!--
+  Generated template for the AttendanceListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <h4 class="header-title">{{keywords.attendance_info}}</h4>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="background-content">
+  <div *ngIf="isData">
+    <ion-list class="noti-list">
+      <ion-item>
+        <div>
+          <h4 class="holiday-title">{{keywords.attendance}}</h4>
+          <span class="holiday-days-div">
+            <h2 class="holiday-title">{{keywords.timesheet}}</h2>
+          </span>
+        </div>
+        <div class="holiday-card">
+          <h4 class="holiday-date1">{{user.fullname }}</h4>
+          <span class="holiday-days-div">
+            <h2 class="holiday-date">{{  date | date: "d MMM y" }}</h2>
+          </span>
+        </div>
+        <div class="holiday-day"></div>
+      </ion-item>
+    </ion-list>
+    <div class="dashboard-area">
+      <ion-list class="holiday-list attendance" style="margin-top: 20px !important">
+        <ion-item-sliding #item>
+          <ion-item>
+            <div class="holiday-card">
+              <h4 class="holiday-title">{{keywords.punch_in_at}} </h4>
+              <h4 class="holiday-date">{{list.punch_in_time}}</h4>
+            </div>
+            <div class="total-hours">
+              {{list.production_hour}} hrs
+            </div>
+          </ion-item>
+        </ion-item-sliding>
+      </ion-list>
+    </div>
+    <div class="dashboard-area">
+      <ion-list class="holiday-list attendance" style="margin-top: 20px !important">
+        <ion-item-sliding #item>
+          <ion-item>
+            <div class="holiday-card">
+              <h4 class="holiday-title">{{keywords.punch_out_at}} </h4>
+              <h4 class="holiday-date">{{list.punch_out_time}}</h4>
+            </div>
+          </ion-item>
+        </ion-item-sliding>
+      </ion-list>
+    </div>
+    <ion-row nowrap>
+      <ion-col class="attendance-col">{{keywords.production}}
+        <p class="attendance-col-value">{{list.production_hour}}</p>
+      </ion-col>
+      <ion-col class="attendance-col">{{keywords.break}} <p class="attendance-col-value">{{list.break_hour}}</p>
+      </ion-col>
+      <ion-col class="attendance-col">{{keywords.overtime}} <p class="attendance-col-value">{{list.overtime}}</p>
+      </ion-col>
+    </ion-row>
+  <ion-list class="noti-list">
+    <h4 class="holiday-title" style="margin-left: 30px;">{{keywords.activity}}</h4>
+    <ion-item>
+      <ul class="attendance-list">
+        <!---->
+        <li *ngFor="let activity of list.activity">
+          <div class="timeline-badge">
+            <div class="timeline-span"></div>
+          </div>
+          <div class="activity-card">
+            <h4 class="holiday-title">{{keywords.punch_in_at}} </h4>
+            <h4 class="holiday-date">{{activity.punch_in}}</h4>
+          </div>
+          <div class="timeline-badge">
+            <div class="timeline-span"></div>
+          </div>
+          <div class="activity-card">
+            <h4 class="holiday-title">{{keywords.punch_out_at}} </h4>
+            <h4 class="holiday-date">{{activity.punch_out}}</h4>
+          </div>
+        </li>
+      </ul>
+    </ion-item>
+  </ion-list>
+  </div>
+      <ion-fab class="employee-fab" (click)="openModal()">
+        <button [ngStyle]="colorCode" class="employee-fabButton" ion-fab>
+          <i class="fa fa-filter"></i>
+        </button>
+      </ion-fab>
+</ion-content>

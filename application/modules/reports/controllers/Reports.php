@@ -2366,6 +2366,112 @@ function ajax_attendance_report(){
 				echo $html; exit;
 			}
 		}
+
+
+		public function today_checkin_detials($user_id = '', $a_month ='', $a_year ='', $date = '')
+		{
+			// echo"<pre>";
+			set_time_limit(0);
+			ini_set('memory_limit', '-1');
+			$file_name = 'EmployeeExportData_'.date("dmyhis").'.csv';
+            header("Content-type: text/csv");   
+            header("Content-Disposition: attachment; filename=".$file_name);
+            header("Pragma: no-cache");
+            header("Expires: 0");
+            $output = fopen("php://output", "w");
+			// Write header row
+            $columns = array(
+                'Employee Number', 'Full Name', "Date","Checkin"
+            );
+
+            fputcsv($output, $columns);
+			
+			$emp_data = $this->db->select('*')
+	            ->from('dgt_users U')
+	            ->join('dgt_account_details AD', 'U.id = AD.user_id')
+	            ->where('AD.branch_id','3')
+	            ->where('U.status','1')
+				// ->limit(10)
+	            ->get()->result_array();
+		
+			if($date == '')
+			{
+				$date = date("Y-m-d H:i:s");
+			}
+			if($a_month == '')
+			{
+				$a_month = date("m");
+			}
+			if($a_year == '')
+			{
+				$a_year = date("Y");
+			}
+
+			$strtotime = strtotime($date);
+			$a_day     = date('d',$strtotime);
+			$a_cin     = date('H:i',$strtotime);
+			$a_cout = '';
+		   
+			if(!empty($emp_data))
+			{
+				foreach($emp_data as $emp_data_val)
+				{
+					$tmp_output = array();
+					$tmp_output[] = $emp_data_val['emp_code'];
+					
+					$tmp_output[]= $emp_data_val['fullname'];
+
+					$tmp_output[] = date("d-m-Y", strtotime($date));
+					
+
+					$user_id = '';
+					$user_id = $emp_data_val['id'];
+
+					$where= array('user_id'=>$user_id,'a_month'=>$a_month,'a_year'=>$a_year);
+					$this->db->select('month_days, month_days_in_out');
+					$record  = $this->db->get_where('dgt_attendance_details', $where)->row_array();
+				
+					$tmp_check_details = 'N.A.';
+					if(!empty($record['month_days']))
+					{
+						$record_day = unserialize($record['month_days']);
+						$month_days_in_out_record = unserialize($record['month_days_in_out']);
+
+						$a_day -=1;
+						
+						if(!empty($record_day[$a_day]) && !empty($month_days_in_out_record[$a_day])){
+						$current_days = $month_days_in_out_record[$a_day];
+						
+						$total_records = count($current_days);
+
+						$current_days[$total_records] =array('day'=>1,'punch_in'=>$a_cin,'punch_out'=>$a_cout);
+						$month_days_in_out_record[$a_day] = $current_days;
+						$tmo_count = 0;
+						
+							$tmo_count= count($record_day[$a_day]);
+
+							if($record_day[$a_day][$tmo_count -1]['day'] =='1' && $record_day[$a_day][$tmo_count -1]['punch_in'] != '')
+							{
+								$tmp_check_details = $record_day[$a_day][$tmo_count -1]['punch_in'];
+								$tmp_output[] = $tmp_check_details;
+							}
+							else{
+								$tmp_output[] = $record_day[$a_day]['punch_in'];
+							}
+						}
+					}
+					else
+					{
+						$tmp_output[] = $tmp_check_details;
+					}
+					
+					// print_r($tmp_output);
+					fputcsv($output, $tmp_output);
+				}
+				fclose($output); 
+				exit;
+			}
+		}
 	}
 
 	/* End of file invoices.php */

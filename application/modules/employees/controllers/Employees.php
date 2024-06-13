@@ -3495,20 +3495,25 @@ function grid_employees()
         }
     }
 
-    public function zip_file_upload($postData, $files)
+     public function zip_file_upload($postData, $files)
     {   
+
         $config['upload_path'] = './assets/zip_file_upload/';
         $config['allowed_types'] = 'zip|rar';
+        $config['max_size']     = "2048000"; // upload size 2 gb
       
         $this->load->library('upload', $config);
+
         if ($this->upload->do_upload('import_csv')) 
         {
             $filename = $this->upload->data();
             $zip_file_name = base_url("/assets/zip_file_upload/").$filename['file_name'];
+            
 
             $zip = new ZipArchive;
 
             if ($zip) {
+
                 $tmp_extract_zip_dir = './assets/uploads/user_document/';
                 $extractToDirectory = '';
                 if ($zip->open($config['upload_path'].$filename['file_name']) === TRUE) 
@@ -3524,11 +3529,16 @@ function grid_employees()
                         $fileNameWithoutExtension = pathinfo($fileNameWithExtension, PATHINFO_FILENAME);
                         $fileExtension = pathinfo($fileNameWithExtension, PATHINFO_EXTENSION);
                         $tmp_file_name = explode("_", $fileNameWithoutExtension);
-                        
-                        $employee_id = $this->employees->employeeIdByEmpCode($tmp_file_name[0]); // employee id as user id in database
+                       
+
+                        $employee_id = $this->employees->employeeIdByEmpCode($tmp_file_name[1]); // employee id as user id in database
                         
                         if($employee_id['user_id'])
                         {
+                            $employee_user_id = '';
+
+                            $employee_user_id = $employee_id['user_id'];
+
                             $check_data_where = array();
                             $check_data_where = array(
                                 "user_id"           =>  $employee_id['user_id'],
@@ -3570,7 +3580,7 @@ function grid_employees()
                             Should you need any further assistance or have questions regarding your coverage, don't hesitate to reach out. We're here to support you.
                             
                             Best regards,";
-                         
+                            
                             $staff_email = '';
                             $staff_query = $this->db->query("SELECT email FROM dgt_users WHERE id = ?", array($employee_user_id));
                             $staff_row = $staff_query->row_array();
@@ -3578,18 +3588,11 @@ function grid_employees()
                             if($staff_email)
                             {
                                 $params['recipient'] = $staff_email;
-
                                 $params['subject'] = '[' .config_item('company_name') . ']' .' '.$subject;
                                 $params['message'] = $message;
-                                // $params['attached_file'] = '';
-                               
-                                   modules::run('fomailer/send_email', $params);
-                                //    echo "<pre>";
-                                //    print_R(error_get_last());
-                                //    print_r($r); die;  
+                                modules::run('fomailer/send_email', $params);
                             }
                         }
-
                     }
 
                     $zip->close();
@@ -3605,6 +3608,7 @@ function grid_employees()
             } 
             else 
             {
+
                 $this->session->set_flashdata('tokbox_danger','Failed to create ZipArchive object.');
                 redirect(base_url().'employees');
             }
@@ -3613,14 +3617,47 @@ function grid_employees()
         else 
         {
             $error = $this->upload->display_errors();
-            $this->session->set_flashdata('tokbox_danger',$error);
+            $this->session->set_flashdata('tokbox_danger',$error['error']);
             redirect(base_url().'employees');
         }
     }
-    public function testCiCd()
-    {
-        echo 'cicd execute succesfuly'; exit;   
-    }
+
+    // public function emailSend()
+    // {
+
+    //     $get_emp_list = $this->db->select("user_id")->get_where("dgt_user_document", array("document_name" => 'Medical Insurance'))->result_array();
+
+    //     foreach( $get_emp_list as  $get_emp_list_val)
+    //     {
+
+    //         $params = array();
+
+    //         $subject ='Confirmation: Medical Insurance Uploaded Successfully';
+    //         $message = "Dear User,
+
+    //         We're delighted to confirm that your recent Medical Insurance  has been successfully uploaded to your profile. This ensures that your health coverage is current and accessible whenever needed.
+            
+    //         Our team has reviewed the document you provided, and it meets our requirements. Thank you for promptly completing this step.
+            
+    //         Should you need any further assistance or have questions regarding your coverage, don't hesitate to reach out. We're here to support you.
+            
+    //         Best regards,";
+            
+    //         $staff_email = '';
+    //         $staff_query = $this->db->query("SELECT email FROM dgt_users WHERE id = ?", array($get_emp_list_val));
+    //         $staff_row = $staff_query->row_array();
+
+    //         $staff_email = $staff_row['email'];
+    //         if($staff_email)
+    //         {
+    //             $params['recipient'] = $staff_email;
+    //             $params['subject'] = '[' .config_item('company_name') . ']' .' '.$subject;
+    //             $params['message'] = $message;
+    //             modules::run('fomailer/send_email', $params);
+    //         }
+
+    //     }
+    // }
 }
 
 /* End of file employees.php */
