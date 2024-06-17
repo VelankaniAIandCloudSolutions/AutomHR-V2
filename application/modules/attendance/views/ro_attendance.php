@@ -32,7 +32,7 @@
 				<label class="control-label">Employee Name</label>
 			</div>
 		</div>
-		<div class="col-sm-6 col-md-3"> 
+		<div class="col-sm-4 col-md-2"> 
 			<?php 
 			$s_year = '2015';
 			$select_y = date('Y');
@@ -52,7 +52,7 @@
 				<label class="control-label">Select Month</label>
 			</div>
 		</div>
-		<div class="col-sm-6 col-md-3"> 
+		<div class="col-sm-4 col-md-2"> 
 			<div class="form-group form-focus select-focus">
 				<select class="select floating form-control" id="attendance_year" name="attendance_year"> 
 					<option value="" selected="selected" disabled>Select Year</option>
@@ -62,7 +62,18 @@
 				</select>
 				<label class="control-label">Select Year</label>
 			</div>
-		</div> 
+		</div>
+    <div class="col-sm-4 col-md-2">  
+      <div class="form-group form-focus select-focus">
+        <label class="control-label">Status</label>
+        <select class="form-control select floating" id="employee_status" name="employee_status">
+          <option value="1">Active</option>
+          <option value="0">In-Active</option> 
+          <option value="" >All</option>
+        </select>
+      </div>
+    </div> 
+
 		<div class="col-sm-6 col-md-3">  
 			<button class="btn btn-primary btn-block" type="submit"><?=lang('search')?></button> 
 		</div>     
@@ -307,6 +318,7 @@
     var employee_name    = $('#employee_name').val();
     var attendance_month = $('#attendance_month').val();
     var attendance_year  = $('#attendance_year').val();
+    var status  = $('#employee_status').val();
     $('#table-attenedance').DataTable( {
       "columns": [
               { data: "team_member" },
@@ -322,7 +334,7 @@
              [10,25, 50, 100, 200, -1],
               [10,25, 50, 100, 200, "All"]
       ],
-      "ajax": "<?php echo base_url().'attendance/ajax_attendance';?>?employee_name="+employee_name+"&attendance_month="+attendance_month+"&attendance_year="+attendance_year+'&team_lead=1'
+      "ajax": "<?php echo base_url().'attendance/ajax_attendance';?>?employee_name="+employee_name+"&attendance_month="+attendance_month+"&attendance_year="+attendance_year+"&status="+status+'&team_lead=1'
     } );
 } );
 </script>
