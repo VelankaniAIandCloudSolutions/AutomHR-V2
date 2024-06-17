@@ -110,10 +110,7 @@ class Attendance extends MX_Controller {
             $role_id = $this->tank_auth->get_role_id();
             
             $page = (($role_id==4) || ($role_id==1))?'attendance':'create_attendance';
-            if($role_id == "1")
-            {
-              echo $page; die;
-            }
+            // echo $page; die;
             $this->template
                   ->set_layout('users')
                   ->build($page,isset($data) ? $data : NULL);
