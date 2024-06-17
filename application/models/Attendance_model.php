@@ -96,6 +96,7 @@ class Attendance_model extends CI_Model
         $page = $inputs['start'];
         $employee_name = $inputs['employee_name'];
         $employee_id = $inputs['employee_id'];
+        $status = $inputs['status'];
 
         if(!isset($inputs['teamlead_id']))
         {
@@ -125,6 +126,11 @@ class Attendance_model extends CI_Model
         if(!empty($employee_name)){
             $query_string .= " AND AD.fullname LIKE '%".$employee_name."%'";
         }
+        
+        if($status != ""){
+            $query_string .= " AND U.status = '".$status."'";
+        }
+
         if($employee_id !=0){
             $query_string .= " AND U.id =  $employee_id";    
         }
@@ -158,6 +164,10 @@ class Attendance_model extends CI_Model
         }
 		if($teamlead_id !=0){
             $query_string .= " AND U.teamlead_id =  $teamlead_id";    
+        }
+
+        if($status != ""){
+            $query_string .= " AND U.status = '".$status."'";
         }
 
 

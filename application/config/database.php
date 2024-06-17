@@ -73,29 +73,63 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
-$db['default'] = array(
-	'dsn'	=> '',
-	'hostname' => '192.168.30.147:3306',
-	'username' => 'velankanidb',
-	'password' => 'VelanKanidb@2123',
+if($_SERVER['SERVER_NAME'] === 'localhost')
+{
+	$db['default'] = array(
+		'dsn'	=> '',
+		// 'hostname' => '192.168.30.147:3306',
+		// 'username' => 'velankanidb',
+		// 'password' => 'VelanKanidb@2123',
+		
+		'hostname' => 'localhost',
+		'username' => 'root',
+		'password' => '',
+		'database' => 'velankanidb',
 	
-	// 'hostname' => 'localhost',
-	// 'username' => 'root',
-	// 'password' => '',
-	'database' => 'velankanidb',
+		'dbdriver' => 'mysqli',
+		'dbprefix' => 'dgt_',
+		'pconnect' => FALSE,
+		'db_debug' => (ENVIRONMENT !== 'production'),
+		'cache_on' => FALSE,
+		'cachedir' => '',
+		'char_set' => 'utf8',
+		'dbcollat' => 'utf8_general_ci',
+		'swap_pre' => '',
+		'encrypt' => FALSE,
+		'compress' => FALSE,
+		'stricton' => FALSE,
+		'failover' => array(),
+		'save_queries' => TRUE
+	);
+}
+else{
+	$db['default'] = array(
+		'dsn'	=> '',
+		'hostname' => '192.168.30.147:3306',
+		'username' => 'velankanidb',
+		'password' => 'VelanKanidb@2123',
+		
+		// 'hostname' => 'localhost',
+		// 'username' => 'root',
+		// 'password' => '',
+		'database' => 'velankanidb',
+	
+		'dbdriver' => 'mysqli',
+		'dbprefix' => 'dgt_',
+		'pconnect' => FALSE,
+		'db_debug' => (ENVIRONMENT !== 'production'),
+		'cache_on' => FALSE,
+		'cachedir' => '',
+		'char_set' => 'utf8',
+		'dbcollat' => 'utf8_general_ci',
+		'swap_pre' => '',
+		'encrypt' => FALSE,
+		'compress' => FALSE,
+		'stricton' => FALSE,
+		'failover' => array(),
+		'save_queries' => TRUE
+	);
+}
 
-	'dbdriver' => 'mysqli',
-	'dbprefix' => 'dgt_',
-	'pconnect' => FALSE,
-	'db_debug' => (ENVIRONMENT !== 'production'),
-	'cache_on' => FALSE,
-	'cachedir' => '',
-	'char_set' => 'utf8',
-	'dbcollat' => 'utf8_general_ci',
-	'swap_pre' => '',
-	'encrypt' => FALSE,
-	'compress' => FALSE,
-	'stricton' => FALSE,
-	'failover' => array(),
-	'save_queries' => TRUE
-);
+
+

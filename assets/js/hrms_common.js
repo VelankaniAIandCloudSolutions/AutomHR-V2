@@ -333,6 +333,7 @@ if (uri_page == 'attendance') {
     var employee_name = $('#employee_name').val();
     var attendance_month = $('#attendance_month').val();
     var attendance_year = $('#attendance_year').val();
+    var status = $('#employee_status').val();
     // load_attendance_details(employee_name, attendance_month, attendance_year, page, employee_id);
 }
 
@@ -343,18 +344,20 @@ function attendance_next_filter_page(page = 1) {
     var employee_id = $('#employee_id').val();
     var attendance_month = $('#attendance_month').val();
     var attendance_year = $('#attendance_year').val();
+    var status = $('#employee_status').val();
     // load_attendance_details(employee_name, attendance_month, attendance_year, page, employee_id);
 
 }
 
-function load_attendance_details(employee_name, attendance_month, attendance_year, page, employee_id) {
+function load_attendance_details(employee_name, attendance_month, attendance_year, page, employee_id, status) {
 
     $.post(base_url + 'attendance/attendance_list', {
         page: page,
         employee_id: employee_id,
         employee_name: employee_name,
         attendance_month: attendance_month,
-        attendance_year: attendance_year
+        attendance_year: attendance_year,
+        status: status
     }, function (datas) {
 
         var attendance_footer = '';

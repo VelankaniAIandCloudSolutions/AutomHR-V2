@@ -31,6 +31,20 @@ class Attendance extends MX_Controller {
           $role_id = $this->tank_auth->get_role_id();
           if($this->input->post()){
             $params = $this->input->post();
+            
+            if(isset($params['employee_status']))
+            {
+              $params['status'] =  $this->input->post("employee_status");
+            }
+            else if(isset($params['status']))
+            {
+              $params['status'] =  $this->input->post("status");
+            }
+            else{
+            }
+
+            unset($params['employee_status']);
+
             if(isset($params['attendance_month'])){
               $month = $params['attendance_month'];
             }else{              
@@ -54,10 +68,11 @@ class Attendance extends MX_Controller {
            
             $params['length'] = 10;
             $data['employee_name']      = $params['employee_name'];
-           
+         
             if(($role_id==4) || ($role_id==1)) {
+              
               $attendance_list = Attendance_model::attendance_list($params); 
-
+              
               $data['attendance_list']  =  $attendance_list[1];
               $data['total_page']       =  $attendance_list[0];
             }
@@ -108,7 +123,7 @@ class Attendance extends MX_Controller {
             $data['get_employee_attendance']  = $get_employee_attendance;
 
             $role_id = $this->tank_auth->get_role_id();
-            
+            $data['status'] = $params['status'];
             $page = (($role_id==4) || ($role_id==1))?'attendance':'create_attendance';
             // echo $page; die;
             $this->template
@@ -120,6 +135,11 @@ class Attendance extends MX_Controller {
     }
     function ajax_attendance(){
       $role_id = $this->tank_auth->get_role_id();
+
+      $status = '';
+      
+      
+
       if(!empty($_GET['attendance_month'])){
         $params = $this->input->get();
         if(isset($params['attendance_month'])){
@@ -150,13 +170,22 @@ class Attendance extends MX_Controller {
         
         $params['start'] = $_GET['start'];
 
+        if(isset($_GET['status']) && $_GET['status'] != "")
+        {
+          $status = $_GET['status'];
+          $params['status'] = $status;
+        }
+
         
         if(!empty($_GET['length']))
           $params['length'] = $_GET['length'];
         else
           $params['length'] = 10;  
         if($role_id==1) {
+          
           $attendance_list = Attendance_model::attendance_list($params); 
+        
+
           $data['attendance_list']  =  $attendance_list[1];
           $data['total_page']       =  $attendance_list[0];
           $data['total_record']     =  $attendance_list[2];
@@ -507,10 +536,13 @@ echo json_encode($return_data);exit;
         if($this->input->post()){
         
           $params = $this->input->post();
+
           $params['branch_id']=$this->session->userdata('branch_id');
 
           $month = $params['attendance_month'];
           $year  = $params['attendance_year'];
+          $status  = $params['status'];
+
           $params['length']=10;
           $last_day = $year.'-'.$month.'-1';
         
