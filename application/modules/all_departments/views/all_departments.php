@@ -24,7 +24,14 @@
                         </thead>
                         <tbody>
                             <?php 
-                            $departments = $this -> db -> get_where('departments',array('branch_id'=>$this->session->userdata('branch_id'))) -> result();
+                            if($_SESSION['role_id'] =='1')
+                            {
+                                $departments = $this -> db -> get('departments') -> result();
+                            }
+                            else{
+                                $departments = $this -> db -> get_where('departments',array('branch_id'=>$this->session->userdata('branch_id'))) -> result();
+                            }
+
                             if (!empty($departments)) {
                                 $j =1;
                                 foreach ($departments as $key => $d) { ?>
