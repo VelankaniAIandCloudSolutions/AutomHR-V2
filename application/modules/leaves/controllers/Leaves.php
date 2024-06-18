@@ -1282,8 +1282,69 @@ class Leaves extends MX_Controller {
 			  // echo '<pre>';print_r($res);exit;
 		}
 
+	public function bulk_leave_approve()
+	{
+		$post_data = $this->input->post();
+		
+		if(is_array($post_data) && !empty($post_data))
+		{
 
+			// $tmp_data = $post_data['team_leave_approve'];
+			$keys = array_keys($post_data['team_leave_approve']);
 
-
-
+			foreach($keys as $value)
+			{
+				$det = array();
+				$det['reason'] = 'Approved';
+				$det['status'] = 1; 
+				
+				$this->db->where('id', $value);
+				$this->db->where('status', '0');
+				$query = $this->db->get('dgt_user_leaves');
+				
+				if($query->num_rows() > 0)
+				{
+					$this->db->where("id", $value);
+					$this->db->update('dgt_user_leaves', $det);
+					
+					$leave_det = $this->db->query("SELECT * FROM dgt_user_leaves where id = ".$value)->result_array();
+					$acc_det   = $this->db->query("SELECT * FROM dgt_account_details where user_id = ".$leave_det[0]['user_id'])->result_array();
+					$user_det  = $this->db->query("SELECT * FROM dgt_users where id = ".$leave_det[0]['user_id'])->result_array();
+					
+					if(!empty($acc_det) && !empty($user_det))
+					{
+						$recipient       = array();
+						if($user_det[0]['email'] != '') $recipient[] = $user_det[0]['email'];
+						$subject         = " Leave Request Approved ";
+						$message         = '<div style="height: 7px; background-color: #535353;"></div>
+												<div style="background-color:#E8E8E8; margin:0px; padding:55px 20px 40px 20px; font-family:Open Sans, Helvetica, sans-serif; font-size:12px; color:#535353;">
+													<div style="text-align:center; font-size:24px; font-weight:bold; color:#535353;">Leave Request Approved</div>
+													<div style="border-radius: 5px 5px 5px 5px; padding:20px; margin-top:45px; background-color:#FFFFFF; font-family:Open Sans, Helvetica, sans-serif; font-size:13px;">
+														<p> Hi '.$acc_det[0]['fullname'].',</p>
+														<p> Your Leave Request for '.date('d-m-Y',strtotime($leave_det[0]['leave_from'])).' to '.date('d-m-Y',strtotime($leave_det[0]['leave_to'])).' has been approved by Admin </p> 
+														<br>  
+														<a style="text-decoration:none;" href="'.base_url().'login"> 
+															<button style="background: #CCCC00; border-radius: 5px;; cursor:pointer"> Click to Login </button> 
+														</a>
+														<br>
+														</big><br><br>Regards<br>The '.config_item('company_name').' Team
+													</div>
+											</div>';  
+						if(!empty($recipient) && count($recipient) > 0)
+						{		 
+							$recipient = "ankitvel@mailinator.com";
+							$params = array(
+								'recipient' => $recipient,
+								'subject'   => $subject,
+								'message'   => $message
+							);   
+							Modules::run('fomailer/send_email',$params); 	
+						}
+					}
+				}
+			}
+		}
+		$this->session->set_flashdata('tokbox_success', 'All Leave has been approved.');
+		redirect('leaves');
+	}
 }

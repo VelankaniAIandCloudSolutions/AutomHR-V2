@@ -142,3 +142,37 @@
 	});
 }(jQuery))
 
+
+//  using this code for leave checkbox select and unselect all
+$(document).ready(function() {
+	$('#selectAll').on('change', function() {
+		$('.team_leave_approve').prop('checked', this.checked);
+	});
+
+	$('.team_leave_approve').on('change', function() {
+		if (!this.checked) {
+			$('#selectAll').prop('checked', false);
+		} 
+		else 
+		{
+			if ($('.team_leave_approve:checked').length === $('.team_leave_approve').length) {
+				$('#selectAll').prop('checked', true);
+			}
+		}
+	});
+
+	$(".ChooseType").on("change", function(){
+		var choose_type = $(this).val();
+
+		if(choose_type != 'personal')
+		{
+			$("#bulk_leave_btn").show();
+			$("#Personal_leaves").hide();
+		}
+		else{
+			$("#bulk_leave_btn").hide();
+			$("#Personal_leaves").show();
+		}
+	});
+});
+
