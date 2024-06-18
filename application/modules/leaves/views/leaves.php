@@ -481,7 +481,7 @@ if (count($last_yr_leaves) != 0) {
 
 					$leave_list = $this->db->select('cl.*,AD.fullname')->from('compensatory_leave cl')->join('users U', 'U.id = cl.user_id')->join('account_details AD', 'AD.user_id = cl.user_id')->where("DATE_FORMAT(cl.leave_from,'%Y')", date('Y'))->where_in("cl.branch_id", $branches)->order_by('id', 'desc')->get()->result_array();
 					?>
-					<table id="table-holidays" class="table table-striped custom-table m-b-0">
+					<table id="table-holidays" class="table display table-striped custom-table m-b-0 table-holidays">
 						<thead>
 							<tr class="table_heading">
 								<th><b> No </b></th>
@@ -573,7 +573,7 @@ if (count($last_yr_leaves) != 0) {
 					left join dgt_account_details ad on ad.user_id = ul.user_id 
 					where DATE_FORMAT(ul.leave_from,'%Y') = " . date('Y') . " and ul.branch_id IN (" . $branchid . ") group by ul.id order by ul.id  DESC ")->result_array();
 					?>
-					<table id="table-holidays" class="table table-striped custom-table m-b-0">
+					<table id="table-holidays" class="table display table-striped custom-table m-b-0 table-holidays">
 						<thead>
 							<tr class="table_heading">
 								<th><b> No </b></th>
@@ -1218,23 +1218,22 @@ if (count($last_yr_leaves) != 0) {
 										FROM `dgt_user_leaves` ul
 										left join dgt_common_leave_types lt on lt.leave_type_id = ul.leave_type
 										where DATE_FORMAT(ul.leave_from,'%Y') = " . date('Y') . " and 
-										ul.status != 7 and ul.teamlead_id =" . $check_teamlead['id'] . " and lt.branch_id='" . $this->session->userdata('branch_id') . "' order by ul.id  ASC ")->result_array();
+										ul.status != 7 and ul.teamlead_id =" . $check_teamlead['id'] . " and lt.branch_id='" . $this->session->userdata('branch_id') . "' order by ul.id  desc ")->result_array();
 						} else {
 							$leave_list = $this->db->query("SELECT ul.*,lt.leave_type as l_type
 										FROM `dgt_user_leaves` ul
 										left join dgt_common_leave_types lt on lt.leave_type_id = ul.leave_type
 										where DATE_FORMAT(ul.leave_from,'%Y') = " . date('Y') . " and 
-										ul.status != 6 and ul.user_id =" . $this->tank_auth->get_user_id() . " and lt.branch_id='" . $this->session->userdata('branch_id') . "' order by ul.id  ASC ")->result_array();
+										ul.status != 6 and ul.user_id =" . $this->tank_auth->get_user_id() . " and lt.branch_id='" . $this->session->userdata('branch_id') . "' order by ul.id  desc ")->result_array();
 						}
 						?>
-						<table id="table-holidays" class="table table-striped custom-table m-b-0">
+						<!-- <table id="table-holidays" class="table table-striped custom-table m-b-0"> -->
+						<table class="table table-border user-info-table table-holidays"  id="table-holidays">
 							<thead>
 								<tr>
 									<th><input type="checkbox" id="selectAll">Select All</th>
 									<th> No </th>
-									<?php if ($check_teamlead['is_teamlead'] == 'yes') { ?>
-										<th> Employee Name</th>
-									<?php } ?>
+									<th> Employee Name</th>
 									<th> Leave Type </th>
 									<th> From </th>
 									<th> To </th>
@@ -1252,13 +1251,15 @@ if (count($last_yr_leaves) != 0) {
 											<td>
 												<?php if($levs['status'] == '0'){?>
 													<input type="checkbox" name="team_leave_approve[<?php echo $levs["id"];?>]" class="team_leave_approve"> 
-												<?php }?>
+												<?php }
+												else{ echo "N.A.";}
+												?>
 											</td>
 											<td><?= $key + 1 ?></td>
-											<?php if ($check_teamlead['is_teamlead'] == 'yes') {
+											<?php 
 												$user_details = $this->db->get_where('account_details', array('user_id' => $levs['user_id']))->row_array(); ?>
-												<td><?= $user_details['fullname'] . ' (' . $user_details['emp_code'] . ')' ?></td>
-											<?php } ?>
+											<td><?= $user_details['fullname'] . ' (' . $user_details['emp_code'] . ')' ?></td>
+											
 											<td><?= $levs['l_type'] ?></td>
 											<td><?= (!empty($levs['leave_from'])) ? date('d-m-Y', strtotime($levs['leave_from'])) : '' ?></td>
 											<td><?= (!empty($levs['leave_to'])) ? date('d-m-Y', strtotime($levs['leave_to'])) : '' ?></td>
@@ -1316,7 +1317,8 @@ if (count($last_yr_leaves) != 0) {
 															<i class="fa fa-thumbs-o-down"></i>
 														</a>
 												<?php }
-												} ?>
+												else{ echo "-";}
+												} else{ echo "-";} ?>
 												<!--<a class="btn btn-danger btn-xs"  
 						data-toggle="ajaxModal" href="<?= base_url() ?>leaves/delete/<?= $levs['id'] ?>" title="Delete" data-original-title="Delete">
 							<i class="fa fa-trash-o"></i> 
@@ -1369,7 +1371,7 @@ if (count($last_yr_leaves) != 0) {
 			// }
 
 			?>
-			<table id="table-holidays" class="table table-striped custom-table m-b-0">
+			<table id="table-holidays" class="table display table-striped custom-table m-b-0 table-holidays">
 				<thead>
 					<tr>
 						<th> No </th>
@@ -1678,4 +1680,9 @@ if (count($last_yr_leaves) != 0) {
 			// }, 1500);
 		});
 	}
+
+$(document).ready(function() {
+            $('.table-holidays').DataTable();
+        });
+
 </script>

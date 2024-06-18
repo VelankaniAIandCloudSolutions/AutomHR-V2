@@ -27,7 +27,7 @@ class Leaves extends MX_Controller {
                 $data['page']       = 'Leaves';
                 $data['role']       = $this->tank_auth->get_role_id();
 				$branch_id			= $this->session->userdata('branch_id');
-				$all_leave_types = $this->db->get_where('common_leave_types',array('status'=>'0','branch_id'=>$branch_id))->result_array();
+				// $all_leave_types = $this->db->get_where('common_leave_types',array('status'=>'0','branch_id'=>$branch_id))->result_array();
 				$user_id      = $this->tank_auth->get_user_id(); 
 				$data['cmp_offs'] = $this->get_cmp_offs_days($branch_id,$user_id);
 				
