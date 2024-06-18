@@ -1332,7 +1332,6 @@ class Leaves extends MX_Controller {
 											</div>';  
 						if(!empty($recipient) && count($recipient) > 0)
 						{		 
-							$recipient = "ankitvel@mailinator.com";
 							$params = array(
 								'recipient' => $recipient,
 								'subject'   => $subject,
