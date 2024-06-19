@@ -176,3 +176,46 @@ $(document).ready(function() {
 	});
 });
 
+$(document).ready(function() {
+    offerLetterTextarea();
+});
+
+$("#branch_id").on("change", function(){
+	offerLetterTextarea();
+});
+
+function offerLetterTextarea()
+{
+	$('#offer_letter_attachment').summernote({
+        height: 300,
+        minHeight: null,
+        maxHeight: null,
+        focus: true,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'italic', 'underline', 'clear']],
+            ['fontname', ['fontname']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['table', [
+                'table',          // Insert table
+                'addRowAbove',    // Add row above
+                'addRowBelow',    // Add row below
+                'addColLeft',     // Add column left
+                'addColRight',    // Add column right
+                'deleteRow',      // Delete row
+                'deleteCol',      // Delete column
+                'deleteTable',    // Delete table
+            ]],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']],
+        ],
+        callbacks: {
+            onInit: function() {
+                // Additional initialization logic if needed
+            }
+        }
+    });
+}

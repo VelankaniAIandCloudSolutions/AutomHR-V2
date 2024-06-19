@@ -1460,7 +1460,7 @@ class Candidates extends MX_Controller
 
         $pdf = array(
             'html' => $html,
-            'title' => lang('invoice'),
+            'title' => "Offer Letter",
             'author' => config_item('company_name'),
             'creator' => config_item('company_name'),
             'filename' => 'Offer_Letter.pdf',

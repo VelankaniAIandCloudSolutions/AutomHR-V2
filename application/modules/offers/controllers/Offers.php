@@ -1399,9 +1399,12 @@ class Offers extends MX_Controller
         $candidate_id = $this->uri->segment(4);
         $this->load->model("offer");
         $html = $this->offer->offer_letter_foramt($job_id, $candidate_id);
+        
+        // echo __LINE__; echo $html; die;
+
         $pdf = array(
             'html' => $html,
-            'title' => lang('invoice'),
+            'title' => "Offer Letter",
             'author' => config_item('company_name'),
             'creator' => config_item('company_name'),
             'filename' => 'offer_letter.pdf',

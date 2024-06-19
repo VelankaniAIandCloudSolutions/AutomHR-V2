@@ -423,7 +423,7 @@ class Offer extends CI_Model
 
 	function offer_letter_foramt( $job_id = '', $candidate_id ='')
 	{
-		$this->applib->set_locale();
+		// $this->applib->set_locale();
        
         $job_data = $this->Jobs_model->select_row_array('jobs',array('id'=>$job_id)); 
         $user_data = $this->Jobs_model->select_row_array('registered_candidates',array('id'=>$candidate_id)); 
@@ -494,8 +494,7 @@ class Offer extends CI_Model
                 $hr_name .= '<br>('.$hr_result['designation'].')';
             }
         }
-
-        $entity_logo = '<img style="width:'.config_item('invoice_logo_width').'px" src="'.$temp_entity_logo.'"/>';
+        $entity_logo = '<img src="'.$temp_entity_logo.'"/>';
         $addtion_ctc = $deduction_ctc= array();
         $addtion_ctc = json_decode($salary_break_details['addtional'], true);
         $deduction_ctc = json_decode($salary_break_details['deduction'], true);
@@ -518,7 +517,6 @@ class Offer extends CI_Model
             $ctc_monthly = round($addtion_ctc[0]['unit_amount'] / 12, 2);
             $ctc_annual = round($addtion_ctc[0]['unit_amount'], 2);
 
-            
             $basic_monthly = round($addtion_ctc[1]['unit_amount'] / 12, 2);
             $basic_annual = round($addtion_ctc[1]['unit_amount'], 2);
             $monthly_da =  round($addtion_ctc[2]['unit_amount'] / 12, 2);
