@@ -676,20 +676,20 @@ echo json_encode($return_data);exit;
             }
             $this->db->where($where);
             $this->db->update('dgt_attendance_details', array('month_days'=>serialize($record_day),'month_days_in_out'=>serialize($month_days_in_out_record)));
-			
+            
+            $tmp_attendance = array();
+            $tmp_attendance = array(
+              "user_id"             => $user_id,
+              "punch_in_date_time"  => date("Y-m-d H:i:s"),
+              "punch_in_note"       => "punch-in",
+              "created"             =>  date("Y-m-d H:i:s"),
+              "created_by"          => $user_id
+            );
+
+            $this->employee_attendance($user_id, "punch-in", $tmp_attendance);
+            
         }
-
-        $tmp_attendance = array();
-        $tmp_attendance = array(
-          "user_id"             => $user_id,
-          "punch_in_date_time"  => date("Y-m-d H:i:s"),
-          "punch_in_note"       => "punch-in",
-          "created"             =>  date("Y-m-d H:i:s"),
-          "created_by"          => $user_id
-        );
-
-        $this->employee_attendance($user_id, "punch-in", $tmp_attendance);
-
+        
         $this->session->set_flashdata('tokbox_success', 'Check in successfully saved');
         return redirect('attendance');
         }
@@ -815,18 +815,21 @@ echo json_encode($return_data);exit;
 
             $this->db->where($where);
             $this->db->update('dgt_attendance_details', array('month_days'=>serialize($record_day),'month_days_in_out'=>serialize($month_days_in_out_record)));
-        }
+            
+            $tmp_attendance = array();
+            $tmp_attendance = array(
+              "user_id"               => $user_id,
+              "punch_out_date_time"   => date("Y-m-d H:i:s"),
+              "punch_out_note"        => "punch-out",
+              "updated_at"            =>  date("Y-m-d H:i:s"),
+              "updated_by"            => $user_id
+            );
+          
+            $this->employee_attendance($user_id, "punch-out", $tmp_attendance);
+            
+          }
 
-        $tmp_attendance = array();
-        $tmp_attendance = array(
-          "user_id"               => $user_id,
-          "punch_out_date_time"   => date("Y-m-d H:i:s"),
-          "punch_out_note"        => "punch-out",
-          "updated_at"            =>  date("Y-m-d H:i:s"),
-          "updated_by"            => $user_id
-        );
-       
-         $this->employee_attendance($user_id, "punch-out", $tmp_attendance);
+        
 
         $this->session->set_flashdata('tokbox_success', 'Check out successfully saved');
         // $this->session->set_flashdata('message', 'Check out successfully saved.');
