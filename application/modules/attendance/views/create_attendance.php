@@ -579,8 +579,10 @@ $overtime=0;
                         {
                           $punch_out_date = ' ('.date("d M Y ", strtotime($punch_detail['punch_out_date_time'])).')';
                         }
-                        
-                        $production_hour += time_difference(date('H:i', strtotime($punch_detail['punch_in_date_time'])), date('H:i', strtotime($punch_detail['punch_out_date_time'])));
+                        $production_hour += $punch_detail['total_time_in_minutes'];
+
+                        // $m =  time_difference(date('H:i', strtotime($punch_detail['punch_in_date_time'])), date('H:i', strtotime($punch_detail['punch_out_date_time'])));
+                        // $production_hour += time_difference(date('H:i', strtotime($punch_detail['punch_in_date_time'])), date('H:i', strtotime($punch_detail['punch_out_date_time'])));
                       }
                       else{
                         if($punch_detail['punch_in_date_time'] != "")
